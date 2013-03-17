@@ -24,7 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ListV" >
+        <activity 
+            android:name="com.alonapps.muniapp.ListRoutes"
+            android:label="@string/title_activity_route_names" >
+        </activity>
+        <activity
+            android:name="com.alonapps.muniapp.ListStops"
+            android:label="@string/title_activity_list_stops" >
         </activity>
     </application>
 

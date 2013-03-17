@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,8 +26,8 @@ public class ListRoutes extends ListActivity {
 			 * Retrieve the contents of the message and then update the UI
 			 */
 			// make UI changes
-			List<String> routeList = (List<String>) msg.obj;
-			ArrayAdapter<String> arrAdapter = new ArrayAdapter<String>(context,
+			final List<Route> routeList = (List<Route>) msg.obj;
+			ArrayAdapter<Route> arrAdapter = new ArrayAdapter<Route>(context,
 					R.layout.single_list_item, routeList);
 
 			setListAdapter(arrAdapter);
@@ -39,13 +40,26 @@ public class ListRoutes extends ListActivity {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int arg2, long arg3) {
-					// TODO Auto-generated method stub
+
 					CharSequence routeName = ((TextView) arg1).getText();
 					Toast.makeText(getApplicationContext(), routeName,
 							Toast.LENGTH_SHORT).show();
-					
-				}
 
+					String tag = "";
+					for(int i=0; i<routeList.size(); i++)
+					{
+						if(routeList.get(i).getTitle() == routeName.toString())
+						{
+							tag = routeList.get(i).getTag();
+							break;
+						}
+					}
+					
+					//MUST HAVE ROUTE TAG. WORK WITH OBJECTs
+					Intent intent = new Intent(context, ListStops.class);
+					intent.putExtra("routeTag", tag);
+					startActivity(intent);
+				}
 			});
 
 		}
@@ -62,10 +76,6 @@ public class ListRoutes extends ListActivity {
 
 		context = this;
 		fetcher = new XmlFetcher(this);
-		// String[] routeList =
-		// getIntent().getExtras().getStringArray("routeList");
-		// String[] routeList =
-		// getIntent().getStringArrayExtra("routeList");
 
 		new Thread(new Runnable() {
 			// Do network access point here
@@ -73,7 +83,7 @@ public class ListRoutes extends ListActivity {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				List<String> routeList = fetcher.GetRouteList();
+				List<Route> routeList = fetcher.GetRouteList();
 				Message msg = handler.obtainMessage();
 				msg.obj = routeList;
 				handler.sendMessage(msg);

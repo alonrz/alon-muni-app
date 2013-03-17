@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MuniApp</string>
+    <string name="app_name">Muni Up</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="show_lines">Show Lines</string>
@@ -9,5 +9,9 @@
     <string name="xml_agency_sfmuni">sf-muni</string>
     <string name="xml_route_list_command">routeList</string>
     <string name="xml_agency_name_tag">a</string>
+    <string name="title_activity_list_stops">Stops</string>
+    <string name="xml_route_tag">r</string>
+    <string name="xml_stops_command">routeConfig</string>
+    <string name="title_activity_route_names">Routes</string>
 
 </resources>
