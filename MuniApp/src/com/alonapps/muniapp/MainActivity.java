@@ -55,7 +55,7 @@ public class MainActivity extends Activity {
 //			}
 //		});
     	
-    	Intent intent = new Intent(this, ListV.class);
+    	Intent intent = new Intent(this, ListRoutes.class);
 //    	intent.putExtra("routeList", routeList.toArray(new String[0]));
     	startActivity(intent);
     	
