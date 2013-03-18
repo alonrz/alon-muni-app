@@ -36,14 +36,12 @@ public class ListRoutes extends ListActivity {
 			list.setTextFilterEnabled(true);
 			list.setOnItemClickListener(new OnItemClickListener() {
 
-				/** Control the Toast **/
+				/** Control the Click on an Item **/
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int arg2, long arg3) {
 
 					CharSequence routeName = ((TextView) arg1).getText();
-					Toast.makeText(getApplicationContext(), routeName,
-							Toast.LENGTH_SHORT).show();
 
 					String tag = "";
 					for(int i=0; i<routeList.size(); i++)

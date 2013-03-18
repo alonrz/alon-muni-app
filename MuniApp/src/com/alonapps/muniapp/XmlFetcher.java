@@ -1,6 +1,7 @@
 package com.alonapps.muniapp;
 
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +70,8 @@ public class XmlFetcher {
 		command_url += routeName;
 		
 		Document doc = getDocumentFromXml(command_url);
-
+		if(doc == null) //some error occurred
+			return stopList;
 		NodeList listOfStops = doc.getElementsByTagName("route").item(0).getChildNodes();
 		for (int i = 0; i < listOfStops.getLength(); i++) {
 			if(listOfStops.item(i).getNodeName().equalsIgnoreCase("stop") == false)
@@ -98,7 +100,10 @@ public class XmlFetcher {
 
 			dbf = DocumentBuilderFactory.newInstance();
 			db = dbf.newDocumentBuilder();
-			doc = db.parse(new URL(str_url).openStream());
+			//final String encodedUrl = URLEncoder.encode(str_url, "UTF-8");
+			URL myUrl = new URL(str_url.replace(" ", "%20"));
+			doc = db.parse(myUrl.openStream());
+			
 		} catch (Exception e) {
 			Log.d(getClass().getName(),
 					"Some error with XML parking or fetching from URL"
