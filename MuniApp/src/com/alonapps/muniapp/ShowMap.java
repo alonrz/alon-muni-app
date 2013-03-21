@@ -18,6 +18,7 @@ import com.google.android.gms.common.ConnectionResult;
 public class ShowMap extends Activity {
 	static final LatLng HAMBURG = new LatLng(53.558, 9.927);
 	static final LatLng KIEL = new LatLng(53.551, 9.993);
+	static final LatLng SFSU = new LatLng(37.722239550388515, -122.47777462005615);
 	private GoogleMap map;
 
 	@Override
@@ -40,20 +41,22 @@ public class ShowMap extends Activity {
 				.findFragmentById(R.id.map));
 		map = mapFrag.getMap();
 		if (map != null) {
-			Marker hamburg = map.addMarker(new MarkerOptions()
-					.position(HAMBURG).title("Hamburg"));
-			Marker kiel = map.addMarker(new MarkerOptions()
-					.position(KIEL)
-					.title("Kiel")
-					.snippet("Kiel is cool")
-					.icon(BitmapDescriptorFactory
-							.fromResource(R.drawable.ic_launcher)));
+//			Marker kiel = map.addMarker(new MarkerOptions()
+//					.position(KIEL)
+//					.title("Kiel")
+//					.snippet("Kiel is cool")
+//					.icon(BitmapDescriptorFactory
+//							.fromResource(R.drawable.ic_launcher)));
+			Marker sfsu = map.addMarker(new MarkerOptions()
+					.position(SFSU)
+					.title("My University")
+					.snippet("SFSU is awesome"));
 
 			// Move the camera instantly to hamburg with a zoom of 15.
-			map.moveCamera(CameraUpdateFactory.newLatLngZoom(HAMBURG, 15));
+			map.moveCamera(CameraUpdateFactory.newLatLngZoom(SFSU, 15));
 
 			// Zoom in, animating the camera.
-			map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+			//map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
 		}
 	}
 
