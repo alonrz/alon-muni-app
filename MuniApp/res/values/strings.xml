@@ -13,5 +13,6 @@
     <string name="xml_route_tag">r</string>
     <string name="xml_stops_command">routeConfig</string>
     <string name="title_activity_route_names">Routes</string>
+    <string name="show_map">Show map</string>
 
 </resources>

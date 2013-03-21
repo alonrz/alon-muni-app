@@ -12,17 +12,6 @@ import android.view.View;
 
 public class MainActivity extends Activity {
 
-//	/**inner class UIHandler **/
-//	private final class UIHandler extends Handler {
-//		 
-//        public void handleMessage(Message msg) {
-//            
-//            
-//        }
-// 
-//    };
-    
-    
     
 	XmlFetcher fetcher; 
 	
@@ -41,24 +30,16 @@ public class MainActivity extends Activity {
         return true;
     }
     
-    
-//    final private Handler handler = new UIHandler();
-    
     public void onClick(View v)
-    {
-//    	new Thread(new Runnable() {
-//			
-//			@Override
-//			public void run() {
-//				// TODO Auto-generated method stub
-//				List<String> routeList = fetcher.GetRouteList();		
-//			}
-//		});
-    	
+    {	
     	Intent intent = new Intent(this, ListRoutes.class);
-//    	intent.putExtra("routeList", routeList.toArray(new String[0]));
     	startActivity(intent);
-    	
+    }
+    
+    public void onClick2(View v)
+    {	
+    	Intent intent = new Intent(this, ShowMap.class);
+    	startActivity(intent);
     }
     
 }
