@@ -21,8 +21,8 @@ import com.google.android.gms.common.ConnectionResult;
 public class ShowMap extends Activity {
 	static final LatLng HAMBURG = new LatLng(53.558, 9.927);
 	static final LatLng KIEL = new LatLng(53.551, 9.993);
-	static final LatLng SFSU = new LatLng(37.722239550388515,
-			-122.47777462005615);
+	static final LatLng SFSU = new LatLng(37.822239550388515,
+			-122.25);
 	static final LatLng CURRENT = new LatLng(0, 0);
 
 	private GoogleMap map;
@@ -86,14 +86,14 @@ public class ShowMap extends Activity {
 			// .snippet("Kiel is cool")
 			// .icon(BitmapDescriptorFactory
 			// .fromResource(R.drawable.ic_launcher)));
-			//Marker sfsu = map.addMarker(new MarkerOptions().position(SFSU)
-			//		.title("My University").snippet("SFSU is awesome"));
+			Marker sfsu = map.addMarker(new MarkerOptions().position(SFSU)
+					.title("My University").snippet("SFSU is awesome"));
 
 			// Move the camera instantly to hamburg with a zoom of 15.
-			//map.moveCamera(CameraUpdateFactory.newLatLngZoom(SFSU, 15));
+			map.moveCamera(CameraUpdateFactory.newLatLngZoom(SFSU, 15));
 
 			// Zoom in, animating the camera.
-			// map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+			 map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
 		}
 	}
 
