@@ -1,8 +1,12 @@
 package com.alonapps.muniapp;
 
+import java.util.List;
+
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -23,8 +27,9 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		// Get GPS working. Need manager and implementation of Listener.
-		 mLocManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-		 mLocListener = new LocationListener() {
+		mLocManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+		mLocListener = new LocationListener() {
 
 			@Override
 			public void onStatusChanged(String provider, int status,
@@ -35,27 +40,37 @@ public class MainActivity extends Activity {
 			@Override
 			public void onProviderEnabled(String provider) {
 				// TODO Auto-generated method stub
-				Toast.makeText(getApplicationContext(), "Gps Enabled", Toast.LENGTH_SHORT ).show();
+				Toast.makeText(MainActivity.this, "Gps Enabled",
+						Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
 			public void onProviderDisabled(String provider) {
 				// TODO Auto-generated method stub
-				Toast.makeText(getApplicationContext(), "Gps Disabled", Toast.LENGTH_SHORT ).show();
+				Toast.makeText(MainActivity.this, "Gps Disabled",
+						Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
 			public void onLocationChanged(Location location) {
-				 // TODO Auto-generated method stub
-				 TextView txtLat = (TextView)findViewById(R.id.lat);
-				 txtLat.setText("Lat: "+ location.getLatitude());
-				 TextView txtLon = (TextView)findViewById(R.id.lon);
-				 txtLon.setText("Lat: "+ location.getLongitude());
+				// TODO Auto-generated method stub
+				TextView txtLat = (TextView) findViewById(R.id.lat);
+				txtLat.setText("Lat: " + location.getLatitude());
+				TextView txtLon = (TextView) findViewById(R.id.lon);
+				txtLon.setText("Lat: " + location.getLongitude());
 
 			}
 		};
-		mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000,0, mLocListener);
+		mycrit = new Criteria();
+		mycrit.setAccuracy(Criteria.ACCURACY_FINE);
+
+		String str = mLocManager.getBestProvider(mycrit, true);
+		Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+
+		mLocManager.requestLocationUpdates(str, 2000, 0, mLocListener);
 	}
+
+	Criteria mycrit;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,27 +85,34 @@ public class MainActivity extends Activity {
 	}
 
 	public void onClick2(View v) {
-		Intent intent = new Intent(this, ShowMap.class);
-		startActivity(intent);
+		 Intent intent = new Intent(this, ShowMap.class);
+		 startActivity(intent);
+//		Location location = mLocManager.getLastKnownLocation(mLocManager
+//				.getBestProvider(mycrit, true));
+//		
+//		if (location != null)
+//			Toast.makeText(getApplicationContext(),
+//					location.getLatitude() + ", " + location.getLongitude(),
+//					Toast.LENGTH_SHORT).show();
+
 	}
 
 	@Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
-		//Toast.makeText(this, "GPS is paused", Toast.LENGTH_SHORT).show();
-		//mLocManager.removeUpdates(mLocListener);
-		
+		// Toast.makeText(this, "GPS is paused", Toast.LENGTH_SHORT).show();
+		// mLocManager.removeUpdates(mLocListener);
+
 	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		//Toast.makeText(this, "GPS is resumed", Toast.LENGTH_SHORT).show();
-		//mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000,0, mLocListener);
+		// Toast.makeText(this, "GPS is resumed", Toast.LENGTH_SHORT).show();
+		// mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+		// 1000,0, mLocListener);
 	}
-	
-	
 
 }

@@ -71,6 +71,7 @@ public class ShowMap extends Activity {
 				// Move the camera instantly to location  with a zoom of 15.
 				current.setPosition(new LatLng(location.getLatitude(), 
 						location.getLongitude()));
+			
 				map.moveCamera(CameraUpdateFactory.newLatLngZoom(CURRENT, 15));
 
 			}
@@ -99,8 +100,7 @@ public class ShowMap extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// getMenuInflater().inflate(R.men, menu);
+		 getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
 }

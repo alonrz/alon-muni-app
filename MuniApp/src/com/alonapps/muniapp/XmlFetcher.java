@@ -29,7 +29,7 @@ public class XmlFetcher {
 	}
 
 	public List<Route> GetRouteList() {
-		List<Route> routeList = new ArrayList<Route>();
+		
 
 		String command_url = appContext.getString(R.string.xml_base_command);
 		command_url += appContext.getString(R.string.xml_route_list_command);
@@ -41,6 +41,8 @@ public class XmlFetcher {
 		Document doc = getDocumentFromXml(command_url);
 
 		NodeList list = doc.getElementsByTagName("route");
+		List<Route> routeList = new ArrayList<Route>(list.getLength());
+		
 		for (int i = 0; i < list.getLength(); i++) {
 			NamedNodeMap attrs = list.item(i).getAttributes();
 			Route tempRoute = new Route();
@@ -54,8 +56,7 @@ public class XmlFetcher {
 
 	//public List<String> GetStopsList(String routeName) {
 	public List<Stop> GetStopsList(String routeName) {
-		// TODO Auto-generated method stub
-		//List<String> stopsList2 = new ArrayList<String>();
+		
 		List<Stop> stopList = new ArrayList<Stop>();
 		
 		String command_url = appContext.getString(R.string.xml_base_command);
@@ -85,10 +86,7 @@ public class XmlFetcher {
 			tempStop.setLong(Double.parseDouble(attrs.getNamedItem("lon").getTextContent()));
 			tempStop.setStopId(Integer.parseInt(attrs.getNamedItem("stopId").getTextContent()));
 			stopList.add(tempStop);
-			
-//			stopsList2.add(listOfStops.item(i).getAttributes().getNamedItem("title")
-//					.getTextContent());
-
+		
 		}
 		return stopList;
 	}

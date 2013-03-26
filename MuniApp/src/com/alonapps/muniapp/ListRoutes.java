@@ -16,8 +16,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ListRoutes extends ListActivity {
+public class ListRoutes extends MyDataEnabledListActivity {
 
+	
 	/** inner class UIHandler **/
 	private final class UIHandler extends Handler {
 
@@ -27,6 +28,11 @@ public class ListRoutes extends ListActivity {
 			 */
 			// make UI changes
 			final List<Route> routeList = (List<Route>) msg.obj;
+			
+			for(int i=0; i<routeList.size(); i++)
+			{
+				//tempList.set(i, routeList.get(i));
+			}
 			ArrayAdapter<Route> arrAdapter = new ArrayAdapter<Route>(context,
 					R.layout.single_list_item, routeList);
 
@@ -64,24 +70,21 @@ public class ListRoutes extends ListActivity {
 
 	};
 
+	/** members **/
 	private final Handler handler = new UIHandler(); // on UI thread!
-	XmlFetcher fetcher;
 	Context context;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		context = this;
-		fetcher = new XmlFetcher(this);
-
+		
 		new Thread(new Runnable() {
 			// Do network access point here
-
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				List<Route> routeList = fetcher.GetRouteList();
+				List<Route> routeList = mDataManager.GetRouteList();
 				Message msg = handler.obtainMessage();
 				msg.obj = routeList;
 				handler.sendMessage(msg);
