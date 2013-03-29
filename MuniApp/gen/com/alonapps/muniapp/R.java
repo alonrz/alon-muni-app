@@ -241,7 +241,9 @@ containing a value of this type.
         public static final int xml_base_command=0x7f050015;
         public static final int xml_route_list_command=0x7f050017;
         public static final int xml_route_tag=0x7f05001a;
+        public static final int xml_routeconfig_command=0x7f05001e;
         public static final int xml_stops_command=0x7f05001b;
+        public static final int xml_terse_command=0x7f05001f;
     }
     public static final class style {
         /** 

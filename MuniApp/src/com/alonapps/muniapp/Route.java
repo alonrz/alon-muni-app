@@ -1,9 +1,8 @@
 package com.alonapps.muniapp;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-
-import android.graphics.Color;
 
 public class Route
 {
@@ -11,10 +10,10 @@ public class Route
 	private String mTitle;
 	private String mInboundName;
 	private String mOutboundName;
-	private Color mColor;
+	private int mColor;
 	double mlatMin, mlatMax, mlonMin, mlonMax;
-	private List<Stop> mStops;
-	private List<Direction> directions;
+	private List<Stop> mStops = new ArrayList<Stop>();
+	private List<Direction> mDirections = new ArrayList<Direction>();
 
 	// public Route(String tag, String title)
 	// {
@@ -48,7 +47,7 @@ public class Route
 		return mOutboundName;
 	}
 
-	public Color getColor()
+	public int getColor()
 	{
 		return this.mColor;
 	}
@@ -94,7 +93,7 @@ public class Route
 		mTitle = title;
 	}
 
-	public void setColor(Color c)
+	public void setColor(int c)
 	{
 		this.mColor = c;
 	}
@@ -130,9 +129,52 @@ public class Route
 		return this.mStops.get(index);
 	}
 
+	// Directions collection methods
+	public void addDirection(Direction d)
+	{
+		this.mDirections.add(d);
+	}
+
 	/***
-	 * Get the stop by its tag. To be used with direction which specifies only stop tags in their order.
-	 * @param Tag  the ID stored as tag.
+	 * 
+	 * @param name
+	 *            - Inbound or Outbound
+	 * @return
+	 */
+	public Stop[] getStopsPerDirection(String name)
+	{
+		Stop[] stops = null;
+		for (Direction dir : mDirections)
+		{
+			if (dir.getName() == name)
+			{
+				Integer[] stopsIDs = dir.getStopList();
+				stops = MatchTagsToStops(stopsIDs);
+				break;
+			}
+		}
+
+		return stops;
+	}
+
+	private Stop[] MatchTagsToStops(Integer[] stopsIDs)
+	{
+		Stop[] stops = new Stop[stopsIDs.length];
+
+		for (int i = 0; i < stopsIDs.length; i++)
+		{
+			stops[i] = this.getStopByTag(stopsIDs[i]);
+		}
+
+		return stops;
+	}
+
+	/***
+	 * Get the stop by its tag. To be used with direction which specifies only
+	 * stop tags in their order.
+	 * 
+	 * @param Tag
+	 *            the ID stored as tag.
 	 * @return null if stop was not found.
 	 */
 	public Stop getStopByTag(int Tag)
@@ -147,6 +189,12 @@ public class Route
 
 		return null;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return this.getTitle();
+	}
 
 	/**** class STOP - describes a stop ***/
 	public class Stop
@@ -158,8 +206,7 @@ public class Route
 		private double mLat, mLon;
 
 		// ctor
-		public Stop(int Tag, String StopID, String Title, double Lat,
-				double Lon)
+		public Stop(int Tag, String StopID, String Title, double Lat, double Lon)
 		{
 			this.mTag = Tag;
 			this.mStopID = StopID;
@@ -234,15 +281,15 @@ public class Route
 		private String mTag;
 		private String mTitle;
 		private String mName;
-		Vector<Integer> mStopsByTags;
+		Vector<Integer> mStopsByTags = new Vector<Integer>();
 
 		// ctors
-		public Direction(String dirTag, String dirTitle, String dirName)
-		{
-			this.mTag = dirTag;
-			this.mTitle = dirTitle;
-			this.mName = dirName;
-		}
+		// public Direction(String dirTag, String dirTitle, String dirName)
+		// {
+		// this.mTag = dirTag;
+		// this.mTitle = dirTitle;
+		// this.mName = dirName;
+		// }
 
 		// getters
 		public String getTag()
@@ -255,7 +302,7 @@ public class Route
 			return mTitle;
 		}
 
-		public String getTame()
+		public String getName()
 		{
 			return mName;
 		}
@@ -271,9 +318,9 @@ public class Route
 			this.mTitle = title;
 		}
 
-		public void setTame(String tame)
+		public void setName(String name)
 		{
-			this.mName = tame;
+			this.mName = name;
 		}
 
 		// Vector control methods
@@ -291,5 +338,11 @@ public class Route
 		{
 			return this.mStopsByTags.size();
 		}
+
+		public Integer[] getStopList()
+		{
+			return this.mStopsByTags.toArray(new Integer[0]);
+		}
+
 	}
 }

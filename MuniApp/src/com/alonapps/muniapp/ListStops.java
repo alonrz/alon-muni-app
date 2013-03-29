@@ -19,7 +19,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class ListStops extends ListActivity {
 
 	Context context;
-	XmlFetcher fetcher;
+	DataManager mDataManager;
 	final Handler handler = new UIHandler();
 	
 	@Override
@@ -27,7 +27,9 @@ public class ListStops extends ListActivity {
 		super.onCreate(savedInstanceState);
 		
 		context = this;
-		fetcher = new XmlFetcher(this);
+		//fetcher = new XmlFetcher(this);
+		mDataManager = DataManager.getDataManager(context);
+		
 		Bundle extras = getIntent().getExtras();
 		final String routeTag;
 		if(extras!=null)
@@ -45,8 +47,8 @@ public class ListStops extends ListActivity {
 
 			@Override
 			public void run() {
-				List<Stop> routeList = fetcher.GetStopsList(routeTag);
-				
+				//List<Stop> routeList = fetcher.GetStopsList(routeTag);
+				List<Stop> routeList = mDataManager.getStopList(routeTag, "Inbound");
 				Message msg = handler.obtainMessage();
 				msg.obj = routeList;
 				handler.sendMessage(msg);

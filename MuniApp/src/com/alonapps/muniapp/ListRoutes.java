@@ -81,8 +81,7 @@ public class ListRoutes extends MyDataEnabledListActivity {
 			// Do network access point here
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				List<Route> routeList = mDataManager.GetRouteList();
+				List<Route> routeList = mDataManager.getAllRoutesWithDetails();
 				Message msg = handler.obtainMessage();
 				msg.obj = routeList;
 				handler.sendMessage(msg);

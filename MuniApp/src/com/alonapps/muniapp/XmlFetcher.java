@@ -2,20 +2,21 @@ package com.alonapps.muniapp;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
+import com.alonapps.muniapp.Route.Direction;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.util.Xml;
 
@@ -35,79 +36,85 @@ public class XmlFetcher
 
 	}
 
-	public List<Route> GetRouteList()
+	public List<Route> loadAllRoutesWithDirections()
 	{
 
 		String command_url = appContext.getString(R.string.xml_base_command);
-		command_url += appContext.getString(R.string.xml_route_list_command);
+		command_url += appContext.getString(R.string.xml_routeconfig_command);
 		command_url += "&";
 		command_url += appContext.getString(R.string.xml_agency_name_tag);
 		command_url += "=";
 		command_url += appContext.getString(R.string.xml_agency_sfmuni);
+		command_url += "&";
+		command_url += appContext.getString(R.string.xml_terse_command);
 
-		Document doc = getDocumentFromXml(command_url);
+		/*** SAX ***/
+		return getRoutesListFromXml(command_url);
 
-		NodeList list = doc.getElementsByTagName("route");
-		List<Route> routeList = new ArrayList<Route>(list.getLength());
+		/*** DOM ***/
+		// Document doc = getDocumentFromXml(command_url);
+		//
+		// NodeList list = doc.getElementsByTagName("route");
+		// List<Route> routeList = new ArrayList<Route>(list.getLength());
+		//
+		// for (int i = 0; i < list.getLength(); i++)
+		// {
+		// NamedNodeMap attrs = list.item(i).getAttributes();
+		// Route tempRoute = new Route();
+		// tempRoute.setTag(attrs.getNamedItem("tag").getTextContent());
+		// tempRoute.setTitle(attrs.getNamedItem("title").getTextContent());
+		// routeList.add(tempRoute);
+		//
+		// }
+		// return routeList;
 
-		for (int i = 0; i < list.getLength(); i++)
-		{
-			NamedNodeMap attrs = list.item(i).getAttributes();
-			Route tempRoute = new Route();
-			tempRoute.setTag(attrs.getNamedItem("tag").getTextContent());
-			tempRoute.setTitle(attrs.getNamedItem("title").getTextContent());
-			routeList.add(tempRoute);
-
-		}
-		return routeList;
 	}
 
-	// public List<String> GetStopsList(String routeName) {
 	public List<Stop> GetStopsList(String routeName)
 	{
 
 		List<Stop> stopList = new ArrayList<Stop>();
-
-		String command_url = appContext.getString(R.string.xml_base_command);
-		command_url += appContext.getString(R.string.xml_stops_command);
-		command_url += "&";
-		command_url += appContext.getString(R.string.xml_agency_name_tag);
-		command_url += "=";
-		command_url += appContext.getString(R.string.xml_agency_sfmuni);
-		command_url += "&";
-		command_url += appContext.getString(R.string.xml_route_tag);
-		command_url += "=";
-		command_url += routeName;
-
-		Document doc = getDocumentFromXml(command_url);
-		if (doc == null) // some error occurred
-			return stopList;
-		NodeList listOfStops = doc.getElementsByTagName("route").item(0)
-				.getChildNodes();
-		for (int i = 0; i < listOfStops.getLength(); i++)
-		{
-			if (listOfStops.item(i).getNodeName().equalsIgnoreCase("stop") == false)
-				continue;
-
-			NamedNodeMap attrs = listOfStops.item(i).getAttributes();
-			Stop tempStop = new Stop();
-			tempStop.setTag(attrs.getNamedItem("tag").getTextContent());
-			tempStop.setTitle(attrs.getNamedItem("title").getTextContent());
-			tempStop.setLat(Double.parseDouble(attrs.getNamedItem("lat")
-					.getTextContent()));
-			tempStop.setLong(Double.parseDouble(attrs.getNamedItem("lon")
-					.getTextContent()));
-			tempStop.setStopId(Integer.parseInt(attrs.getNamedItem("stopId")
-					.getTextContent()));
-			stopList.add(tempStop);
-
-		}
+		//
+		// String command_url = appContext.getString(R.string.xml_base_command);
+		// command_url += appContext.getString(R.string.xml_stops_command);
+		// command_url += "&";
+		// command_url += appContext.getString(R.string.xml_agency_name_tag);
+		// command_url += "=";
+		// command_url += appContext.getString(R.string.xml_agency_sfmuni);
+		// command_url += "&";
+		// command_url += appContext.getString(R.string.xml_route_tag);
+		// command_url += "=";
+		// command_url += routeName;
+		//
+		// Document doc = getDocumentFromXml(command_url);
+		// if (doc == null) // some error occurred
+		// return stopList;
+		// NodeList listOfStops = doc.getElementsByTagName("route").item(0)
+		// .getChildNodes();
+		// for (int i = 0; i < listOfStops.getLength(); i++)
+		// {
+		// if (listOfStops.item(i).getNodeName().equalsIgnoreCase("stop") ==
+		// false)
+		// continue;
+		//
+		// NamedNodeMap attrs = listOfStops.item(i).getAttributes();
+		// Stop tempStop = new Stop();
+		// tempStop.setTag(Integer.parseInt(attrs.getNamedItem("tag").getTextContent()));
+		// tempStop.setTitle(attrs.getNamedItem("title").getTextContent());
+		// tempStop.setLat(Double.parseDouble(attrs.getNamedItem("lat")
+		// .getTextContent()));
+		// tempStop.setLong(Double.parseDouble(attrs.getNamedItem("lon")
+		// .getTextContent()));
+		// tempStop.setStopId(Integer.parseInt(attrs.getNamedItem("stopId")
+		// .getTextContent()));
+		// stopList.add(tempStop);
+		//
+		// }
 		return stopList;
 	}
 
 	/*
-	 * final private UIHandler handler = this.appContext.new UIHandler(); This
-	 * uses DOM approach
+	 * This uses DOM approach
 	 */
 	private Document getDocumentFromXml(String str_url)
 	{
@@ -132,44 +139,97 @@ public class XmlFetcher
 		return doc;
 	}
 
+	/*
+	 * This uses XmlPullParser (SAX) approach
+	 */
+	private List<Route> getRoutesListFromXml(String str_url)
+	{
+		List<Route> routes = new ArrayList<Route>();
+		try
+		{
+			URL myUrl = new URL(str_url.replace(" ", "%20"));
+			HttpURLConnection conn = (HttpURLConnection) myUrl.openConnection();
+			conn.setReadTimeout(10000 /* milliseconds */);
+			conn.setConnectTimeout(15000 /* milliseconds */);
+			conn.setRequestMethod("GET");
+			conn.setDoInput(true);
+			// Starts the query
+			conn.connect();
+			InputStream input = conn.getInputStream();
+			/*** testing - print to log ****/
+			/*
+			 * byte[] mybytes = new byte[500]; String str = new String();
+			 * while(input.read(mybytes) >=0) { str += new String(mybytes); }
+			 * Log.i("TEST", str); return routes;
+			 */
+			/*******************************/
+			routes = parseXML(input);
+
+		} catch (Exception e)
+		{
+			Log.d(getClass().getName(),
+					"Some error with XML parking or fetching from URL"
+							+ e.getMessage());
+			/* error with parding of the xml */
+		}
+
+		return routes;
+	}
+
 	/* This uses XMLPullParser (SAX Approach) */
-	private List parseXML(InputStream input) throws XmlPullParserException,
-			IOException
+	private List<Route> parseXML(InputStream input)
+			throws XmlPullParserException, IOException
 	{
 		try
 		{
 			XmlPullParser parser = Xml.newPullParser();
-			parser.setFeature(XmlPullParser.NO_NAMESPACE, false);
+			// XmlPullParser parser =
+			// XmlPullParserFactory.newInstance().newPullParser();
+			parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
 			parser.setInput(input, null);
 			parser.nextTag();
+
 			return readFeed(parser);
 
+		} catch (Exception e)
+		{
+			Log.i("Error with XmlPullParser", e.getMessage());
+			return null;
 		} finally
 		{
 			input.close();
 		}
 	}
 
-	private List readFeed(XmlPullParser parser) throws XmlPullParserException,
-			IOException
+	private List<Route> readFeed(XmlPullParser parser)
 	{
 		List<Route> routes = new ArrayList<Route>();
 
-		parser.require(XmlPullParser.START_TAG, null, "body");
-		while (parser.next() != XmlPullParser.END_TAG)
+		try
 		{
-			if (parser.getEventType() != XmlPullParser.START_TAG)
-				continue;
-			String name = parser.getName();
-			// Look for "route" tag
-			if (name.equalsIgnoreCase("route"))
+			parser.require(XmlPullParser.START_TAG, null, "body");
+			int eventType = parser.getEventType();
+			while (eventType != XmlPullParser.END_TAG)
 			{
-				routes.add(readNewRoute(parser));
-			} else
-			{
-				// good or skipping over unwanted tags...
-			}
+				if (eventType == XmlPullParser.START_TAG)
+				{
 
+					String name = parser.getName();
+					// Look for "route" tag
+					if (name.equalsIgnoreCase("route"))
+					{
+						routes.add(readNewRoute(parser));
+					} else
+					{
+						// good or skipping over unwanted tags...
+					}
+				}
+
+				eventType = parser.next();
+			}
+		} catch (Exception e)
+		{
+			Log.e("readFeed func", e.getMessage());
 		}
 		return routes;
 	}
@@ -177,17 +237,139 @@ public class XmlFetcher
 	private Route readNewRoute(XmlPullParser parser)
 	{
 		Route singleRoute = new Route();
+		try
+		{
+			parser.require(XmlPullParser.START_TAG, null, "route");
+	
+			// Process Attributes
+			singleRoute.setTag(parser.getAttributeValue(null, "tag"));
+			singleRoute.setTitle(parser.getAttributeValue(null, "title"));
+			final String colorString = parser.getAttributeValue(null, "color");
+			singleRoute.setColor(Color.parseColor("#" + colorString));
+			singleRoute.setMinLat(Double.parseDouble(parser.getAttributeValue(null,
+					"latMin")));
+			singleRoute.setMinLon(Double.parseDouble(parser.getAttributeValue(null,
+					"lonMin")));
+			singleRoute.setMaxLat(Double.parseDouble(parser.getAttributeValue(null,
+					"latMax")));
+			singleRoute.setMaxLon(Double.parseDouble(parser.getAttributeValue(null,
+					"lonMax")));
 
-		
-		
+			int eventType = parser.next();
+			while (eventType != XmlPullParser.END_TAG)
+			{
+				if (eventType == XmlPullParser.START_TAG)
+				{
+					String name = parser.getName();
+					if (name.equalsIgnoreCase("stop"))
+					{
+						singleRoute.addStop(readStop(parser, singleRoute));
+					} else if (name.equalsIgnoreCase("direction"))
+					{
+						singleRoute.addDirection(readDirection(parser, singleRoute));
+					} else
+					// take care of the <path> element
+					{
+						skip(parser);
+					}
+				}
+				eventType = parser.next(); // This is instead of placing this
+											// inside
+											// the while loop. easy debugging.
+			}
+		} catch (Exception e)
+		{
+			Log.e("readNewRoute func", e.getMessage());
+		}
 		return singleRoute;
 	}
 
+	private Direction readDirection(XmlPullParser parser, Route r)
+	{
+		Route.Direction mydir = r.new Direction();
+		try
+		{
+			parser.require(XmlPullParser.START_TAG, null, "direction");
+			mydir.setTag(parser.getAttributeValue(null, "tag"));
+			mydir.setTitle(parser.getAttributeValue(null, "title"));
+			mydir.setName(parser.getAttributeValue(null, "name"));
+
+			int eventType = parser.next();
+			while (eventType != XmlPullParser.END_TAG)
+			{
+				if (eventType == XmlPullParser.START_TAG)
+				{
+					String name = parser.getName();
+					if (name.equalsIgnoreCase("stop"))
+					{
+						String strTag = parser.getAttributeValue(null, "tag");
+						int nTag = Integer.parseInt(strTag);
+						mydir.addStopTag(nTag);
+						parser.nextTag();
+					} else
+					{
+						// take care of the <path> element
+						skip(parser);
+					}
+				}
+				eventType = parser.next();
+			}
+		} catch (Exception e)
+		{
+			Log.e("readDirection func", e.getMessage());
+		}
+		return mydir;
+	}
+
+	private Route.Stop readStop(XmlPullParser parser, Route r)
+	{
+		Route.Stop mystop = r.new Stop();
+
+		try
+		{
+			parser.require(XmlPullParser.START_TAG, null, "stop");
+
+			mystop.setTag(Integer.parseInt(parser
+					.getAttributeValue(null, "tag")));
+			mystop.setTitle(parser.getAttributeValue(null, "title"));
+			mystop.setStopID(parser.getAttributeValue(null, "stopId"));
+			mystop.setLat(Double.parseDouble(parser.getAttributeValue(null,
+					"lat")));
+			mystop.setLon(Double.parseDouble(parser.getAttributeValue(null,
+					"lon")));
+			parser.next(); // to take care of the implied closing tag
+		} catch (Exception e)
+		{
+			Log.e("readStop func", e.getMessage());
+		}
+		return mystop;
+	}
+
+	private void skip(XmlPullParser parser)
+	{
+		try
+		{
+			if (parser.getEventType() != XmlPullParser.START_TAG)
+			{
+				throw new IllegalStateException();
+			}
+			int depth = 1;
+			while (depth != 0)
+			{
+				switch (parser.next())
+				{
+					case XmlPullParser.END_TAG:
+						depth--;
+						break;
+					case XmlPullParser.START_TAG:
+						depth++;
+						break;
+				}
+			}
+		} catch (Exception e)
+		{
+			Log.e("skip func", e.getMessage());
+		}
+	}
+
 }
-
-
-
-
-
-
-
