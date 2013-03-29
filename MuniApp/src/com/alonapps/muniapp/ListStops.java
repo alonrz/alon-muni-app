@@ -8,6 +8,8 @@ import android.os.Message;
 import android.app.ListActivity;
 import android.content.Context;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,28 +18,90 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ListStops extends ListActivity {
+public class ListStops extends ListActivity
+{
 
 	Context context;
 	DataManager mDataManager;
 	final Handler handler = new UIHandler();
-	
+	boolean showInboundSelected = true;
+	MenuInflater inflater = null;
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
-		
+
 		context = this;
-		//fetcher = new XmlFetcher(this);
+		// fetcher = new XmlFetcher(this);
 		mDataManager = DataManager.getDataManager(context);
-		
+
+		showDirectionInNewThread("Inbound");
+		Toast.makeText(context, "Toggle Inbound/Outbound from menu",
+				Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+//		if (inflater == null)
+//		{
+			// Inflate the menu; this adds items to the action bar if it is
+			// present.
+			MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.list_stops, menu);
+//		}
+		return true;
+	}
+
+	public boolean onPrepareOptionsMenu(Menu menu)
+	{
+		if (showInboundSelected == true)
+		{
+			menu.findItem(R.id.action_inbound).setShowAsAction(
+					MenuItem.SHOW_AS_ACTION_NEVER);
+			menu.findItem(R.id.action_outbound).setShowAsAction(
+					MenuItem.SHOW_AS_ACTION_ALWAYS);
+		} else
+		{
+			menu.findItem(R.id.action_outbound).setShowAsAction(
+					MenuItem.SHOW_AS_ACTION_NEVER);
+			menu.findItem(R.id.action_inbound).setShowAsAction(
+					MenuItem.SHOW_AS_ACTION_ALWAYS);
+		}
+		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+
+		switch (item.getItemId())
+		{
+			case R.id.action_inbound:
+				showDirectionInNewThread("Inbound");
+				showInboundSelected = true;
+				invalidateOptionsMenu();
+				return true;
+			case R.id.action_outbound:
+				showDirectionInNewThread("Outbound");
+				showInboundSelected = false;
+				invalidateOptionsMenu();
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+
+	}
+
+	public void showDirectionInNewThread(final String dir)
+	{
 		Bundle extras = getIntent().getExtras();
 		final String routeTag;
-		if(extras!=null)
+		if (extras != null)
 		{
 			routeTag = extras.getString("routeTag");
-			this.setTitle("\"" + routeTag + "\" " + this.getTitle());
-		}
-		else
+			this.setTitle(routeTag + " " + dir);
+		} else
 		{
 			routeTag = "";
 		}
@@ -46,35 +110,33 @@ public class ListStops extends ListActivity {
 			// Do network access point here
 
 			@Override
-			public void run() {
-				//List<Stop> routeList = fetcher.GetStopsList(routeTag);
-				List<Stop> routeList = mDataManager.getStopList(routeTag, "Inbound");
+			public void run()
+			{
+
+				List<Route.Stop> routeList = mDataManager.getStopList(routeTag,
+						dir);
+				// TODO replace "Inbound" by actuall selection
 				Message msg = handler.obtainMessage();
 				msg.obj = routeList;
 				handler.sendMessage(msg);
 			}
 		}).start();
 	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.list_stops, menu);
-		return true;
-	}
-
 
 	/** inner class UIHandler **/
-	private final class UIHandler extends Handler {
+	private final class UIHandler extends Handler
+	{
 
-		public void handleMessage(Message msg) {
+		public void handleMessage(Message msg)
+		{
 			/**
 			 * Retrieve the contents of the message and then update the UI
 			 */
 			// make UI changes
-			List<Stop> routeList = (List<Stop>) msg.obj;
-			ArrayAdapter<Stop> arrAdapter = new ArrayAdapter<Stop>(context,
-					R.layout.single_list_item, routeList);
+			// List<Stop> routeList = (List<Stop>) msg.obj;
+			List<Route.Stop> routeList = (List<Route.Stop>) msg.obj;
+			ArrayAdapter<Route.Stop> arrAdapter = new ArrayAdapter<Route.Stop>(
+					context, R.layout.single_list_item, routeList);
 
 			setListAdapter(arrAdapter);
 
@@ -85,14 +147,15 @@ public class ListStops extends ListActivity {
 				/** Control the Toast **/
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
+						int arg2, long arg3)
+				{
 					// TODO Auto-generated method stub
 					CharSequence routeName = ((TextView) arg1).getText();
 					Toast.makeText(getApplicationContext(), routeName,
 							Toast.LENGTH_SHORT).show();
-					
+
 				}
 			});
 		}
-	};	
+	};
 }

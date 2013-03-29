@@ -141,12 +141,12 @@ public class Route
 	 *            - Inbound or Outbound
 	 * @return
 	 */
-	public Stop[] getStopsPerDirection(String name)
+	public List<Stop> getStopsPerDirection(String name)
 	{
-		Stop[] stops = null;
+	List<Stop> stops = null;
 		for (Direction dir : mDirections)
 		{
-			if (dir.getName() == name)
+			if (dir.getName().equalsIgnoreCase(name))
 			{
 				Integer[] stopsIDs = dir.getStopList();
 				stops = MatchTagsToStops(stopsIDs);
@@ -157,13 +157,13 @@ public class Route
 		return stops;
 	}
 
-	private Stop[] MatchTagsToStops(Integer[] stopsIDs)
+	private List<Stop> MatchTagsToStops(Integer[] stopsIDs)
 	{
-		Stop[] stops = new Stop[stopsIDs.length];
+		List<Stop> stops = new ArrayList<Stop>();
 
 		for (int i = 0; i < stopsIDs.length; i++)
 		{
-			stops[i] = this.getStopByTag(stopsIDs[i]);
+			stops.add(this.getStopByTag(stopsIDs[i]));
 		}
 
 		return stops;
@@ -270,6 +270,12 @@ public class Route
 		public void setLon(double lon)
 		{
 			this.mLon = lon;
+		}
+		
+		@Override
+		public String toString()
+		{
+			return this.getTitle();
 		}
 
 	}

@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 public class ListRoutes extends MyDataEnabledListActivity {
 
-	
 	/** inner class UIHandler **/
 	private final class UIHandler extends Handler {
 

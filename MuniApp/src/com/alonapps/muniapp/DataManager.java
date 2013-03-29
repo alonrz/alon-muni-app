@@ -17,7 +17,7 @@ public class DataManager
 	private DataManager(Context applicationContext)
 	{
 		mFetcher = new XmlFetcher(applicationContext);
-
+		//mAllRoutesWithDirections = getAllRoutesWithDetails(); //init the largest object
 	}
 
 	// Singleton method
@@ -39,12 +39,18 @@ public class DataManager
 		return mAllRoutesWithDirections;
 	}
 
-	public List<Stop> getStopList(String routeTag, String string)
+	/**
+	 * 
+	 * @param routeTag
+	 * @param dirRequested Inbound or Outbound only.
+	 * @return
+	 */
+	public List<Route.Stop> getStopList(String routeTag, String dirRequested)
 	{
 		Route myroute = this.getRoute(routeTag);
 		if(myroute == null)
 			return null;
-		 return myroute.getStopsPerDirection(string);
+		 return myroute.getStopsPerDirection(dirRequested);
 		
 	}
 

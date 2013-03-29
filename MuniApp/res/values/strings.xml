@@ -16,5 +16,7 @@
     <string name="show_map">Show map</string>
     <string name="xml_routeconfig_command">routeConfig</string>
     <string name="xml_terse_command">terse</string>
+    <string name="action_inbound">Show Inbound</string>
+    <string name="action_outbound">Show Outbound</string>
 
 </resources>

@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-	XmlFetcher fetcher;
+	DataManager mDataManager;
 	LocationManager mLocManager;
 	LocationListener mLocListener;
 
@@ -26,6 +26,9 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
+		//This will init the large data object for quicker laoding.
+		mDataManager = DataManager.getDataManager(this);
+		
 		// Get GPS working. Need manager and implementation of Listener.
 		mLocManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 

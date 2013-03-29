@@ -70,49 +70,6 @@ public class XmlFetcher
 
 	}
 
-	public List<Stop> GetStopsList(String routeName)
-	{
-
-		List<Stop> stopList = new ArrayList<Stop>();
-		//
-		// String command_url = appContext.getString(R.string.xml_base_command);
-		// command_url += appContext.getString(R.string.xml_stops_command);
-		// command_url += "&";
-		// command_url += appContext.getString(R.string.xml_agency_name_tag);
-		// command_url += "=";
-		// command_url += appContext.getString(R.string.xml_agency_sfmuni);
-		// command_url += "&";
-		// command_url += appContext.getString(R.string.xml_route_tag);
-		// command_url += "=";
-		// command_url += routeName;
-		//
-		// Document doc = getDocumentFromXml(command_url);
-		// if (doc == null) // some error occurred
-		// return stopList;
-		// NodeList listOfStops = doc.getElementsByTagName("route").item(0)
-		// .getChildNodes();
-		// for (int i = 0; i < listOfStops.getLength(); i++)
-		// {
-		// if (listOfStops.item(i).getNodeName().equalsIgnoreCase("stop") ==
-		// false)
-		// continue;
-		//
-		// NamedNodeMap attrs = listOfStops.item(i).getAttributes();
-		// Stop tempStop = new Stop();
-		// tempStop.setTag(Integer.parseInt(attrs.getNamedItem("tag").getTextContent()));
-		// tempStop.setTitle(attrs.getNamedItem("title").getTextContent());
-		// tempStop.setLat(Double.parseDouble(attrs.getNamedItem("lat")
-		// .getTextContent()));
-		// tempStop.setLong(Double.parseDouble(attrs.getNamedItem("lon")
-		// .getTextContent()));
-		// tempStop.setStopId(Integer.parseInt(attrs.getNamedItem("stopId")
-		// .getTextContent()));
-		// stopList.add(tempStop);
-		//
-		// }
-		return stopList;
-	}
-
 	/*
 	 * This uses DOM approach
 	 */
@@ -240,20 +197,20 @@ public class XmlFetcher
 		try
 		{
 			parser.require(XmlPullParser.START_TAG, null, "route");
-	
+
 			// Process Attributes
 			singleRoute.setTag(parser.getAttributeValue(null, "tag"));
 			singleRoute.setTitle(parser.getAttributeValue(null, "title"));
 			final String colorString = parser.getAttributeValue(null, "color");
 			singleRoute.setColor(Color.parseColor("#" + colorString));
-			singleRoute.setMinLat(Double.parseDouble(parser.getAttributeValue(null,
-					"latMin")));
-			singleRoute.setMinLon(Double.parseDouble(parser.getAttributeValue(null,
-					"lonMin")));
-			singleRoute.setMaxLat(Double.parseDouble(parser.getAttributeValue(null,
-					"latMax")));
-			singleRoute.setMaxLon(Double.parseDouble(parser.getAttributeValue(null,
-					"lonMax")));
+			singleRoute.setMinLat(Double.parseDouble(parser.getAttributeValue(
+					null, "latMin")));
+			singleRoute.setMinLon(Double.parseDouble(parser.getAttributeValue(
+					null, "lonMin")));
+			singleRoute.setMaxLat(Double.parseDouble(parser.getAttributeValue(
+					null, "latMax")));
+			singleRoute.setMaxLon(Double.parseDouble(parser.getAttributeValue(
+					null, "lonMax")));
 
 			int eventType = parser.next();
 			while (eventType != XmlPullParser.END_TAG)
@@ -266,7 +223,8 @@ public class XmlFetcher
 						singleRoute.addStop(readStop(parser, singleRoute));
 					} else if (name.equalsIgnoreCase("direction"))
 					{
-						singleRoute.addDirection(readDirection(parser, singleRoute));
+						singleRoute.addDirection(readDirection(parser,
+								singleRoute));
 					} else
 					// take care of the <path> element
 					{
