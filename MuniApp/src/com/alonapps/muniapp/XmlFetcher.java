@@ -261,8 +261,8 @@ public class XmlFetcher
 					if (name.equalsIgnoreCase("stop"))
 					{
 						String strTag = parser.getAttributeValue(null, "tag");
-						int nTag = Integer.parseInt(strTag);
-						mydir.addStopTag(nTag);
+						
+						mydir.addStopTag(strTag);
 						parser.nextTag();
 					} else
 					{
@@ -287,8 +287,7 @@ public class XmlFetcher
 		{
 			parser.require(XmlPullParser.START_TAG, null, "stop");
 
-			mystop.setTag(Integer.parseInt(parser
-					.getAttributeValue(null, "tag")));
+			mystop.setTag(parser.getAttributeValue(null, "tag"));
 			mystop.setTitle(parser.getAttributeValue(null, "title"));
 			mystop.setStopID(parser.getAttributeValue(null, "stopId"));
 			mystop.setLat(Double.parseDouble(parser.getAttributeValue(null,

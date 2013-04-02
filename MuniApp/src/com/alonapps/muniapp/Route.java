@@ -148,8 +148,8 @@ public class Route
 		{
 			if (dir.getName().equalsIgnoreCase(name))
 			{
-				Integer[] stopsIDs = dir.getStopList();
-				stops = MatchTagsToStops(stopsIDs);
+				String[] stopsTags = dir.getStopList();
+				stops = MatchTagsToStops(stopsTags);
 				break;
 			}
 		}
@@ -157,13 +157,13 @@ public class Route
 		return stops;
 	}
 
-	private List<Stop> MatchTagsToStops(Integer[] stopsIDs)
+	private List<Stop> MatchTagsToStops(String[] stopsTags)
 	{
 		List<Stop> stops = new ArrayList<Stop>();
 
-		for (int i = 0; i < stopsIDs.length; i++)
+		for (int i = 0; i < stopsTags.length; i++)
 		{
-			stops.add(this.getStopByTag(stopsIDs[i]));
+			stops.add(this.getStopByTag(stopsTags[i]));
 		}
 
 		return stops;
@@ -177,11 +177,11 @@ public class Route
 	 *            the ID stored as tag.
 	 * @return null if stop was not found.
 	 */
-	public Stop getStopByTag(int Tag)
+	public Stop getStopByTag(String Tag)
 	{
 		for (Stop stop : this.mStops)
 		{
-			if (stop.getTag() == Tag)
+			if (stop.getTag().equalsIgnoreCase(Tag))
 			{
 				return stop;
 			}
@@ -200,13 +200,13 @@ public class Route
 	public class Stop
 	{
 		// data fields
-		private int mTag;
+		private String mTag;//Can have non numeric char. Must be able to handle
 		private String mStopID;
 		private String mTitle;
 		private double mLat, mLon;
 
 		// ctor
-		public Stop(int Tag, String StopID, String Title, double Lat, double Lon)
+		public Stop(String Tag, String StopID, String Title, double Lat, double Lon)
 		{
 			this.mTag = Tag;
 			this.mStopID = StopID;
@@ -217,11 +217,11 @@ public class Route
 
 		public Stop()
 		{
-			this(0, "", "", 0.0, 0.0);
+			this("0", "", "", 0.0, 0.0);
 		}
 
 		// getters
-		public int getTag()
+		public String getTag()
 		{
 			return mTag;
 		}
@@ -247,7 +247,7 @@ public class Route
 		}
 
 		// setters
-		public void setTag(int mTag)
+		public void setTag(String mTag)
 		{
 			this.mTag = mTag;
 		}
@@ -287,7 +287,7 @@ public class Route
 		private String mTag;
 		private String mTitle;
 		private String mName;
-		Vector<Integer> mStopsByTags = new Vector<Integer>();
+		Vector<String> mStopsByTags = new Vector<String>();
 
 		// ctors
 		// public Direction(String dirTag, String dirTitle, String dirName)
@@ -330,12 +330,12 @@ public class Route
 		}
 
 		// Vector control methods
-		public void addStopTag(int stopTag)
+		public void addStopTag(String stopTag)
 		{
 			this.mStopsByTags.add(stopTag);
 		}
 
-		public int getStopAtIndex(int index)
+		public String getStopAtIndex(int index)
 		{
 			return this.mStopsByTags.get(index);
 		}
@@ -345,9 +345,9 @@ public class Route
 			return this.mStopsByTags.size();
 		}
 
-		public Integer[] getStopList()
+		public String[] getStopList()
 		{
-			return this.mStopsByTags.toArray(new Integer[0]);
+			return this.mStopsByTags.toArray(new String[0]);
 		}
 
 	}

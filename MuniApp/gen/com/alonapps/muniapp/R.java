@@ -142,7 +142,9 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f04000c;
+        public static final int action_inbound=0x7f04000c;
+        public static final int action_outbound=0x7f04000d;
+        public static final int action_settings=0x7f04000e;
         public static final int hybrid=0x7f040004;
         public static final int imageView1=0x7f040008;
         public static final int lat=0x7f040005;
@@ -167,6 +169,8 @@ containing a value of this type.
         public static final int main=0x7f080001;
     }
     public static final class string {
+        public static final int action_inbound=0x7f050020;
+        public static final int action_outbound=0x7f050021;
         public static final int action_settings=0x7f050012;
         public static final int app_name=0x7f050011;
         /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=70] 
