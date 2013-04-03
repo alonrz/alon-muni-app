@@ -11,7 +11,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,14 +21,14 @@ public class MainActivity extends Activity
 	DataManager mDataManager;
 	LocationManager mLocManager;
 	LocationListener mLocListener;
-
+	Location mLastKnownLocation;
 
 	/** inner class UIHandler **/
 	private final class UIHandler extends Handler
 	{
 		public void handleMessage(Message msg)
 		{
-			if(msg.arg1 == 1)
+			if (msg.arg1 == 1)
 				changeLoadingProgress(true);
 			else
 				changeLoadingProgress(false);
@@ -68,28 +67,35 @@ public class MainActivity extends Activity
 		initLocationManager();
 	}
 
-//	ProgressDialog dialog;
+	// ProgressDialog dialog;
 	private void changeLoadingProgress(boolean isShowProgress)
 	{
-//		if (dialog == null)
-//		{
-//			dialog = new ProgressDialog(this);
-//			dialog.setCancelable(false);
-//			
-//		}
+		// if (dialog == null)
+		// {
+		// dialog = new ProgressDialog(this);
+		// dialog.setCancelable(false);
+		//
+		// }
 
-		View v = findViewById(R.id.pbLoading2);
-		//ProgressBar pb = (ProgressBar)v;
+		View progressBarView = findViewById(R.id.pbLoading2);
+		View ButtonShowLinesView = findViewById(R.id.btnShowLines);
+		View ButtonShowNearStationsView = findViewById(R.id.btnShowNearStations);
+
+		// ProgressBar pb = (ProgressBar)v;
 		if (isShowProgress == false)
 		{
-			 
+
 			// pb.setVisibility(ProgressBar.INVISIBLE);
-			v.setVisibility(View.INVISIBLE);
+			progressBarView.setVisibility(View.INVISIBLE);
+			ButtonShowLinesView.setEnabled(true);
+			ButtonShowNearStationsView.setEnabled(true);
 		} else
 		{
-			 
-			 //pb.setVisibility(ProgressBar.VISIBLE);
-			v.setVisibility(View.VISIBLE);
+
+			// pb.setVisibility(ProgressBar.VISIBLE);
+			progressBarView.setVisibility(View.VISIBLE);
+			ButtonShowLinesView.setEnabled(false);
+			ButtonShowNearStationsView.setEnabled(false);
 		}
 	}
 
@@ -127,6 +133,7 @@ public class MainActivity extends Activity
 			public void onLocationChanged(Location location)
 			{
 				// TODO Auto-generated method stub
+				mLastKnownLocation = location;
 				TextView txtLat = (TextView) findViewById(R.id.lat);
 				txtLat.setText("Lat: " + location.getLatitude());
 				TextView txtLon = (TextView) findViewById(R.id.lon);
@@ -137,10 +144,21 @@ public class MainActivity extends Activity
 		mycrit = new Criteria();
 		mycrit.setAccuracy(Criteria.ACCURACY_FINE);
 
-		String str = mLocManager.getBestProvider(mycrit, true);
-		Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+		String strProviderName = mLocManager.getBestProvider(mycrit, true);
+		Toast.makeText(this, strProviderName, Toast.LENGTH_SHORT).show();
 
-		mLocManager.requestLocationUpdates(str, 2000, 0, mLocListener);
+		mLocManager.requestLocationUpdates(strProviderName, 2000, 0,
+				mLocListener);
+		mLastKnownLocation = mLocManager.getLastKnownLocation(strProviderName);
+		if (mLastKnownLocation != null)
+		{
+			TextView txtLat = (TextView) findViewById(R.id.lat);
+			txtLat.setText("Lat: " + mLastKnownLocation.getLatitude()
+					+ "(last known)");
+			TextView txtLon = (TextView) findViewById(R.id.lon);
+			txtLon.setText("Lat: " + mLastKnownLocation.getLongitude()
+					+ "(last known)");
+		}
 	}
 
 	@Override
@@ -153,7 +171,7 @@ public class MainActivity extends Activity
 
 	public void onClick_showLines(View v)
 	{
-		
+
 		Intent intent = new Intent(this, ListRoutes.class);
 		startActivity(intent);
 	}
@@ -169,6 +187,11 @@ public class MainActivity extends Activity
 	public void onClick_showStatiosNearMe(View v)
 	{
 		Intent intent = new Intent(this, ListStationsNearMe.class);
+		if (mLastKnownLocation != null)
+		{
+			intent.putExtra("lat", mLastKnownLocation.getLatitude());
+			intent.putExtra("lon", mLastKnownLocation.getLongitude());
+		}
 		startActivity(intent);
 	}
 

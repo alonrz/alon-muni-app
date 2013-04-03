@@ -10,6 +10,7 @@
     tools:context=".MainActivity" >
 
     <Button
+        android:id="@+id/btnShowLines"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:onClick="onClick_showLines"
@@ -22,6 +23,7 @@
         android:text="@string/show_map" />
 
     <Button
+        android:id="@+id/btnShowNearStations"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:onClick="onClick_showStatiosNearMe"
