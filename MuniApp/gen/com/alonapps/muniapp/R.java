@@ -142,35 +142,39 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_inbound=0x7f04000c;
-        public static final int action_outbound=0x7f04000d;
-        public static final int action_settings=0x7f04000e;
+        public static final int action_inbound=0x7f04000e;
+        public static final int action_outbound=0x7f04000f;
+        public static final int action_settings=0x7f040010;
         public static final int hybrid=0x7f040004;
-        public static final int imageView1=0x7f040008;
-        public static final int lat=0x7f040005;
-        public static final int lon=0x7f040006;
-        public static final int map=0x7f040007;
+        public static final int imageView1=0x7f04000a;
+        public static final int lat=0x7f040006;
+        public static final int lon=0x7f040007;
+        public static final int map=0x7f040009;
         public static final int none=0x7f040000;
         public static final int normal=0x7f040001;
+        public static final int pbLoading2=0x7f040005;
         public static final int satellite=0x7f040002;
         public static final int terrain=0x7f040003;
-        public static final int textView1=0x7f040009;
-        public static final int textView2=0x7f04000a;
-        public static final int textView3=0x7f04000b;
+        public static final int textView1=0x7f04000b;
+        public static final int textView2=0x7f04000c;
+        public static final int textView3=0x7f04000d;
+        public static final int textview1=0x7f040008;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int map_layout=0x7f030001;
-        public static final int single_list_item=0x7f030002;
-        public static final int test_custom_list_view=0x7f030003;
+        public static final int activity_simple_list=0x7f030001;
+        public static final int map_layout=0x7f030002;
+        public static final int single_list_item=0x7f030003;
+        public static final int test_custom_list_view=0x7f030004;
     }
     public static final class menu {
         public static final int list_stops=0x7f080000;
         public static final int main=0x7f080001;
+        public static final int show_stations=0x7f080002;
     }
     public static final class string {
-        public static final int action_inbound=0x7f050020;
-        public static final int action_outbound=0x7f050021;
+        public static final int action_inbound=0x7f050021;
+        public static final int action_outbound=0x7f050022;
         public static final int action_settings=0x7f050012;
         public static final int app_name=0x7f050011;
         /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=70] 
@@ -237,17 +241,19 @@ containing a value of this type.
         public static final int common_signin_button_text_long=0x7f05000d;
         public static final int hello_world=0x7f050013;
         public static final int show_lines=0x7f050014;
-        public static final int show_map=0x7f05001d;
-        public static final int title_activity_list_stops=0x7f050019;
-        public static final int title_activity_route_names=0x7f05001c;
-        public static final int xml_agency_name_tag=0x7f050018;
-        public static final int xml_agency_sfmuni=0x7f050016;
-        public static final int xml_base_command=0x7f050015;
-        public static final int xml_route_list_command=0x7f050017;
-        public static final int xml_route_tag=0x7f05001a;
-        public static final int xml_routeconfig_command=0x7f05001e;
-        public static final int xml_stops_command=0x7f05001b;
-        public static final int xml_terse_command=0x7f05001f;
+        public static final int show_map=0x7f05001e;
+        public static final int show_stations_near=0x7f050015;
+        public static final int title_activity_list_stops=0x7f05001a;
+        public static final int title_activity_route_names=0x7f05001d;
+        public static final int title_activity_show_stations=0x7f050023;
+        public static final int xml_agency_name_tag=0x7f050019;
+        public static final int xml_agency_sfmuni=0x7f050017;
+        public static final int xml_base_command=0x7f050016;
+        public static final int xml_route_list_command=0x7f050018;
+        public static final int xml_route_tag=0x7f05001b;
+        public static final int xml_routeconfig_command=0x7f05001f;
+        public static final int xml_stops_command=0x7f05001c;
+        public static final int xml_terse_command=0x7f050020;
     }
     public static final class style {
         /** 

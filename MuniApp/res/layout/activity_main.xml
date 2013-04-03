@@ -12,27 +12,43 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClick"
+        android:onClick="onClick_showLines"
         android:text="@string/show_lines" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:onClick="onClick2"
+        android:onClick="onClick_showMap"
         android:text="@string/show_map" />
 
-        <TextView
-            android:id="@+id/lat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_vertical_margin"
-             />
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick_showStatiosNearMe"
+        android:text="@string/show_stations_near" />
 
-        <TextView
-            android:id="@+id/lon"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/pbLoading2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_vertical_margin"
-             />
-    
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/lat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_vertical_margin" />
+
+    <TextView
+        android:id="@+id/lon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_vertical_margin" />
+
 </LinearLayout>

@@ -5,6 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="show_lines">Search by Lines</string>
+    <string name="show_stations_near">Show Stations Near Me</string>
     <string name="xml_base_command">http://webservices.nextbus.com/service/publicXMLFeed?command=</string>
     <string name="xml_agency_sfmuni">sf-muni</string>
     <string name="xml_route_list_command">routeList</string>
@@ -18,5 +19,6 @@
     <string name="xml_terse_command">terse</string>
     <string name="action_inbound">Show Inbound</string>
     <string name="action_outbound">Show Outbound</string>
+    <string name="title_activity_show_stations">ShowStations</string>
 
 </resources>

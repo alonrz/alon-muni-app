@@ -33,12 +33,10 @@ public class XmlFetcher
 	public XmlFetcher(Context context)
 	{
 		appContext = context;
-
 	}
 
 	public List<Route> loadAllRoutesWithDirections()
 	{
-
 		String command_url = appContext.getString(R.string.xml_base_command);
 		command_url += appContext.getString(R.string.xml_routeconfig_command);
 		command_url += "&";

@@ -17,7 +17,7 @@ import android.widget.TextView;
 public class ListRoutes extends MyDataEnabledListActivity {
 
 	/** inner class UIHandler **/
-	private final class UIHandler extends Handler {
+	final class UIHandler extends Handler {
 
 		public void handleMessage(Message msg) {
 			/**
@@ -80,7 +80,7 @@ public class ListRoutes extends MyDataEnabledListActivity {
 			// Do network access point here
 			@Override
 			public void run() {
-				List<Route> routeList = mDataManager.getAllRoutesWithDetails();
+				List<Route> routeList = mDataManager.initAllRoutesWithDetails();
 				Message msg = handler.obtainMessage();
 				msg.obj = routeList;
 				handler.sendMessage(msg);

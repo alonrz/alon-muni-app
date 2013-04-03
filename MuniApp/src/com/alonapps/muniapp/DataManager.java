@@ -17,7 +17,8 @@ public class DataManager
 	private DataManager(Context applicationContext)
 	{
 		mFetcher = new XmlFetcher(applicationContext);
-		//mAllRoutesWithDirections = getAllRoutesWithDetails(); //init the largest object
+		// mAllRoutesWithDirections = getAllRoutesWithDetails(); //init the
+		// largest object
 	}
 
 	// Singleton method
@@ -30,7 +31,7 @@ public class DataManager
 		return mManager;
 	}
 
-	public List<Route> getAllRoutesWithDetails()
+	public List<Route> initAllRoutesWithDetails()
 	{
 		if (mAllRoutesWithDirections == null)
 		{
@@ -39,26 +40,44 @@ public class DataManager
 		return mAllRoutesWithDirections;
 	}
 
+//	public void initAllRoutesWithDetailsAsync()
+//	{
+//		if (mAllRoutesWithDirections != null)
+//			return;
+//
+//		new Thread(new Runnable() {
+//
+//			@Override
+//			public void run()
+//			{
+//				mAllRoutesWithDirections = mFetcher
+//						.loadAllRoutesWithDirections();
+//			}
+//		}).start();
+//	}
+
 	/**
 	 * 
 	 * @param routeTag
-	 * @param dirRequested Inbound or Outbound only.
+	 * @param dirRequested
+	 *            Inbound or Outbound only.
 	 * @return
 	 */
 	public List<Route.Stop> getStopList(String routeTag, String dirRequested)
 	{
 		Route myroute = this.getRoute(routeTag);
-		if(myroute == null)
+		if (myroute == null)
 			return null;
-		 return myroute.getStopsPerDirection(dirRequested);
-		
+		return myroute.getStopsPerDirection(dirRequested);
+
 	}
 
 	private Route getRoute(String routeTag)
 	{
 		for (int i = 0; i < this.mAllRoutesWithDirections.size(); i++)
 		{
-			if(mAllRoutesWithDirections.get(i).getTag().equalsIgnoreCase(routeTag))
+			if (mAllRoutesWithDirections.get(i).getTag()
+					.equalsIgnoreCase(routeTag))
 				return mAllRoutesWithDirections.get(i);
 		}
 		return null;
