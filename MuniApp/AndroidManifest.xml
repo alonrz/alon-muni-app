@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="12"
+        android:minSdkVersion="16"
         android:targetSdkVersion="17" />
 
     <uses-feature
@@ -60,8 +60,9 @@
             android:value="AIzaSyBM9LKLPm2u_BKnPsRD8CzNictP_yEjMUg" />
 
         <activity
-            android:name="com.alonapps.muniapp.ListStationsNearMe"
-            android:label="@string/title_activity_show_stations" >
+            android:name="com.alonapps.muniapp.ListStopsNearMe"
+            android:label="@string/title_activity_show_stations"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

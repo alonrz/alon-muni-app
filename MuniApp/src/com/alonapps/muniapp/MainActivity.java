@@ -137,7 +137,7 @@ public class MainActivity extends Activity
 				TextView txtLat = (TextView) findViewById(R.id.lat);
 				txtLat.setText("Lat: " + location.getLatitude());
 				TextView txtLon = (TextView) findViewById(R.id.lon);
-				txtLon.setText("Lat: " + location.getLongitude());
+				txtLon.setText("Lon: " + location.getLongitude());
 
 			}
 		};
@@ -186,11 +186,10 @@ public class MainActivity extends Activity
 
 	public void onClick_showStatiosNearMe(View v)
 	{
-		Intent intent = new Intent(this, ListStationsNearMe.class);
+		Intent intent = new Intent(this, ListStopsNearMe.class);
 		if (mLastKnownLocation != null)
 		{
-			intent.putExtra("lat", mLastKnownLocation.getLatitude());
-			intent.putExtra("lon", mLastKnownLocation.getLongitude());
+			intent.putExtra("location", mLastKnownLocation);
 		}
 		startActivity(intent);
 	}

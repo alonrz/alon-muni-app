@@ -2,11 +2,14 @@ package com.alonapps.muniapp;
 
 import java.util.List;
 
+import com.alonapps.muniapp.DataManager.DIRECTION;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.app.ListActivity;
 import android.content.Context;
+import android.graphics.Path.Direction;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,7 +39,7 @@ public class ListStops extends ListActivity
 		// fetcher = new XmlFetcher(this);
 		mDataManager = DataManager.getDataManager(context);
 
-		showDirectionInNewThread("Inbound");
+		showDirectionInNewThread(DIRECTION.Inbound);
 		Toast.makeText(context, "Toggle Inbound/Outbound from menu",
 				Toast.LENGTH_SHORT).show();
 	}
@@ -78,12 +81,12 @@ public class ListStops extends ListActivity
 		switch (item.getItemId())
 		{
 			case R.id.action_inbound:
-				showDirectionInNewThread("Inbound");
+				showDirectionInNewThread(DIRECTION.Inbound);
 				showInboundSelected = true;
 				invalidateOptionsMenu();
 				return true;
 			case R.id.action_outbound:
-				showDirectionInNewThread("Outbound");
+				showDirectionInNewThread(DIRECTION.Outbound);
 				showInboundSelected = false;
 				invalidateOptionsMenu();
 				return true;
@@ -93,7 +96,7 @@ public class ListStops extends ListActivity
 
 	}
 
-	public void showDirectionInNewThread(final String dir)
+	public void showDirectionInNewThread(final DIRECTION dir)
 	{
 		Bundle extras = getIntent().getExtras();
 		final String routeTag;

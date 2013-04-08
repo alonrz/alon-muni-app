@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import com.alonapps.muniapp.DataManager.DIRECTION;
+
 public class Route
 {
 	private String mTag;
@@ -11,20 +13,10 @@ public class Route
 	private String mInboundName;
 	private String mOutboundName;
 	private int mColor;
+	private int mOppColor;
 	double mlatMin, mlatMax, mlonMin, mlonMax;
 	private List<Stop> mStops = new ArrayList<Stop>();
 	private List<Direction> mDirections = new ArrayList<Direction>();
-
-	// public Route(String tag, String title)
-	// {
-	// this.setTag(tag);
-	// this.setTitle(title);
-	// }
-
-	// public Route()
-	// {
-	// // this("", "");
-	// }
 
 	// Getters
 	public String getTag()
@@ -50,6 +42,11 @@ public class Route
 	public int getColor()
 	{
 		return this.mColor;
+	}
+	
+	public int getOppColor()
+	{
+		return this.mOppColor;
 	}
 
 	public double getMinLat()
@@ -97,6 +94,11 @@ public class Route
 	{
 		this.mColor = c;
 	}
+	
+	public void setOppColor(int c)
+	{
+		this.mOppColor = c;
+	}
 
 	public void setMinLat(double minLat)
 	{
@@ -141,12 +143,12 @@ public class Route
 	 *            - Inbound or Outbound
 	 * @return
 	 */
-	public List<Stop> getStopsPerDirection(String name)
+	public List<Stop> getStopsPerDirection(DIRECTION direction)
 	{
 	List<Stop> stops = null;
 		for (Direction dir : mDirections)
 		{
-			if (dir.getName().equalsIgnoreCase(name))
+			if (dir.getDirection() == direction)
 			{
 				String[] stopsTags = dir.getStopList();
 				stops = MatchTagsToStops(stopsTags);
@@ -157,6 +159,11 @@ public class Route
 		return stops;
 	}
 
+	public List<Stop> getAllStopsForRoute()
+	{
+		return mStops;
+	}
+	
 	private List<Stop> MatchTagsToStops(String[] stopsTags)
 	{
 		List<Stop> stops = new ArrayList<Stop>();
@@ -196,14 +203,35 @@ public class Route
 		return this.getTitle();
 	}
 
-	/**** class STOP - describes a stop ***/
-	public class Stop
+	public boolean isStopIdInDirection(DIRECTION dirRequested, String stopTag)
 	{
+		for(Direction d: mDirections)
+		{
+			if(d.getDirection() == dirRequested)
+			{
+				return d.mStopsByTags.contains(stopTag);
+			}
+		}
+		
+		for(Direction d: mDirections)
+		{
+			if(d.getDirection() == dirRequested)
+			{
+				return d.mStopsByTags.contains(stopTag);
+			}
+		}
+		return false;
+	}
+	
+	
+	/**** class STOP - describes a stop ***/
+	public class Stop implements Comparable<Stop>	{
 		// data fields
 		private String mTag;//Can have non numeric char. Must be able to handle
 		private String mStopID;
 		private String mTitle;
 		private double mLat, mLon;
+		private float mDistFromCurrentLocation;
 
 		// ctor
 		public Stop(String Tag, String StopID, String Title, double Lat, double Lon)
@@ -245,6 +273,11 @@ public class Route
 		{
 			return mLon;
 		}
+		
+		public float getDistFromCurrentLocation()
+		{
+			return this.mDistFromCurrentLocation;
+		}
 
 		// setters
 		public void setTag(String mTag)
@@ -272,11 +305,41 @@ public class Route
 			this.mLon = lon;
 		}
 		
+		public void setDistFromCurrentLocation(float dist)
+		{
+			 this.mDistFromCurrentLocation = dist;
+		}
+		
 		@Override
 		public String toString()
 		{
 			return this.getTitle();
 		}
+
+		@Override
+		public boolean equals(Object o)
+		{
+			if(o.getClass() != this.getClass())
+				return false;
+			Stop stop = (Stop)o;
+			
+			return this.getStopID().equals(stop.getStopID());
+		}
+
+		@Override
+		public int hashCode()
+		{
+			return this.getStopID().hashCode();
+		}
+
+		@Override
+		public int compareTo(Stop s)
+		{
+			
+			return this.getStopID().compareTo(s.getStopID());
+		}
+		
+	
 
 	}
 
@@ -286,7 +349,7 @@ public class Route
 		// data fields
 		private String mTag;
 		private String mTitle;
-		private String mName;
+		private DIRECTION mDirName;
 		Vector<String> mStopsByTags = new Vector<String>();
 
 		// ctors
@@ -308,9 +371,9 @@ public class Route
 			return mTitle;
 		}
 
-		public String getName()
+		public DIRECTION getDirection()
 		{
-			return mName;
+			return mDirName;
 		}
 
 		// setters
@@ -324,9 +387,9 @@ public class Route
 			this.mTitle = title;
 		}
 
-		public void setName(String name)
+		public void setDirection(DIRECTION dir)
 		{
-			this.mName = name;
+			this.mDirName = dir;
 		}
 
 		// Vector control methods
@@ -351,4 +414,6 @@ public class Route
 		}
 
 	}
+
+
 }

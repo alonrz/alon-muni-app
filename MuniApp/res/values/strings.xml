@@ -19,6 +19,11 @@
     <string name="xml_terse_command">terse</string>
     <string name="action_inbound">Show Inbound</string>
     <string name="action_outbound">Show Outbound</string>
+    <string name="action_refresh">Refresh</string>
     <string name="title_activity_show_stations">ShowStations</string>
+    <string name="xml_prediction_command">predictions</string>
+    <string name="xml_stopid_command">stopId</string>
+    <string name="xml_useShortTitles_command">useShortTitles=true</string>
+    <string name="train_letters_only">MJKTFLNS</string>
 
 </resources>
