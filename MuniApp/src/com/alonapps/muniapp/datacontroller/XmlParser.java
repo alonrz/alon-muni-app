@@ -1,4 +1,4 @@
-package com.alonapps.muniapp;
+package com.alonapps.muniapp.datacontroller;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,9 +17,13 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import com.alonapps.muniapp.DataManager.DIRECTION;
-import com.alonapps.muniapp.Predictions.Prediction;
-import com.alonapps.muniapp.Route.Direction;
+import com.alonapps.muniapp.R;
+import com.alonapps.muniapp.R.string;
+import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
+import com.alonapps.muniapp.datacontroller.Predictions.Prediction;
+import com.alonapps.muniapp.datacontroller.Route.Direction;
+import com.alonapps.muniapp.datacontroller.Route.Stop;
+
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;

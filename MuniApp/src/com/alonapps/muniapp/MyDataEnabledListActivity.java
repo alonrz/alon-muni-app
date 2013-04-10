@@ -1,5 +1,7 @@
 package com.alonapps.muniapp;
 
+import com.alonapps.muniapp.datacontroller.DataManager;
+
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;

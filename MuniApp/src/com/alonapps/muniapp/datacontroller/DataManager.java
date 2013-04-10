@@ -1,11 +1,12 @@
-package com.alonapps.muniapp;
+package com.alonapps.muniapp.datacontroller;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.EmptyStackException;
 import java.util.List;
-import com.alonapps.muniapp.Route.Stop;
+
+import com.alonapps.muniapp.StopNotFoundException;
+import com.alonapps.muniapp.datacontroller.Route.Stop;
 
 import android.content.Context;
 import android.location.Location;

@@ -1,5 +1,7 @@
 package com.alonapps.muniapp;
 
+import com.alonapps.muniapp.datacontroller.DataManager;
+
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;

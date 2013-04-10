@@ -2,7 +2,9 @@ package com.alonapps.muniapp;
 
 import java.util.List;
 
-import com.alonapps.muniapp.DataManager.DIRECTION;
+import com.alonapps.muniapp.datacontroller.DataManager;
+import com.alonapps.muniapp.datacontroller.Route;
+import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
 
 import android.os.Bundle;
 import android.os.Handler;

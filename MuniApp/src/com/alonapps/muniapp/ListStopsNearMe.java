@@ -4,9 +4,12 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
 
-import com.alonapps.muniapp.DataManager.DIRECTION;
-import com.alonapps.muniapp.Predictions.Direction;
-import com.alonapps.muniapp.Route.Stop;
+import com.alonapps.muniapp.datacontroller.DataHelper;
+import com.alonapps.muniapp.datacontroller.Predictions;
+import com.alonapps.muniapp.datacontroller.Route;
+import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
+import com.alonapps.muniapp.datacontroller.Predictions.Direction;
+import com.alonapps.muniapp.datacontroller.Route.Stop;
 
 import android.location.Location;
 import android.opengl.Visibility;
