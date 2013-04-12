@@ -1,9 +1,9 @@
-package com.alonapps.muniapp;
+package com.alonapps.muniapp.ui;
 
-import java.util.Dictionary;
-import java.util.Hashtable;
 import java.util.List;
 
+import com.alonapps.muniapp.ConversionHelper;
+import com.alonapps.muniapp.R;
 import com.alonapps.muniapp.datacontroller.DataHelper;
 import com.alonapps.muniapp.datacontroller.Predictions;
 import com.alonapps.muniapp.datacontroller.Route;
@@ -12,15 +12,10 @@ import com.alonapps.muniapp.datacontroller.Predictions.Direction;
 import com.alonapps.muniapp.datacontroller.Route.Stop;
 
 import android.location.Location;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.R.integer;
-import android.app.ActionBar.LayoutParams;
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.util.TypedValue;
@@ -127,6 +122,7 @@ public class ListStopsNearMe extends MyDataEnabledListActivity
 			// Good place to enter error message for user
 		}
 		mCurrentLocation = (Location) bundle.getParcelable("location");
+		Log.i(this.getClass().toString(), "mCurrentLocation == null: " + (mCurrentLocation == null));
 		this.setTitle(DIRECTION.Inbound.name());
 		new Thread(new Runnable() {
 			// Do network access point here
@@ -251,7 +247,7 @@ DIRECTION mCurrentDirection = DIRECTION.Inbound;
 			float metersDist = 0f;
 			for (Stop s : mStopList)
 			{
-				if (s.getTag().equalsIgnoreCase(tempPred.getStopTag()))
+				if (s.getStopTag().equalsIgnoreCase(tempPred.getStopTag()))
 				{
 					metersDist = s.getDistFromCurrentLocation();
 					break;

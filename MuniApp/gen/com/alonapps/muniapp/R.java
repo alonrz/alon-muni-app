@@ -140,57 +140,69 @@ containing a value of this type.
         public static final int smaller_route_tag_text=0x7f060002;
     }
     public static final class drawable {
-        public static final int circle_line_number=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int square_line_number=0x7f020002;
-        public static final int square_round_corners=0x7f020003;
+        public static final int arrows=0x7f020000;
+        public static final int arrows2=0x7f020001;
+        public static final int circle_line_number=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
+        public static final int square_line_number=0x7f020004;
+        public static final int square_round_corner=0x7f020005;
+        public static final int square_round_corner3=0x7f020006;
+        public static final int square_round_corner4=0x7f020007;
+        public static final int square_round_corners=0x7f020008;
+        public static final int warning_icon=0x7f020009;
     }
     public static final class id {
-        public static final int action_inbound=0x7f040017;
-        public static final int action_outbound=0x7f040018;
-        public static final int action_refresh=0x7f040019;
-        public static final int action_settings=0x7f04001a;
-        public static final int arrivingInText=0x7f04000f;
+        public static final int action_inbound=0x7f04001a;
+        public static final int action_outbound=0x7f04001b;
+        public static final int action_refresh=0x7f04001c;
+        public static final int action_settings=0x7f04001d;
+        public static final int arrivingInText=0x7f040012;
         public static final int btnShowLines=0x7f040005;
         public static final int btnShowNearStations=0x7f040006;
         public static final int hybrid=0x7f040004;
-        public static final int imageView1=0x7f040013;
+        public static final int imageView1=0x7f040016;
         public static final int lat=0x7f040008;
+        public static final int list_messages=0x7f04000a;
         public static final int lon=0x7f040009;
-        public static final int map=0x7f04000b;
-        public static final int minText=0x7f040011;
-        public static final int moreTrainTimes=0x7f040012;
-        public static final int nextTrainTime=0x7f040010;
+        public static final int map=0x7f04000d;
+        public static final int map_per_stop=0x7f04000b;
+        public static final int minText=0x7f040014;
+        public static final int moreTrainTimes=0x7f040015;
+        public static final int nextTrainTime=0x7f040013;
         public static final int none=0x7f040000;
         public static final int normal=0x7f040001;
         public static final int pbLoading2=0x7f040007;
-        public static final int routeTag=0x7f04000e;
+        public static final int routeTag=0x7f040011;
         public static final int satellite=0x7f040002;
-        public static final int stopDistance=0x7f04000d;
-        public static final int stopTitleAndDist=0x7f04000c;
+        public static final int single_message_text=0x7f04000e;
+        public static final int stopDistance=0x7f040010;
+        public static final int stopTitleAndDist=0x7f04000f;
         public static final int terrain=0x7f040003;
-        public static final int textView1=0x7f040014;
-        public static final int textView2=0x7f040015;
-        public static final int textView3=0x7f040016;
-        public static final int textview1=0x7f04000a;
+        public static final int textView1=0x7f040017;
+        public static final int textView2=0x7f040018;
+        public static final int textView3=0x7f040019;
+        public static final int textview1=0x7f04000c;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int activity_simple_list=0x7f030001;
-        public static final int map_layout=0x7f030002;
-        public static final int predictions_single_item=0x7f030003;
-        public static final int single_list_item=0x7f030004;
-        public static final int test_custom_list_view=0x7f030005;
+        public static final int activity_show_single_stop=0x7f030001;
+        public static final int activity_simple_list=0x7f030002;
+        public static final int map_layout=0x7f030003;
+        public static final int message_item=0x7f030004;
+        public static final int predictions_single_item=0x7f030005;
+        public static final int single_list_item=0x7f030006;
+        public static final int test_custom_list_view=0x7f030007;
     }
     public static final class menu {
         public static final int list_stops=0x7f080000;
         public static final int main=0x7f080001;
-        public static final int show_stations=0x7f080002;
+        public static final int show_single_stop=0x7f080002;
+        public static final int show_stations=0x7f080003;
     }
     public static final class string {
-        public static final int action_inbound=0x7f050021;
-        public static final int action_outbound=0x7f050022;
-        public static final int action_refresh=0x7f050023;
+        public static final int action_inbound=0x7f050024;
+        public static final int action_outbound=0x7f050025;
+        public static final int action_refresh=0x7f050026;
         public static final int action_settings=0x7f050012;
         public static final int app_name=0x7f050011;
         /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=70] 
@@ -257,23 +269,24 @@ containing a value of this type.
         public static final int common_signin_button_text_long=0x7f05000d;
         public static final int hello_world=0x7f050013;
         public static final int show_lines=0x7f050014;
-        public static final int show_map=0x7f05001e;
+        public static final int show_map=0x7f050023;
         public static final int show_stations_near=0x7f050015;
-        public static final int title_activity_list_stops=0x7f05001a;
-        public static final int title_activity_route_names=0x7f05001d;
-        public static final int title_activity_show_stations=0x7f050024;
+        public static final int title_activity_list_stops=0x7f050021;
+        public static final int title_activity_route_names=0x7f050022;
+        public static final int title_activity_show_single_stop=0x7f050029;
+        public static final int title_activity_show_stations=0x7f050027;
         public static final int train_letters_only=0x7f050028;
-        public static final int xml_agency_name_tag=0x7f050019;
+        public static final int xml_agency_name_tag=0x7f050020;
         public static final int xml_agency_sfmuni=0x7f050017;
         public static final int xml_base_command=0x7f050016;
-        public static final int xml_prediction_command=0x7f050025;
+        public static final int xml_prediction_command=0x7f05001d;
         public static final int xml_route_list_command=0x7f050018;
-        public static final int xml_route_tag=0x7f05001b;
-        public static final int xml_routeconfig_command=0x7f05001f;
-        public static final int xml_stopid_command=0x7f050026;
-        public static final int xml_stops_command=0x7f05001c;
-        public static final int xml_terse_command=0x7f050020;
-        public static final int xml_useShortTitles_command=0x7f050027;
+        public static final int xml_route_tag_command=0x7f05001f;
+        public static final int xml_routeconfig_command=0x7f05001b;
+        public static final int xml_stopid_command=0x7f05001e;
+        public static final int xml_stops_command=0x7f050019;
+        public static final int xml_terse_command=0x7f05001a;
+        public static final int xml_useShortTitles_command=0x7f05001c;
     }
     public static final class style {
         /** 

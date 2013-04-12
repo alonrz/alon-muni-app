@@ -10,6 +10,7 @@ public class Predictions
 	private String mRouteTitle;
 	private String mStopTitle;
 	private String mStopTag;
+	private String mStopId;
 	private String mDirTitleBecauseNoPredictions;
 	private List<Direction> mDirections = new ArrayList<Predictions.Direction>();
 	private List<String> mMessages = new ArrayList<String>();
@@ -37,6 +38,11 @@ public class Predictions
 	public String getStopTag()
 	{
 		return mStopTag;
+	}
+	
+	public String getStopId()
+	{
+		return mStopId;
 	}
 
 	public String getDirTitleBecauseNoPredictions()
@@ -67,6 +73,11 @@ public class Predictions
 	public void setStopTag(String stopTag)
 	{
 		this.mStopTag = stopTag;
+	}
+	
+	public void setStopId(String stopID)
+	{
+		this.mStopId = stopID;
 	}
 
 	public void setDirTitleBecauseNoPredictions(String dirTitleBecauseNoPredictions)
@@ -259,6 +270,8 @@ public class Predictions
 			this.mDelayed = isDelayed;
 		}
 	}
+
+
 
 	
 }

@@ -17,7 +17,6 @@
             android:paddingLeft="17dp"
             android:paddingTop="10dp"
             android:text="stopTitle: 19th and Holloway"
-            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="18sp" />
 
         <TextView

@@ -1,5 +1,9 @@
-package com.alonapps.muniapp;
+package com.alonapps.muniapp.ui;
 
+import com.alonapps.muniapp.R;
+import com.alonapps.muniapp.R.id;
+import com.alonapps.muniapp.R.layout;
+import com.alonapps.muniapp.R.menu;
 import com.alonapps.muniapp.datacontroller.DataManager;
 
 import android.location.Criteria;
@@ -11,6 +15,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -105,6 +110,7 @@ public class MainActivity extends Activity
 	{
 		// Get GPS working. Need manager and implementation of Listener.
 		mLocManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+		mDataManager.setLocationManager(mLocManager);
 
 		mLocListener = new LocationListener() {
 
@@ -147,6 +153,7 @@ public class MainActivity extends Activity
 		mycrit.setAccuracy(Criteria.ACCURACY_FINE);
 
 		String strProviderName = mLocManager.getBestProvider(mycrit, true);
+		mDataManager.setLocationProviderName(strProviderName);
 		Toast.makeText(this, strProviderName, Toast.LENGTH_SHORT).show();
 
 		mLocManager.requestLocationUpdates(strProviderName, 2000, 0,
@@ -188,18 +195,23 @@ public class MainActivity extends Activity
 
 	public void onClick_showStatiosNearMe(View v)
 	{
+		try{
 		Intent intent = new Intent(this, ListStopsNearMe.class);
 		if (mLastKnownLocation != null)
 		{
 			intent.putExtra("location", mLastKnownLocation);
 		}
 		startActivity(intent);
+		}
+		catch(Exception e)
+		{
+			Log.e(this.getClass().toString(), "error");
+		}
 	}
 
 	@Override
 	protected void onPause()
-	{
-		// TODO Auto-generated method stub
+	{	
 		super.onPause();
 		// Toast.makeText(this, "GPS is paused", Toast.LENGTH_SHORT).show();
 		// mLocManager.removeUpdates(mLocListener);
@@ -209,7 +221,6 @@ public class MainActivity extends Activity
 	@Override
 	protected void onResume()
 	{
-		// TODO Auto-generated method stub
 		super.onResume();
 		// Toast.makeText(this, "GPS is resumed", Toast.LENGTH_SHORT).show();
 		// mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,

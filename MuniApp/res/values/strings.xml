@@ -9,21 +9,22 @@
     <string name="xml_base_command">http://webservices.nextbus.com/service/publicXMLFeed?command=</string>
     <string name="xml_agency_sfmuni">sf-muni</string>
     <string name="xml_route_list_command">routeList</string>
+    <string name="xml_stops_command">routeConfig</string>
+    <string name="xml_terse_command">terse</string>
+    <string name="xml_routeconfig_command">routeConfig</string>
+    <string name="xml_useShortTitles_command">useShortTitles=true</string>
+    <string name="xml_prediction_command">predictions</string>
+    <string name="xml_stopid_command">stopId</string>
+    <string name="xml_route_tag_command">r</string>
     <string name="xml_agency_name_tag">a</string>
     <string name="title_activity_list_stops">Stops</string>
-    <string name="xml_route_tag">r</string>
-    <string name="xml_stops_command">routeConfig</string>
     <string name="title_activity_route_names">Routes</string>
     <string name="show_map">Show map</string>
-    <string name="xml_routeconfig_command">routeConfig</string>
-    <string name="xml_terse_command">terse</string>
     <string name="action_inbound">Show Inbound</string>
     <string name="action_outbound">Show Outbound</string>
     <string name="action_refresh">Refresh</string>
     <string name="title_activity_show_stations">ShowStations</string>
-    <string name="xml_prediction_command">predictions</string>
-    <string name="xml_stopid_command">stopId</string>
-    <string name="xml_useShortTitles_command">useShortTitles=true</string>
     <string name="train_letters_only">MJKTFLNS</string>
+    <string name="title_activity_show_single_stop">ShowSingleStop</string>
 
 </resources>

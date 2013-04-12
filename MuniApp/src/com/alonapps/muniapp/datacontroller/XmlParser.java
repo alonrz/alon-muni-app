@@ -76,6 +76,29 @@ public class XmlParser
 		return getPredictionFromXml(command_url);
 	}
 
+	public List<Predictions> loadPredictions(String stopId, String routeTag)
+	{
+		String command_url = appContext.getString(R.string.xml_base_command);
+		command_url += appContext.getString(R.string.xml_prediction_command);
+		command_url += "&";
+		command_url += appContext.getString(R.string.xml_agency_name_tag);
+		command_url += "=";
+		command_url += appContext.getString(R.string.xml_agency_sfmuni);
+		command_url += "&";
+		command_url += appContext.getString(R.string.xml_stopid_command);
+		command_url += "=";
+		command_url += stopId;
+		command_url += "&";
+		command_url += appContext.getString(R.string.xml_route_tag_command);
+		command_url += "=";
+		command_url += routeTag;
+		command_url += "&";
+		command_url += appContext.getString(R.string.xml_useShortTitles_command);
+		Log.i("Command_Url", command_url);
+		/*** SAX ***/
+		return getPredictionFromXml(command_url);
+	}
+
 	/*
 	 * This uses XmlPullParser (SAX) approach
 	 */
@@ -256,9 +279,9 @@ public class XmlParser
 				pred.setDirTitleBecauseNoPredictions(parser.getAttributeValue(null,
 						"dirTitleBecauseNoPredictions"));
 				hasPredictions = false;
-				//return pred;
+				// return pred;
 			}
-			
+
 			int eventType = parser.next();
 			while (parser.getEventType() != XmlPullParser.END_TAG)
 			{

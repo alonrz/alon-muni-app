@@ -188,7 +188,7 @@ public class Route
 	{
 		for (Stop stop : this.mStops)
 		{
-			if (stop.getTag().equalsIgnoreCase(Tag))
+			if (stop.getStopTag().equalsIgnoreCase(Tag))
 			{
 				return stop;
 			}
@@ -203,16 +203,8 @@ public class Route
 		return this.getTitle();
 	}
 
-	public boolean isStopIdInDirection(DIRECTION dirRequested, String stopTag)
+	public boolean isStopTagInDirection(DIRECTION dirRequested, String stopTag)
 	{
-		for(Direction d: mDirections)
-		{
-			if(d.getDirection() == dirRequested)
-			{
-				return d.mStopsByTags.contains(stopTag);
-			}
-		}
-		
 		for(Direction d: mDirections)
 		{
 			if(d.getDirection() == dirRequested)
@@ -249,7 +241,7 @@ public class Route
 		}
 
 		// getters
-		public String getTag()
+		public String getStopTag()
 		{
 			return mTag;
 		}
@@ -259,7 +251,7 @@ public class Route
 			return mStopID;
 		}
 
-		public String getTitle()
+		public String getStopTitle()
 		{
 			return mTitle;
 		}
@@ -313,7 +305,7 @@ public class Route
 		@Override
 		public String toString()
 		{
-			return this.getTitle();
+			return this.getStopTitle();
 		}
 
 		@Override

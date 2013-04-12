@@ -1,8 +1,13 @@
-package com.alonapps.muniapp;
+package com.alonapps.muniapp.ui;
 
 import java.util.List;
 
+import com.alonapps.muniapp.R;
+import com.alonapps.muniapp.R.id;
+import com.alonapps.muniapp.R.layout;
+import com.alonapps.muniapp.R.menu;
 import com.alonapps.muniapp.datacontroller.DataManager;
+import com.alonapps.muniapp.datacontroller.Predictions;
 import com.alonapps.muniapp.datacontroller.Route;
 import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
 
@@ -11,7 +16,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Path.Direction;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -42,20 +49,19 @@ public class ListStops extends ListActivity
 		mDataManager = DataManager.getDataManager(context);
 
 		showDirectionInNewThread(DIRECTION.Inbound);
-		Toast.makeText(context, "Toggle Inbound/Outbound from menu",
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(context, "Toggle Inbound/Outbound from menu", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-//		if (inflater == null)
-//		{
-			// Inflate the menu; this adds items to the action bar if it is
-			// present.
-			MenuInflater inflater = getMenuInflater();
-			inflater.inflate(R.menu.list_stops, menu);
-//		}
+		// if (inflater == null)
+		// {
+		// Inflate the menu; this adds items to the action bar if it is
+		// present.
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.list_stops, menu);
+		// }
 		return true;
 	}
 
@@ -63,16 +69,12 @@ public class ListStops extends ListActivity
 	{
 		if (showInboundSelected == true)
 		{
-			menu.findItem(R.id.action_inbound).setShowAsAction(
-					MenuItem.SHOW_AS_ACTION_NEVER);
-			menu.findItem(R.id.action_outbound).setShowAsAction(
-					MenuItem.SHOW_AS_ACTION_ALWAYS);
+			menu.findItem(R.id.action_inbound).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+			menu.findItem(R.id.action_outbound).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		} else
 		{
-			menu.findItem(R.id.action_outbound).setShowAsAction(
-					MenuItem.SHOW_AS_ACTION_NEVER);
-			menu.findItem(R.id.action_inbound).setShowAsAction(
-					MenuItem.SHOW_AS_ACTION_ALWAYS);
+			menu.findItem(R.id.action_outbound).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+			menu.findItem(R.id.action_inbound).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		}
 		return true;
 	}
@@ -118,9 +120,10 @@ public class ListStops extends ListActivity
 			public void run()
 			{
 
-				List<Route.Stop> routeList = mDataManager.getStopList(routeTag,
-						dir);
+				List<Route.Stop> routeList = mDataManager.getStopList(routeTag, dir);
 				// TODO replace "Inbound" by actuall selection
+				if (routeList == null)
+					Log.i(this.getClass().toString(), "routeList is null");
 				Message msg = handler.obtainMessage();
 				msg.obj = routeList;
 				handler.sendMessage(msg);
@@ -139,9 +142,9 @@ public class ListStops extends ListActivity
 			 */
 			// make UI changes
 			// List<Stop> routeList = (List<Stop>) msg.obj;
-			List<Route.Stop> routeList = (List<Route.Stop>) msg.obj;
-			ArrayAdapter<Route.Stop> arrAdapter = new ArrayAdapter<Route.Stop>(
-					context, R.layout.single_list_item, routeList);
+			final List<Route.Stop> routeList = (List<Route.Stop>) msg.obj;
+			ArrayAdapter<Route.Stop> arrAdapter = new ArrayAdapter<Route.Stop>(context,
+					R.layout.single_list_item, routeList);
 
 			setListAdapter(arrAdapter);
 
@@ -151,13 +154,23 @@ public class ListStops extends ListActivity
 
 				/** Control the Toast **/
 				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3)
+				public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
 				{
-					// TODO Auto-generated method stub
-					CharSequence routeName = ((TextView) arg1).getText();
-					Toast.makeText(getApplicationContext(), routeName,
-							Toast.LENGTH_SHORT).show();
+					// CharSequence routeName = ((TextView) arg1).getText();
+					// Toast.makeText(getApplicationContext(),
+					// routeList.get(position).getStopID(),
+					// Toast.LENGTH_SHORT).show();
+					Predictions currentPred = mDataManager.getSelectedPrediction();
+					currentPred.setStopTag(routeList.get(position).getStopTag());
+					currentPred.setStopId(routeList.get(position).getStopID());
+
+					Intent intent = new Intent(context, ShowSingleStop.class);
+					// intent.putExtra("routeTag", tag);
+					if (showInboundSelected)
+						intent.putExtra("dir", DIRECTION.Inbound.name());
+					else
+						intent.putExtra("dir", DIRECTION.Outbound.name());
+					startActivity(intent);
 
 				}
 			});

@@ -10,6 +10,7 @@ import com.alonapps.muniapp.datacontroller.Route.Stop;
 
 import android.content.Context;
 import android.location.Location;
+import android.location.LocationManager;
 import android.util.Log;
 
 public class DataManager
@@ -18,9 +19,11 @@ public class DataManager
 	private XmlParser mFetcher;
 	private static DataManager mManager = null;
 	private List<Route> mAllRoutesWithDirections = null;
-	private List<Stop> mAllStops = null;
 	private List<Stop> mStopsNearLocation = null;
 	private List<Predictions> mPredictionsForStopsNearMe = null;
+	private static Predictions mSelectedPrediction;
+	private String mLocationProviderName;
+	private LocationManager mLocationManager;
 
 	public enum DIRECTION {
 		Inbound, Outbound
@@ -41,6 +44,18 @@ public class DataManager
 			mManager = new DataManager(applicationContext);
 		}
 		return mManager;
+	}
+
+	/**
+	 * This represents a single route and station to get preditions
+	 * 
+	 * @return
+	 */
+	public Predictions getSelectedPrediction()
+	{
+		if (mSelectedPrediction == null)
+			mSelectedPrediction = new Predictions();
+		return mSelectedPrediction;
 	}
 
 	public List<Route> initAllRoutesWithDetails()
@@ -119,9 +134,9 @@ public class DataManager
 					{
 						closestStops.add(singleStop);
 						Log.i("diatances",
-								String.valueOf(distanceRounded) + "m to " + singleStop.getTitle()
-										+ " (" + singleStop.getStopID() + ")" + " (" + r.getTag()
-										+ ")");
+								String.valueOf(distanceRounded) + "m to "
+										+ singleStop.getStopTitle() + " (" + singleStop.getStopID()
+										+ ")" + " (" + r.getTag() + ")");
 					}
 				}
 			}
@@ -144,6 +159,7 @@ public class DataManager
 	 * Must be called after a list of all stops nearby has been located.
 	 * 
 	 * @param stops
+	 *            - contains stopIDs
 	 * @return a list of Predictions objects with info about direction and
 	 *         single predictions.
 	 */
@@ -157,6 +173,19 @@ public class DataManager
 		}
 
 		return preds;
+	}
+
+	public Predictions getPredictionsByStopAndRoute(String stopID, String routeTag)
+	{
+		List<Predictions> preds = this.mFetcher.loadPredictions(stopID, routeTag);
+		
+		if(preds.size()>1)
+			Log.e(this.getClass().getName(), "More than one prediction returned for route+stop request");
+		
+		if (preds.size() > 0)
+			return preds.get(0);
+		return null;
+
 	}
 
 	/**
@@ -207,8 +236,8 @@ public class DataManager
 					continue;
 				}
 			}
-			if (p.getDirTitleBecauseNoPredictions()!=null && 
-					p.getDirTitleBecauseNoPredictions().equals("") == false)
+			if (p.getDirTitleBecauseNoPredictions() != null
+					&& p.getDirTitleBecauseNoPredictions().equals("") == false)
 				predictionsInDirection.add(p);
 		}
 
@@ -224,9 +253,9 @@ public class DataManager
 		{
 			if (r.getTag().equalsIgnoreCase(routeTag))
 			{
-				if (r.isStopIdInDirection(DIRECTION.Inbound, stopTag))
+				if (r.isStopTagInDirection(DIRECTION.Inbound, stopTag))
 					return DIRECTION.Inbound;
-				else if (r.isStopIdInDirection(DIRECTION.Outbound, stopTag))
+				else if (r.isStopTagInDirection(DIRECTION.Outbound, stopTag))
 					return DIRECTION.Outbound;
 				else
 					throw new StopNotFoundException("Stop did not return from route " + routeTag
@@ -254,5 +283,27 @@ public class DataManager
 		throw new StopNotFoundException("Stop did not return from route " + routeTag
 				+ " in neither direction");
 
+	}
+
+	public void setLocationProviderName(String strProviderName)
+	{
+		this.mLocationProviderName = strProviderName;
+		
+	}
+	public String getLocationProviderName()
+	{
+		return this.mLocationProviderName;
+		
+	}
+
+	public void setLocationManager(LocationManager mLocManager)
+	{
+		this.mLocationManager = mLocManager;
+		
+	}
+	public LocationManager getLocationManager()
+	{
+		return this.mLocationManager;
+		
 	}
 }

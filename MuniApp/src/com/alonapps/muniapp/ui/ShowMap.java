@@ -1,13 +1,18 @@
-package com.alonapps.muniapp;
+package com.alonapps.muniapp.ui;
 
 import android.app.Activity;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.widget.Toast;
 
+import com.alonapps.muniapp.R;
+import com.alonapps.muniapp.R.id;
+import com.alonapps.muniapp.R.layout;
+import com.alonapps.muniapp.R.menu;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -91,10 +96,25 @@ public class ShowMap extends Activity {
 					.title("My University").snippet("SFSU is awesome"));
 
 			// Move the camera instantly to hamburg with a zoom of 15.
-			map.moveCamera(CameraUpdateFactory.newLatLngZoom(SFSU, 15));
-
+			map.moveCamera(CameraUpdateFactory.newLatLngZoom(SFSU, 10));
 			// Zoom in, animating the camera.
-			 map.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+			 //map.animateCamera(CameraUpdateFactory.zoomTo(10), 3000, null);
+			 //Zoom in alternative
+			
+			Handler handler = new Handler();
+			
+			
+		
+			handler.postDelayed(new Runnable() {
+				
+				@Override
+				public void run()
+				{
+					// TODO Auto-generated method stub
+					map.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
+					
+				}
+			}, 1500);
 		}
 	}
 
