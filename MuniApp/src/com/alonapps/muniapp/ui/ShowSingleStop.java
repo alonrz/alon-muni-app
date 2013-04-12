@@ -1,5 +1,7 @@
 package com.alonapps.muniapp.ui;
 
+import java.util.Currency;
+
 import com.alonapps.muniapp.ConversionHelper;
 import com.alonapps.muniapp.R;
 import com.alonapps.muniapp.StopNotFoundException;
@@ -12,9 +14,13 @@ import com.alonapps.muniapp.datacontroller.Route.Stop;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.VisibleRegion;
 
 import android.location.Location;
 import android.os.Bundle;
@@ -22,6 +28,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.util.TypedValue;
@@ -212,24 +219,47 @@ public class ShowSingleStop extends Activity
 		private void fillMapUI(Predictions tempPred)
 		{
 			GoogleMap map;
-			MapFragment mapFrag = (MapFragment) getFragmentManager().findFragmentById(R.id.map_per_stop);
-			
+			MapFragment mapFrag = (MapFragment) getFragmentManager().findFragmentById(
+					R.id.map_per_stop);
+
 			map = mapFrag.getMap();
 			if (selectedStoploc == null)
 				return;
-			LatLng CURRENT = new LatLng(selectedStoploc.getLatitude(),
+
+			Location myLoc = mDataManager.getLocationManager().getLastKnownLocation(
+					mDataManager.getLocationProviderName());
+			LatLng CURRENTSTOP = new LatLng(selectedStoploc.getLatitude(),
 					selectedStoploc.getLongitude());
+			LatLng MYPOSITION = new LatLng(myLoc.getLatitude(), myLoc.getLongitude());
+
 			if (map != null)
 			{
-				MarkerOptions markOptions = new MarkerOptions();
-				markOptions.position(CURRENT);
-				markOptions.title(tempPred.getStopTitle());
+				MarkerOptions markerStop = new MarkerOptions();
+				markerStop.position(CURRENTSTOP);
+				markerStop.title(tempPred.getStopTitle());
 				if (tempPred.getAllDirections().length > 0)
-					markOptions.snippet(tempPred.getAllDirections()[0].getDirectionTitle());
+					markerStop.snippet(tempPred.getAllDirections()[0].getDirectionTitle());
 				else
-					markOptions.snippet(tempPred.getDirTitleBecauseNoPredictions());
-				map.addMarker(markOptions);
-				map.moveCamera(CameraUpdateFactory.newLatLngZoom(CURRENT, 17));
+					markerStop.snippet(tempPred.getDirTitleBecauseNoPredictions());
+
+				MarkerOptions markerMe = new MarkerOptions();
+				markerMe.position(MYPOSITION);
+				markerMe.title("You Are Here");
+				markerMe.icon(BitmapDescriptorFactory
+						.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+
+				map.addMarker(markerStop);
+				map.addMarker(markerMe);
+
+				/**** zoom to include 2 points *****/
+				LatLngBounds bounds = new LatLngBounds.Builder()
+						.include(new LatLng(CURRENTSTOP.latitude, CURRENTSTOP.longitude))
+						.include(new LatLng(MYPOSITION.latitude, MYPOSITION.longitude)).build();
+
+				Point displaySize = new Point();
+				getWindowManager().getDefaultDisplay().getSize(displaySize);
+				
+				map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, displaySize.x, 250, 30));
 			}
 		}
 	}
