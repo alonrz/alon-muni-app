@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/single_message_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:drawableLeft="@drawable/warning_icon"
+    android:drawablePadding="40dp"
+    android:padding="10dp"
+    android:text="aaaaaa aaaaa vvvvv dddd vvvvd   ddd"
+    android:textSize="17sp" />
