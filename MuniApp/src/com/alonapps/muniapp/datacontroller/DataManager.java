@@ -23,7 +23,8 @@ public class DataManager
 	private List<Predictions> mPredictionsForStopsNearMe = null;
 	private static Predictions mSelectedPrediction;
 	private String mLocationProviderName;
-	private LocationManager mLocationManager;
+//	private LocationManager mLocationManager;
+	private boolean mIsUserStillRunning;
 
 	public enum DIRECTION {
 		Inbound, Outbound
@@ -285,25 +286,35 @@ public class DataManager
 
 	}
 
-	public void setLocationProviderName(String strProviderName)
-	{
-		this.mLocationProviderName = strProviderName;
-		
-	}
-	public String getLocationProviderName()
-	{
-		return this.mLocationProviderName;
-		
-	}
+//	public void setLocationProviderName(String strProviderName)
+//	{
+//		this.mLocationProviderName = strProviderName;
+//		
+//	}
+//	public String getLocationProviderName()
+//	{
+//		return this.mLocationProviderName;
+//		
+//	}
 
-	public void setLocationManager(LocationManager mLocManager)
+//	public void setLocationManager(LocationManager mLocManager)
+//	{
+//		this.mLocationManager = mLocManager;
+//		
+//	}
+//	public LocationManager getLocationManager()
+//	{
+//		return this.mLocationManager;
+//		
+//	}
+
+	public boolean isUserStillRunning()
 	{
-		this.mLocationManager = mLocManager;
-		
+		return this.mIsUserStillRunning;
 	}
-	public LocationManager getLocationManager()
-	{
-		return this.mLocationManager;
-		
+	
+	public void setIsUserStillRunning(boolean isRunning)
+	{	
+		this.mIsUserStillRunning = isRunning;
 	}
 }

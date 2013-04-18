@@ -3,6 +3,7 @@ package com.alonapps.muniapp.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alonapps.muniapp.GpsManager;
 import com.alonapps.muniapp.R;
 import com.alonapps.muniapp.R.layout;
 import com.alonapps.muniapp.datacontroller.DataManager;
@@ -29,6 +30,7 @@ public class ListRoutes extends MyDataEnabledListActivity
 	/** members **/
 	private final Handler handler = new UIHandler(); // on UI thread!
 	Context context;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -53,7 +55,7 @@ public class ListRoutes extends MyDataEnabledListActivity
 			}
 		}).start();
 	}
-
+	
 	/** inner class UIHandler **/
 	final class UIHandler extends Handler
 	{

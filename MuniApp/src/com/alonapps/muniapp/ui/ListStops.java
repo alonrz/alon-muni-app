@@ -2,6 +2,7 @@ package com.alonapps.muniapp.ui;
 
 import java.util.List;
 
+import com.alonapps.muniapp.GpsManager;
 import com.alonapps.muniapp.R;
 import com.alonapps.muniapp.R.id;
 import com.alonapps.muniapp.R.layout;
@@ -30,11 +31,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ListStops extends ListActivity
+public class ListStops extends MyDataEnabledListActivity
 {
 
 	Context context;
-	DataManager mDataManager;
 	final Handler handler = new UIHandler();
 	boolean showInboundSelected = true;
 	MenuInflater inflater = null;
@@ -130,7 +130,7 @@ public class ListStops extends ListActivity
 			}
 		}).start();
 	}
-
+	
 	/** inner class UIHandler **/
 	private final class UIHandler extends Handler
 	{

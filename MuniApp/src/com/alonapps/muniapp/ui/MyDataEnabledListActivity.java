@@ -6,7 +6,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
 
-public class MyDataEnabledListActivity extends ListActivity
+public class MyDataEnabledListActivity extends LocationTrackerBaseListActivity
 {
 
 	DataManager mDataManager = null;

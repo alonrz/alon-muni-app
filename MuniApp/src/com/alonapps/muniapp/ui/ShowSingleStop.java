@@ -1,8 +1,7 @@
 package com.alonapps.muniapp.ui;
 
-import java.util.Currency;
-
 import com.alonapps.muniapp.ConversionHelper;
+import com.alonapps.muniapp.GpsManager;
 import com.alonapps.muniapp.R;
 import com.alonapps.muniapp.StopNotFoundException;
 import com.alonapps.muniapp.datacontroller.DataManager;
@@ -10,23 +9,17 @@ import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
 import com.alonapps.muniapp.datacontroller.Predictions;
 import com.alonapps.muniapp.datacontroller.Route;
 import com.alonapps.muniapp.datacontroller.Predictions.Direction;
-import com.alonapps.muniapp.datacontroller.Route.Stop;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.VisibleRegion;
-
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.drawable.GradientDrawable;
@@ -37,19 +30,18 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ShowSingleStop extends Activity
+public class ShowSingleStop extends LocationTrackerBaseActivity
 {
 
 	Context context;
 	private UIHandler handler = new UIHandler();
 	private DataManager mDataManager;
 	Predictions mCurrentPred;
+	GpsManager mGpsManager;
 	DIRECTION dir;
 	Location selectedStoploc = null;
 
@@ -61,6 +53,7 @@ public class ShowSingleStop extends Activity
 		// this.mInflater = (LayoutInflater)
 		// getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mDataManager = DataManager.getDataManager(this);
+		mGpsManager = GpsManager.getInstance();
 
 		// setContentView(R.layout.activity_show_single_stop);
 
@@ -75,7 +68,8 @@ public class ShowSingleStop extends Activity
 				try
 				{
 					selectedStoploc = mDataManager.getStopLocation(mCurrentPred.getStopTag(),
-							mCurrentPred.getRouteTag(), mDataManager.getLocationProviderName());
+							mCurrentPred.getRouteTag(), GpsManager.getInstance()
+									.getmBestProviderName());
 				} catch (StopNotFoundException e)
 				{
 					// TODO Auto-generated catch block
@@ -138,12 +132,17 @@ public class ShowSingleStop extends Activity
 			// if(tempPred.get)
 
 			float metersDist = 0f;
-			Location myLoc = mDataManager.getLocationManager().getLastKnownLocation(
-					mDataManager.getLocationProviderName());
-			metersDist = selectedStoploc.distanceTo(myLoc);
-
-			titleDistanceView.setText("("
-					+ Math.round(ConversionHelper.convertMetersToFeet(metersDist)) + "ft)");
+			Location myLoc = GpsManager.getInstance().getLastKnownLocation();
+			if (myLoc == null)
+			{
+				Log.e(this.getClass().toString(), "my loc is null");
+				titleDistanceView.setText("no gps");
+			} else
+			{
+				metersDist = selectedStoploc.distanceTo(myLoc);
+				titleDistanceView.setText("("
+						+ Math.round(ConversionHelper.convertMetersToFeet(metersDist)) + "ft)");
+			}
 
 			titleView.setText(tempPred.getStopTitle());
 			if (tempPred.getDirTitleBecauseNoPredictions() != null)
@@ -226,11 +225,19 @@ public class ShowSingleStop extends Activity
 			if (selectedStoploc == null)
 				return;
 
-			Location myLoc = mDataManager.getLocationManager().getLastKnownLocation(
-					mDataManager.getLocationProviderName());
+			LatLng MYPOSITION = null;
+			Location myLoc = GpsManager.getInstance().getLastKnownLocation();
+			if (myLoc == null)
+			{
+				Log.e(this.getClass().toString(), "my loc is null");
+
+			} else
+			{
+				MYPOSITION = new LatLng(myLoc.getLatitude(), myLoc.getLongitude());
+			}
+
 			LatLng CURRENTSTOP = new LatLng(selectedStoploc.getLatitude(),
 					selectedStoploc.getLongitude());
-			LatLng MYPOSITION = new LatLng(myLoc.getLatitude(), myLoc.getLongitude());
 
 			if (map != null)
 			{
@@ -242,24 +249,31 @@ public class ShowSingleStop extends Activity
 				else
 					markerStop.snippet(tempPred.getDirTitleBecauseNoPredictions());
 
-				MarkerOptions markerMe = new MarkerOptions();
-				markerMe.position(MYPOSITION);
-				markerMe.title("You Are Here");
-				markerMe.icon(BitmapDescriptorFactory
-						.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-
 				map.addMarker(markerStop);
-				map.addMarker(markerMe);
+				if (myLoc != null)
+				{
+					MarkerOptions markerMe = new MarkerOptions();
+					markerMe.position(MYPOSITION);
+					markerMe.title("You Are Here");
+					markerMe.icon(BitmapDescriptorFactory
+							.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
 
-				/**** zoom to include 2 points *****/
-				LatLngBounds bounds = new LatLngBounds.Builder()
-						.include(new LatLng(CURRENTSTOP.latitude, CURRENTSTOP.longitude))
-						.include(new LatLng(MYPOSITION.latitude, MYPOSITION.longitude)).build();
+					map.addMarker(markerMe);
 
-				Point displaySize = new Point();
-				getWindowManager().getDefaultDisplay().getSize(displaySize);
-				
-				map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, displaySize.x, 250, 30));
+					/**** zoom to include 2 points *****/
+					LatLngBounds bounds = new LatLngBounds.Builder()
+							.include(new LatLng(CURRENTSTOP.latitude, CURRENTSTOP.longitude))
+							.include(new LatLng(MYPOSITION.latitude, MYPOSITION.longitude)).build();
+
+					Point displaySize = new Point();
+					getWindowManager().getDefaultDisplay().getSize(displaySize);
+
+					map.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, displaySize.x, 250,
+							30));
+				} else
+				{
+					map.moveCamera(CameraUpdateFactory.newLatLngZoom(CURRENTSTOP, 15f));
+				}
 			}
 		}
 	}

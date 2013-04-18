@@ -1,34 +1,30 @@
 package com.alonapps.muniapp.ui;
 
+import com.alonapps.muniapp.GpsManager;
 import com.alonapps.muniapp.R;
-import com.alonapps.muniapp.R.id;
-import com.alonapps.muniapp.R.layout;
-import com.alonapps.muniapp.R.menu;
 import com.alonapps.muniapp.datacontroller.DataManager;
 
 import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 
-public class MainActivity extends Activity
+public class MainActivity extends LocationTrackerBaseActivity
 {
 
 	Criteria mycrit;
 	DataManager mDataManager;
-	LocationManager mLocManager;
-	LocationListener mLocListener;
-	Location mLastKnownLocation;
 
 	/** inner class UIHandler **/
 	private final class UIHandler extends Handler
@@ -70,8 +66,37 @@ public class MainActivity extends Activity
 			}
 		}).start();
 
-		// Call method to start GPS
-		initLocationManager();
+		// First, get an instance of the SensorManager
+		SensorManager sMan = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+		// Second, get the sensor you're interested in
+		final Sensor magnetField = sMan.getDefaultSensor(Sensor.TYPE_ORIENTATION);
+
+		// Third, implement a SensorEventListener class
+		SensorEventListener magnetListener = new SensorEventListener() {
+
+			@Override
+			public void onSensorChanged(SensorEvent event)
+			{
+				// implement what you want to do here
+				TextView txtLat = (TextView) findViewById(R.id.lat);
+				txtLat.setText("event.values[0] - " + event.values[0]);
+
+			}
+
+			@Override
+			public void onAccuracyChanged(Sensor sensor, int accuracy)
+			{
+				// do things if you're interested in accuracy changes
+				TextView txtLon = (TextView) findViewById(R.id.lon);
+				txtLon.setText("compass: " + sensor.getClass().toString());
+
+			}
+		};
+
+		// Finally, register your listener
+		sMan.registerListener(magnetListener, magnetField, SensorManager.SENSOR_DELAY_NORMAL);
+
 	}
 
 	// ProgressDialog dialog;
@@ -106,69 +131,68 @@ public class MainActivity extends Activity
 		}
 	}
 
-	private void initLocationManager()
-	{
-		// Get GPS working. Need manager and implementation of Listener.
-		mLocManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-		mDataManager.setLocationManager(mLocManager);
+	// private void initLocationManager()
+	// {
+	// Get GPS working. Need manager and implementation of Listener.
+	// mLocManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+	// mDataManager.setLocationManager(mLocManager);
 
-		mLocListener = new LocationListener() {
+	// mLocListener = new LocationListener() {
+	//
+	// @Override
+	// public void onStatusChanged(String provider, int status, Bundle extras)
+	// {
+	// // TODO Auto-generated method stub
+	// }
+	//
+	// @Override
+	// public void onProviderEnabled(String provider)
+	// {
+	// // TODO Auto-generated method stub
+	// Toast.makeText(MainActivity.this, "Gps Enabled",
+	// Toast.LENGTH_SHORT).show();
+	// }
+	//
+	// @Override
+	// public void onProviderDisabled(String provider)
+	// {
+	// // TODO Auto-generated method stub
+	// Toast.makeText(MainActivity.this, "Gps Disabled",
+	// Toast.LENGTH_SHORT).show();
+	// }
+	//
+	// @Override
+	// public void onLocationChanged(Location location)
+	// {
+	// // TODO Auto-generated method stub
+	// // mLastKnownLocation = location;
+	// // TextView txtLat = (TextView) findViewById(R.id.lat);
+	// // txtLat.setText("Lat: " + location.getLatitude());
+	// // TextView txtLon = (TextView) findViewById(R.id.lon);
+	// // txtLon.setText("Lon: " + location.getLongitude());
+	//
+	// }
+	// };
+	// mycrit = new Criteria();
+	// mycrit.setAccuracy(Criteria.ACCURACY_FINE);
 
-			@Override
-			public void onStatusChanged(String provider, int status,
-					Bundle extras)
-			{
-				// TODO Auto-generated method stub
-			}
+	// String strProviderName = mLocManager.getBestProvider(mycrit, true);
+	// mDataManager.setLocationProviderName(strProviderName);
+	// Toast.makeText(this, strProviderName, Toast.LENGTH_SHORT).show();
 
-			@Override
-			public void onProviderEnabled(String provider)
-			{
-				// TODO Auto-generated method stub
-				Toast.makeText(MainActivity.this, "Gps Enabled",
-						Toast.LENGTH_SHORT).show();
-			}
-
-			@Override
-			public void onProviderDisabled(String provider)
-			{
-				// TODO Auto-generated method stub
-				Toast.makeText(MainActivity.this, "Gps Disabled",
-						Toast.LENGTH_SHORT).show();
-			}
-
-			@Override
-			public void onLocationChanged(Location location)
-			{
-				// TODO Auto-generated method stub
-				mLastKnownLocation = location;
-				TextView txtLat = (TextView) findViewById(R.id.lat);
-				txtLat.setText("Lat: " + location.getLatitude());
-				TextView txtLon = (TextView) findViewById(R.id.lon);
-				txtLon.setText("Lon: " + location.getLongitude());
-
-			}
-		};
-		mycrit = new Criteria();
-		mycrit.setAccuracy(Criteria.ACCURACY_FINE);
-
-		String strProviderName = mLocManager.getBestProvider(mycrit, true);
-		mDataManager.setLocationProviderName(strProviderName);
-		Toast.makeText(this, strProviderName, Toast.LENGTH_SHORT).show();
-
-		mLocManager.requestLocationUpdates(strProviderName, 2000, 0,
-				mLocListener);
-		mLastKnownLocation = mLocManager.getLastKnownLocation(strProviderName);
-		if (mLastKnownLocation != null)
-		{
-			TextView txtLat = (TextView) findViewById(R.id.lat);
-			txtLat.setText("Lat: " + mLastKnownLocation.getLatitude()
-					+ "(last known)");
-			TextView txtLon = (TextView) findViewById(R.id.lon);
-			txtLon.setText("Lat: " + mLastKnownLocation.getLongitude()
-					+ "(last known)");
-		}
-	}
+	// mLocManager.requestLocationUpdates(strProviderName, 2000, 0,
+	// mLocListener);
+	// mLastKnownLocation = mLocManager.getLastKnownLocation(strProviderName);
+	// if (mLastKnownLocation != null)
+	// {
+	// TextView txtLat = (TextView) findViewById(R.id.lat);
+	// txtLat.setText("Lat: " + mLastKnownLocation.getLatitude() +
+	// "(last known)");
+	// TextView txtLon = (TextView) findViewById(R.id.lon);
+	// txtLon.setText("Lat: " + mLastKnownLocation.getLongitude() +
+	// "(last known)");
+	// }
+	// }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -195,36 +219,19 @@ public class MainActivity extends Activity
 
 	public void onClick_showStatiosNearMe(View v)
 	{
-		try{
-		Intent intent = new Intent(this, ListStopsNearMe.class);
-		if (mLastKnownLocation != null)
+		try
 		{
-			intent.putExtra("location", mLastKnownLocation);
-		}
-		startActivity(intent);
-		}
-		catch(Exception e)
+			Intent intent = new Intent(this, ListStopsNearMe.class);
+			Location lastKnownLoc =GpsManager.getInstance().getLastKnownLocation(); 
+			if (lastKnownLoc != null)
+			{
+				intent.putExtra("location", lastKnownLoc);
+			}
+			startActivity(intent);
+		} catch (Exception e)
 		{
 			Log.e(this.getClass().toString(), "error");
 		}
-	}
-
-	@Override
-	protected void onPause()
-	{	
-		super.onPause();
-		// Toast.makeText(this, "GPS is paused", Toast.LENGTH_SHORT).show();
-		// mLocManager.removeUpdates(mLocListener);
-
-	}
-
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
-		// Toast.makeText(this, "GPS is resumed", Toast.LENGTH_SHORT).show();
-		// mLocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-		// 1000,0, mLocListener);
 	}
 
 }

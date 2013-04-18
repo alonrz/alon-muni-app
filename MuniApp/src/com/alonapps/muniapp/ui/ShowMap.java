@@ -1,29 +1,20 @@
 package com.alonapps.muniapp.ui;
 
-import android.app.Activity;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
-import android.widget.Toast;
-
 import com.alonapps.muniapp.R;
-import com.alonapps.muniapp.R.id;
-import com.alonapps.muniapp.R.layout;
-import com.alonapps.muniapp.R.menu;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.ConnectionResult;
 
-public class ShowMap extends Activity {
+public class ShowMap extends LocationTrackerBaseActivity {
 	static final LatLng HAMBURG = new LatLng(53.558, 9.927);
 	static final LatLng KIEL = new LatLng(53.551, 9.993);
 	static final LatLng SFSU = new LatLng(37.822239550388515,
