@@ -38,7 +38,7 @@ public class DataManager
 	}
 
 	// Singleton method
-	public static DataManager getDataManager(Context applicationContext)
+	public static DataManager getInstance(Context applicationContext)
 	{
 		if (mManager == null)
 		{
