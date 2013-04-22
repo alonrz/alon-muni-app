@@ -2,6 +2,7 @@ package com.alonapps.muniapp.ui;
 
 import com.alonapps.muniapp.ConversionHelper;
 import com.alonapps.muniapp.GpsManager;
+import com.alonapps.muniapp.LocationTrackerBaseActivity;
 import com.alonapps.muniapp.R;
 import com.alonapps.muniapp.StopNotFoundException;
 import com.alonapps.muniapp.datacontroller.DataManager;
@@ -12,6 +13,7 @@ import com.alonapps.muniapp.datacontroller.Predictions.Direction;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -52,7 +54,7 @@ public class ShowSingleStop extends LocationTrackerBaseActivity
 		super.onCreate(savedInstanceState);
 		// this.mInflater = (LayoutInflater)
 		// getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mDataManager = DataManager.getDataManager(this);
+		mDataManager = DataManager.getInstance(this);
 		mGpsManager = GpsManager.getInstance();
 
 		// setContentView(R.layout.activity_show_single_stop);
@@ -62,7 +64,7 @@ public class ShowSingleStop extends LocationTrackerBaseActivity
 			@Override
 			public void run()
 			{
-				DataManager dMan = DataManager.getDataManager(context);
+				DataManager dMan = DataManager.getInstance(context);
 				mCurrentPred = dMan.getPredictionsByStopAndRoute(dMan.getSelectedPrediction()
 						.getStopId(), dMan.getSelectedPrediction().getRouteTag());
 				try
@@ -244,6 +246,7 @@ public class ShowSingleStop extends LocationTrackerBaseActivity
 				MarkerOptions markerStop = new MarkerOptions();
 				markerStop.position(CURRENTSTOP);
 				markerStop.title(tempPred.getStopTitle());
+				markerStop.icon(BitmapDescriptorFactory.fromResource(R.drawable.location_pin_red));
 				if (tempPred.getAllDirections().length > 0)
 					markerStop.snippet(tempPred.getAllDirections()[0].getDirectionTitle());
 				else
@@ -255,9 +258,10 @@ public class ShowSingleStop extends LocationTrackerBaseActivity
 					MarkerOptions markerMe = new MarkerOptions();
 					markerMe.position(MYPOSITION);
 					markerMe.title("You Are Here");
-					markerMe.icon(BitmapDescriptorFactory
-							.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-
+					//markerMe.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+					BitmapDescriptor bd =BitmapDescriptorFactory.fromResource(R.drawable.walking_icon_hi);
+					markerMe.icon(bd);
+					
 					map.addMarker(markerMe);
 
 					/**** zoom to include 2 points *****/

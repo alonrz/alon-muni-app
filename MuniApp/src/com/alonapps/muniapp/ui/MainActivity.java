@@ -1,6 +1,7 @@
 package com.alonapps.muniapp.ui;
 
 import com.alonapps.muniapp.GpsManager;
+import com.alonapps.muniapp.LocationTrackerBaseActivity;
 import com.alonapps.muniapp.R;
 import com.alonapps.muniapp.datacontroller.DataManager;
 
@@ -48,7 +49,7 @@ public class MainActivity extends LocationTrackerBaseActivity
 		setContentView(R.layout.activity_main);
 
 		// This will init the large data object for quicker loading.
-		mDataManager = DataManager.getDataManager(this);
+		mDataManager = DataManager.getInstance(this);
 
 		new Thread(new Runnable() {
 
@@ -112,6 +113,7 @@ public class MainActivity extends LocationTrackerBaseActivity
 		View progressBarView = findViewById(R.id.pbLoading2);
 		View ButtonShowLinesView = findViewById(R.id.btnShowLines);
 		View ButtonShowNearStationsView = findViewById(R.id.btnShowNearStations);
+		View ButtonShowTabs = findViewById(R.id.btnShowTabs);
 
 		// ProgressBar pb = (ProgressBar)v;
 		if (isShowProgress == false)
@@ -121,6 +123,7 @@ public class MainActivity extends LocationTrackerBaseActivity
 			progressBarView.setVisibility(View.INVISIBLE);
 			ButtonShowLinesView.setEnabled(true);
 			ButtonShowNearStationsView.setEnabled(true);
+			ButtonShowTabs.setEnabled(true);
 		} else
 		{
 
@@ -128,77 +131,16 @@ public class MainActivity extends LocationTrackerBaseActivity
 			progressBarView.setVisibility(View.VISIBLE);
 			ButtonShowLinesView.setEnabled(false);
 			ButtonShowNearStationsView.setEnabled(false);
+			ButtonShowTabs.setEnabled(false);
 		}
 	}
-
-	// private void initLocationManager()
-	// {
-	// Get GPS working. Need manager and implementation of Listener.
-	// mLocManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-	// mDataManager.setLocationManager(mLocManager);
-
-	// mLocListener = new LocationListener() {
-	//
-	// @Override
-	// public void onStatusChanged(String provider, int status, Bundle extras)
-	// {
-	// // TODO Auto-generated method stub
-	// }
-	//
-	// @Override
-	// public void onProviderEnabled(String provider)
-	// {
-	// // TODO Auto-generated method stub
-	// Toast.makeText(MainActivity.this, "Gps Enabled",
-	// Toast.LENGTH_SHORT).show();
-	// }
-	//
-	// @Override
-	// public void onProviderDisabled(String provider)
-	// {
-	// // TODO Auto-generated method stub
-	// Toast.makeText(MainActivity.this, "Gps Disabled",
-	// Toast.LENGTH_SHORT).show();
-	// }
-	//
-	// @Override
-	// public void onLocationChanged(Location location)
-	// {
-	// // TODO Auto-generated method stub
-	// // mLastKnownLocation = location;
-	// // TextView txtLat = (TextView) findViewById(R.id.lat);
-	// // txtLat.setText("Lat: " + location.getLatitude());
-	// // TextView txtLon = (TextView) findViewById(R.id.lon);
-	// // txtLon.setText("Lon: " + location.getLongitude());
-	//
-	// }
-	// };
-	// mycrit = new Criteria();
-	// mycrit.setAccuracy(Criteria.ACCURACY_FINE);
-
-	// String strProviderName = mLocManager.getBestProvider(mycrit, true);
-	// mDataManager.setLocationProviderName(strProviderName);
-	// Toast.makeText(this, strProviderName, Toast.LENGTH_SHORT).show();
-
-	// mLocManager.requestLocationUpdates(strProviderName, 2000, 0,
-	// mLocListener);
-	// mLastKnownLocation = mLocManager.getLastKnownLocation(strProviderName);
-	// if (mLastKnownLocation != null)
-	// {
-	// TextView txtLat = (TextView) findViewById(R.id.lat);
-	// txtLat.setText("Lat: " + mLastKnownLocation.getLatitude() +
-	// "(last known)");
-	// TextView txtLon = (TextView) findViewById(R.id.lon);
-	// txtLon.setText("Lat: " + mLastKnownLocation.getLongitude() +
-	// "(last known)");
-	// }
-	// }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		getActionBar().setDisplayHomeAsUpEnabled(false);
 		return true;
 	}
 
@@ -232,6 +174,13 @@ public class MainActivity extends LocationTrackerBaseActivity
 		{
 			Log.e(this.getClass().toString(), "error");
 		}
+	}
+	
+	public void onClick_showTabs(View v)
+	{
+		//Intent intent = new Intent(this, ListStopsNearMe2.class);
+		Intent intent = new Intent(this, TestTabs.class);
+		startActivity(intent);
 	}
 
 }

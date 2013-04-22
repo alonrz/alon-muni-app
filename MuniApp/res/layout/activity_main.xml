@@ -28,6 +28,13 @@
         android:layout_height="wrap_content"
         android:onClick="onClick_showStatiosNearMe"
         android:text="@string/show_stations_near" />
+    
+    <Button
+        android:id="@+id/btnShowTabs"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClick_showTabs"
+        android:text="@string/show_tabs" />
 
     <RelativeLayout
         android:layout_width="match_parent"

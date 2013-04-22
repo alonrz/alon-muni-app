@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="16"
+        android:minSdkVersion="17"
         android:targetSdkVersion="17" />
 
     <uses-feature
@@ -66,8 +66,19 @@
         </activity>
         <activity
             android:name="com.alonapps.muniapp.ui.ShowSingleStop"
-            android:label="@string/title_activity_show_single_stop" 
-            android:screenOrientation="portrait" >
+            android:label="@string/title_activity_show_single_stop"
+            android:screenOrientation="portrait"
+            android:theme="@style/DarkText" >
+        </activity>
+        <activity
+            android:name="com.alonapps.muniapp.ui.TestTabs"
+            android:label="@string/title_activity_test_tabs"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.PageIndicatorDefaults" >
+        </activity>
+        <activity
+            android:name="com.alonapps.muniapp.CompassUtility"
+            android:label="@string/title_activity_compass_utility" >
         </activity>
     </application>
 

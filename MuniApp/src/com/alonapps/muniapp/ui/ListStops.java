@@ -2,11 +2,8 @@ package com.alonapps.muniapp.ui;
 
 import java.util.List;
 
-import com.alonapps.muniapp.GpsManager;
+import com.alonapps.muniapp.LocationTrackerBaseListActivity;
 import com.alonapps.muniapp.R;
-import com.alonapps.muniapp.R.id;
-import com.alonapps.muniapp.R.layout;
-import com.alonapps.muniapp.R.menu;
 import com.alonapps.muniapp.datacontroller.DataManager;
 import com.alonapps.muniapp.datacontroller.Predictions;
 import com.alonapps.muniapp.datacontroller.Route;
@@ -15,10 +12,8 @@ import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Path.Direction;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,11 +22,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ListStops extends MyDataEnabledListActivity
+public class ListStops extends LocationTrackerBaseListActivity
 {
 
 	Context context;
@@ -43,10 +37,8 @@ public class ListStops extends MyDataEnabledListActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
+		getActionBar().setHomeButtonEnabled(true);
 		context = this;
-		// fetcher = new XmlFetcher(this);
-		mDataManager = DataManager.getDataManager(context);
 
 		showDirectionInNewThread(DIRECTION.Inbound);
 		Toast.makeText(context, "Toggle Inbound/Outbound from menu", Toast.LENGTH_SHORT).show();
@@ -94,6 +86,12 @@ public class ListStops extends MyDataEnabledListActivity
 				showInboundSelected = false;
 				invalidateOptionsMenu();
 				return true;
+			case android.R.id.home:
+				Toast.makeText(this, "teest", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(this, MainActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
@@ -120,7 +118,7 @@ public class ListStops extends MyDataEnabledListActivity
 			public void run()
 			{
 
-				List<Route.Stop> routeList = mDataManager.getStopList(routeTag, dir);
+				List<Route.Stop> routeList = DataManager.getInstance(context).getStopList(routeTag, dir);
 				// TODO replace "Inbound" by actuall selection
 				if (routeList == null)
 					Log.i(this.getClass().toString(), "routeList is null");
@@ -160,7 +158,7 @@ public class ListStops extends MyDataEnabledListActivity
 					// Toast.makeText(getApplicationContext(),
 					// routeList.get(position).getStopID(),
 					// Toast.LENGTH_SHORT).show();
-					Predictions currentPred = mDataManager.getSelectedPrediction();
+					Predictions currentPred = DataManager.getInstance(context).getSelectedPrediction();
 					currentPred.setStopTag(routeList.get(position).getStopTag());
 					currentPred.setStopId(routeList.get(position).getStopID());
 

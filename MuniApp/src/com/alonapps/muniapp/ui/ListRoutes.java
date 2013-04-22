@@ -3,9 +3,8 @@ package com.alonapps.muniapp.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.alonapps.muniapp.GpsManager;
+import com.alonapps.muniapp.LocationTrackerBaseListActivity;
 import com.alonapps.muniapp.R;
-import com.alonapps.muniapp.R.layout;
 import com.alonapps.muniapp.datacontroller.DataManager;
 import com.alonapps.muniapp.datacontroller.Predictions;
 import com.alonapps.muniapp.datacontroller.Route;
@@ -21,10 +20,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-public class ListRoutes extends MyDataEnabledListActivity
+public class ListRoutes extends LocationTrackerBaseListActivity
 {
 
 	/** members **/
@@ -36,6 +33,7 @@ public class ListRoutes extends MyDataEnabledListActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		context = this;
 
 		new Thread(new Runnable() {
@@ -43,7 +41,7 @@ public class ListRoutes extends MyDataEnabledListActivity
 			@Override
 			public void run()
 			{
-				List<Route> routeList = mDataManager.initAllRoutesWithDetails();
+				List<Route> routeList = DataManager.getInstance(context).initAllRoutesWithDetails();
 				if (routeList == null)
 				{
 					routeList = new ArrayList<Route>();
@@ -101,7 +99,7 @@ public class ListRoutes extends MyDataEnabledListActivity
 					// Toast.makeText(context, tag, Toast.LENGTH_LONG).show();
 
 					// MUST HAVE ROUTE TAG. WORK WITH OBJECTs
-					Predictions currentPred = mDataManager.getSelectedPrediction();
+					Predictions currentPred = DataManager.getInstance(context).getSelectedPrediction();
 					currentPred.setRouteTag(tag);
 					Intent intent = new Intent(context, ListStops.class);
 					intent.putExtra("routeTag", tag);

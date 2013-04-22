@@ -3,8 +3,10 @@ package com.alonapps.muniapp.ui;
 import java.util.List;
 
 import com.alonapps.muniapp.ConversionHelper;
+import com.alonapps.muniapp.LocationTrackerBaseListActivity;
 import com.alonapps.muniapp.R;
 import com.alonapps.muniapp.datacontroller.DataHelper;
+import com.alonapps.muniapp.datacontroller.DataManager;
 import com.alonapps.muniapp.datacontroller.Predictions;
 import com.alonapps.muniapp.datacontroller.Route;
 import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
@@ -30,7 +32,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ListStopsNearMe extends MyDataEnabledListActivity
+public class ListStopsNearMe extends LocationTrackerBaseListActivity
 {
 	private Location mCurrentLocation;
 	private float mMaxDistanceInMeters = 500;
@@ -129,10 +131,10 @@ public class ListStopsNearMe extends MyDataEnabledListActivity
 			@Override
 			public void run()
 			{
-				mStopList = mDataManager.getStopsNearLocation(mCurrentLocation,
+				mStopList = DataManager.getInstance(context).getStopsNearLocation(mCurrentLocation,
 						mMaxDistanceInMeters);
 				Log.i("ListStationsNearMe", String.valueOf("mStopList.size(): " + mStopList.size()));
-				List<Predictions> predictionsList = mDataManager.getPredictionsByStopsAsync(
+				List<Predictions> predictionsList = DataManager.getInstance(context).getPredictionsByStopsAsync(
 						DIRECTION.Inbound, false);
 
 				Message msg = handler.obtainMessage();
@@ -206,7 +208,7 @@ DIRECTION mCurrentDirection = DIRECTION.Inbound;
 			public void run()
 			{
 				// List of near by stops are already saved inside DataManager
-				List<Predictions> predictionsList = mDataManager.getPredictionsByStopsAsync(dir,
+				List<Predictions> predictionsList = DataManager.getInstance(context).getPredictionsByStopsAsync(dir,
 						refresh);
 				Message msg = handler.obtainMessage();
 				msg.obj = predictionsList;
@@ -215,7 +217,7 @@ DIRECTION mCurrentDirection = DIRECTION.Inbound;
 		}).start();
 	}
 
-	public class MyCustomAdapter extends BaseAdapter
+	private class MyCustomAdapter extends BaseAdapter
 	{
 		public MyCustomAdapter()
 		{
@@ -314,7 +316,7 @@ DIRECTION mCurrentDirection = DIRECTION.Inbound;
 				routeTagView.setLayoutParams(lp);
 			}
 			// gd.setColor(Color.parseColor("#006633"));
-			Route tempRouteForColor = mDataManager.getRoute(tempPred.getRouteTag());
+			Route tempRouteForColor = DataManager.getInstance(context).getRoute(tempPred.getRouteTag());
 			gd.setColor(tempRouteForColor.getColor());
 			routeTagView.setBackground(gd);
 			routeTagView.setTextColor(tempRouteForColor.getOppColor());

@@ -1,6 +1,5 @@
-package com.alonapps.muniapp.ui;
+package com.alonapps.muniapp;
 
-import com.alonapps.muniapp.ActivityTracker;
 
 import android.app.Activity;
 import android.os.Bundle;
