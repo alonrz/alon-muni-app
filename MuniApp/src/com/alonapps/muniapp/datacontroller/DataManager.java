@@ -9,14 +9,10 @@ import java.util.List;
 
 import com.alonapps.muniapp.GpsManager;
 import com.alonapps.muniapp.StopNotFoundException;
-import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
-import com.alonapps.muniapp.datacontroller.Predictions.Direction;
-import com.alonapps.muniapp.datacontroller.Predictions.Prediction;
 import com.alonapps.muniapp.datacontroller.Route.Stop;
 
 import android.content.Context;
 import android.location.Location;
-import android.location.LocationManager;
 import android.util.Log;
 
 public class DataManager
@@ -24,7 +20,8 @@ public class DataManager
 	private XmlParser mFetcher;
 	private static DataManager mManager = null;
 	private List<Route> mAllRoutesWithDirections;// = new ArrayList<Route>();
-	private List<Stop> mStopsNearLocation = null;
+	private List<Stop> mStopsNearLocation = null; // after searching for stops
+													// near me - closest stops.
 	private List<Predictions> mPredictionsForStopsNearMeInbound = null;
 	private List<Predictions> mPredictionsForStopsNearMeOutbound = null;
 	private static Predictions mSelectedPrediction;
@@ -50,7 +47,11 @@ public class DataManager
 		if (mManager == null)
 		{
 			mManager = new DataManager(applicationContext);
-			mFavoriteOpenHelper =  new FavoriteOpenHelper(applicationContext); //this will create the table.
+			mFavoriteOpenHelper = new FavoriteOpenHelper(applicationContext); // this
+																				// will
+																				// create
+																				// the
+																				// table.
 		}
 		return mManager;
 	}
@@ -66,7 +67,7 @@ public class DataManager
 			mSelectedPrediction = new Predictions();
 		return mSelectedPrediction;
 	}
-	
+
 	public FavoriteOpenHelper getFavoriteOpenHelper()
 	{
 		return mFavoriteOpenHelper;
@@ -107,6 +108,11 @@ public class DataManager
 		return null;
 	}
 
+	public List<Stop> getRecentStopsNearLocation()
+	{
+		return this.mStopsNearLocation;
+	}
+
 	/**
 	 * Bring back a list of stops which are closer than specified maxDistance in
 	 * meters
@@ -119,7 +125,7 @@ public class DataManager
 	 */
 	public List<Stop> getStopsNearLocation(Location mCurrentLocation, float maxDistanceInMeters)
 	{
-		List<Route.Stop> closestStops = new ArrayList<Route.Stop>();
+		List<Stop> closestStops = new ArrayList<Route.Stop>();
 		// temp location to hold locations to compare distance to. Lat and Lon
 		// will be changed each time
 		Location tempLocation = null;
@@ -133,7 +139,7 @@ public class DataManager
 		}
 
 		Log.i(this.getClass().getSimpleName(), "is tempLocation null? " + (tempLocation == null));
-		if(tempLocation == null)
+		if (tempLocation == null)
 			return closestStops;
 		for (int i = 0; i < mAllRoutesWithDirections.size(); i++)
 		{
@@ -148,9 +154,10 @@ public class DataManager
 			for (int j = 0; j < tempStops.size(); j++)
 			{
 				Stop singleStop = tempStops.get(j);
-				if(singleStop == null)
+				if (singleStop == null)
 				{
-					Log.e(this.getClass().toString(), "No stop at loaction " + j + " for route " + r.getTag());
+					Log.e(this.getClass().toString(), "No stop at loaction " + j + " for route "
+							+ r.getTag());
 					continue;
 				}
 				// singleStop.setDirection(r.set)
@@ -182,7 +189,7 @@ public class DataManager
 		});
 
 		this.mStopsNearLocation = closestStops;
-		return closestStops;
+		return this.mStopsNearLocation;
 	}
 
 	/**
@@ -208,7 +215,7 @@ public class DataManager
 		List<Predictions> totalPreds = new ArrayList<Predictions>();
 		totalPreds.addAll(mPredictionsForStopsNearMeInbound);
 		totalPreds.addAll(mPredictionsForStopsNearMeOutbound);
-		
+
 		for (Predictions pred : totalPreds)
 		{
 			Stop stopObject = getStop(pred.getStopTag(), pred.getRouteTag());
@@ -300,6 +307,14 @@ public class DataManager
 	public List<Predictions> getPredictionsByStopsAsync(DIRECTION dir, boolean refreshData)
 	{
 		List<Predictions> predictionsInDirection = new ArrayList<Predictions>();
+		if(refreshData == false)
+		{
+			if(dir == DIRECTION.Inbound)
+				return (this.mPredictionsForStopsNearMeInbound == null)? predictionsInDirection : this.mPredictionsForStopsNearMeInbound;
+			else
+				return (this.mPredictionsForStopsNearMeOutbound == null)? predictionsInDirection : this.mPredictionsForStopsNearMeOutbound;
+		}
+		
 		if (this.mStopsNearLocation == null)
 		{
 			Log.e(this.getClass().toString(),
@@ -323,9 +338,8 @@ public class DataManager
 		}
 
 		// filter out directions
-		Predictions tempPred;
-		
-		for (Predictions p : ((dir == DIRECTION.Inbound)? mPredictionsForStopsNearMeInbound : mPredictionsForStopsNearMeOutbound))
+		for (Predictions p : ((dir == DIRECTION.Inbound) ? mPredictionsForStopsNearMeInbound
+				: mPredictionsForStopsNearMeOutbound))
 		{
 			// tempPred = new Predictions();
 			for (Predictions.Direction d : p.getAllDirections())
@@ -350,6 +364,14 @@ public class DataManager
 		}
 
 		return predictionsInDirection;
+	}
+
+	public List<Predictions> getLatestPredictions(DIRECTION dir)
+	{
+		if (dir == DIRECTION.Inbound)
+			return this.mPredictionsForStopsNearMeInbound;
+		else
+			return this.mPredictionsForStopsNearMeOutbound;
 	}
 
 	private DIRECTION getDirectionByStopID(Predictions predObj) throws StopNotFoundException
@@ -444,15 +466,5 @@ public class DataManager
 
 		return null;
 	}
-
-	// public boolean isUserStillRunning()
-	// {
-	// return this.mIsUserStillRunning;
-	// }
-	//
-	// public void setIsUserStillRunning(boolean isRunning)
-	// {
-	// this.mIsUserStillRunning = isRunning;
-	// }
 
 }
