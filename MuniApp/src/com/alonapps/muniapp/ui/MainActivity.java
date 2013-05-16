@@ -1,9 +1,14 @@
 package com.alonapps.muniapp.ui;
 
+import java.util.List;
+
 import com.alonapps.muniapp.GpsManager;
 import com.alonapps.muniapp.LocationTrackerBaseActivity;
 import com.alonapps.muniapp.R;
+import com.alonapps.muniapp.datacontroller.DataHelper;
 import com.alonapps.muniapp.datacontroller.DataManager;
+import com.alonapps.muniapp.datacontroller.Predictions;
+import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
 
 import android.location.Criteria;
 import android.location.Location;
@@ -16,6 +21,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -23,19 +29,22 @@ import android.hardware.SensorManager;
 
 public class MainActivity extends LocationTrackerBaseActivity
 {
-
+	Context mContext;
 	Criteria mycrit;
 	DataManager mDataManager;
+	private float mMaxDistanceInMeters = 500;
+	TextView txtMessages = null;
 
 	/** inner class UIHandler **/
 	private final class UIHandler extends Handler
 	{
+		
 		public void handleMessage(Message msg)
 		{
 			if (msg.arg1 == 1)
-				changeLoadingProgress(true);
+				changeLoadingProgress(true, msg);
 			else
-				changeLoadingProgress(false);
+			 	changeLoadingProgress(false, msg);
 		}
 	};
 
@@ -46,7 +55,9 @@ public class MainActivity extends LocationTrackerBaseActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		mContext = this;
 		setContentView(R.layout.activity_splash_screen);
+		txtMessages = (TextView)findViewById(R.id.txtLoadMessages);
 
 		// This will init the large data object for quicker loading.
 		mDataManager = DataManager.getInstance(this);
@@ -56,98 +67,64 @@ public class MainActivity extends LocationTrackerBaseActivity
 			@Override
 			public void run()
 			{
+				Location lastKnownLoc = GpsManager.getInstance().getLastKnownLocation();
 				Message msg = handler.obtainMessage();
 				msg.arg1 = 1;
+				
+				msg.obj = "Loading Routes";
 				handler.sendMessage(msg);
 				mDataManager.initAllRoutesWithDetails();// ** Starts a thread!
+				
+				msg = handler.obtainMessage();
+				msg.obj = "Getting Nearby Stops";
+				handler.sendMessage(msg);
+				DataManager.getInstance(mContext).getStopsNearLocation(
+						lastKnownLoc, mMaxDistanceInMeters);
+				
+				msg = handler.obtainMessage();
+				msg.obj = "Getting Predictions";
+				handler.sendMessage(msg);
+				List<Predictions> predictionsList = DataManager.getInstance(mContext)
+						.getPredictionsByStopsAsync(DIRECTION.Inbound, true);
+				
+				if (predictionsList == null)
+				{
+					Log.e("ListStationsearMe", "Object predictionsList is null");
+					Toast.makeText(mContext, "No predictions Found", Toast.LENGTH_LONG).show();
+					return;
+				}
+
+				// Remove non active
+				DataHelper.RemoveNonActive(predictionsList);
+				// Remove extra stations which are far away
+				DataHelper.RemoveAllButTwoClosestStations(predictionsList);
+
+//				mPredictions = predictionsList;
+
+				
 				msg = handler.obtainMessage();
 				msg.arg1 = 0;
+				msg.obj = "Done!";
 				handler.sendMessage(msg);
 
 			}
 		}).start();
-
-		// First, get an instance of the SensorManager
-		SensorManager sMan = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
-		// Second, get the sensor you're interested in
-		final Sensor magnetField = sMan.getDefaultSensor(Sensor.TYPE_ORIENTATION);
-
-		// Third, implement a SensorEventListener class
-		SensorEventListener magnetListener = new SensorEventListener() {
-
-			@Override
-			public void onSensorChanged(SensorEvent event)
-			{
-				// implement what you want to do here
-//				TextView txtLat = (TextView) findViewById(R.id.lat);
-//				txtLat.setText("event.values[0] - " + event.values[0]);
-
-			}
-
-			@Override
-			public void onAccuracyChanged(Sensor sensor, int accuracy)
-			{
-				// do things if you're interested in accuracy changes
-//				TextView txtLon = (TextView) findViewById(R.id.lon);
-//				txtLon.setText("compass: " + sensor.getClass().toString());
-			}
-		};
-
-		// Finally, register your listener
-		sMan.registerListener(magnetListener, magnetField, SensorManager.SENSOR_DELAY_NORMAL);
-
 	}
 
-	private void changeLoadingProgress(boolean isShowProgress)
+	private void changeLoadingProgress(boolean isShowProgress,Message msg )
 	{
 		View progressBarView = findViewById(R.id.progressBar1);
-		TextView txt = (TextView)findViewById(R.id.txtLoadMessages);
-//		View ButtonShowLinesView = findViewById(R.id.btnShowLines);
-//		View ButtonShowNearStationsView = findViewById(R.id.btnShowNearStations);
-//		View ButtonShowTabs = findViewById(R.id.btnShowTabs);
-
+		txtMessages.setText(msg.obj.toString());
 		if (isShowProgress == false)
 		{
 			progressBarView.setVisibility(View.INVISIBLE);
-			txt.setText("Done!");
-//			ButtonShowLinesView.setEnabled(true);
-//			ButtonShowNearStationsView.setEnabled(true);
-//			ButtonShowTabs.setEnabled(true);
 			onClick_showTabs(null);
 		} else
 		{
 			progressBarView.setVisibility(View.VISIBLE);
-			txt.setText("Loading initial data");
-//			ButtonShowLinesView.setEnabled(false);
-//			ButtonShowNearStationsView.setEnabled(false);
-//			ButtonShowTabs.setEnabled(false);
 			
 		}
 	}
-	//Old Main screen
-//	private void changeLoadingProgress(boolean isShowProgress)
-//	{
-//		View progressBarView = findViewById(R.id.pbLoading2);
-//		View ButtonShowLinesView = findViewById(R.id.btnShowLines);
-//		View ButtonShowNearStationsView = findViewById(R.id.btnShowNearStations);
-//		View ButtonShowTabs = findViewById(R.id.btnShowTabs);
-//
-//		if (isShowProgress == false)
-//		{
-//			progressBarView.setVisibility(View.INVISIBLE);
-//			ButtonShowLinesView.setEnabled(true);
-//			ButtonShowNearStationsView.setEnabled(true);
-//			ButtonShowTabs.setEnabled(true);
-//		} else
-//		{
-//			progressBarView.setVisibility(View.VISIBLE);
-//			ButtonShowLinesView.setEnabled(false);
-//			ButtonShowNearStationsView.setEnabled(false);
-//			ButtonShowTabs.setEnabled(false);
-//			onClick_showStatiosNearMe(null);
-//		}
-//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)

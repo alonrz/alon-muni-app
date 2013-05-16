@@ -47,8 +47,8 @@ public class TabsActivity extends LocationTrackerBaseFragmentActivity
 				Message msg = handler.obtainMessage();
 				msg.arg1 = 1;
 				handler.sendMessage(msg);
-				mDataManager = DataManager.getInstance(mContext);
-				mDataManager.initAllRoutesWithDetails();// ** Starts a thread!
+//				mDataManager = DataManager.getInstance(mContext);
+//				mDataManager.initAllRoutesWithDetails();// ** Starts a thread!
 				msg = handler.obtainMessage();
 				msg.arg1 = 0;
 				handler.sendMessage(msg);
