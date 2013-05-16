@@ -87,8 +87,7 @@ public class ListStops extends LocationTrackerBaseListActivity
 				invalidateOptionsMenu();
 				return true;
 			case android.R.id.home:
-				Toast.makeText(this, "teest", Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent(this, MainActivity.class);
+				Intent intent = new Intent(this, TabsActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				return true;

@@ -167,7 +167,8 @@ public class ListStopsNearMe extends LocationTrackerBaseListActivity
 		}
 		return true;
 	}
-DIRECTION mCurrentDirection = DIRECTION.Inbound;
+	
+	DIRECTION mCurrentDirection = DIRECTION.Inbound;
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
 

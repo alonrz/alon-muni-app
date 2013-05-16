@@ -1,11 +1,17 @@
 package com.alonapps.muniapp.datacontroller;
 
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Hashtable;
 import java.util.List;
 
+import com.alonapps.muniapp.GpsManager;
 import com.alonapps.muniapp.StopNotFoundException;
+import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
+import com.alonapps.muniapp.datacontroller.Predictions.Direction;
+import com.alonapps.muniapp.datacontroller.Predictions.Prediction;
 import com.alonapps.muniapp.datacontroller.Route.Stop;
 
 import android.content.Context;
@@ -15,16 +21,17 @@ import android.util.Log;
 
 public class DataManager
 {
-	private Context appContext;
 	private XmlParser mFetcher;
 	private static DataManager mManager = null;
-	private List<Route> mAllRoutesWithDirections = null;
+	private List<Route> mAllRoutesWithDirections;// = new ArrayList<Route>();
 	private List<Stop> mStopsNearLocation = null;
-	private List<Predictions> mPredictionsForStopsNearMe = null;
+	private List<Predictions> mPredictionsForStopsNearMeInbound = null;
+	private List<Predictions> mPredictionsForStopsNearMeOutbound = null;
 	private static Predictions mSelectedPrediction;
-	private String mLocationProviderName;
-//	private LocationManager mLocationManager;
-	private boolean mIsUserStillRunning;
+	private static FavoriteOpenHelper mFavoriteOpenHelper;
+
+	// private LocationManager mLocationManager;
+	// private boolean mIsUserStillRunning;
 
 	public enum DIRECTION {
 		Inbound, Outbound
@@ -43,6 +50,7 @@ public class DataManager
 		if (mManager == null)
 		{
 			mManager = new DataManager(applicationContext);
+			mFavoriteOpenHelper =  new FavoriteOpenHelper(applicationContext); //this will create the table.
 		}
 		return mManager;
 	}
@@ -57,6 +65,11 @@ public class DataManager
 		if (mSelectedPrediction == null)
 			mSelectedPrediction = new Predictions();
 		return mSelectedPrediction;
+	}
+	
+	public FavoriteOpenHelper getFavoriteOpenHelper()
+	{
+		return mFavoriteOpenHelper;
 	}
 
 	public List<Route> initAllRoutesWithDetails()
@@ -100,17 +113,28 @@ public class DataManager
 	 * 
 	 * @param mCurrentLocation
 	 *            Base location to measure from. Usually where the user is.
-	 * @param maxDistance
+	 * @param maxDistanceInMeters
 	 *            max radios to search for. uses meters.
 	 * @return
 	 */
-	public List<Stop> getStopsNearLocation(Location mCurrentLocation, float maxDistance)
+	public List<Stop> getStopsNearLocation(Location mCurrentLocation, float maxDistanceInMeters)
 	{
 		List<Route.Stop> closestStops = new ArrayList<Route.Stop>();
 		// temp location to hold locations to compare distance to. Lat and Lon
 		// will be changed each time
-		Location tempLocation = new Location(mCurrentLocation.getProvider());
+		Location tempLocation = null;
+		if (mCurrentLocation == null)
+		{
+			Log.i(this.getClass().toString(), "CurrentLocation var is null. using last known");
+			tempLocation = GpsManager.getInstance().getLastKnownLocation();
+		} else
+		{
+			tempLocation = new Location(mCurrentLocation.getProvider());
+		}
 
+		Log.i(this.getClass().getSimpleName(), "is tempLocation null? " + (tempLocation == null));
+		if(tempLocation == null)
+			return closestStops;
 		for (int i = 0; i < mAllRoutesWithDirections.size(); i++)
 		{
 			Route r = mAllRoutesWithDirections.get(i);
@@ -124,12 +148,17 @@ public class DataManager
 			for (int j = 0; j < tempStops.size(); j++)
 			{
 				Stop singleStop = tempStops.get(j);
+				if(singleStop == null)
+				{
+					Log.e(this.getClass().toString(), "No stop at loaction " + j + " for route " + r.getTag());
+					continue;
+				}
 				// singleStop.setDirection(r.set)
 				tempLocation.setLatitude(singleStop.getLat());
 				tempLocation.setLongitude(singleStop.getLon());
 				singleStop.setDistFromCurrentLocation(mCurrentLocation.distanceTo(tempLocation));
 				int distanceRounded = Math.round(singleStop.getDistFromCurrentLocation());
-				if (singleStop.getDistFromCurrentLocation() < maxDistance)
+				if (singleStop.getDistFromCurrentLocation() < maxDistanceInMeters)
 				{
 					if (closestStops.contains(singleStop) == false)
 					{
@@ -157,6 +186,77 @@ public class DataManager
 	}
 
 	/**
+	 * Returns all lines within range of distance in meter
+	 * 
+	 * @param mCurrentLocation
+	 *            give current location
+	 * @param maxDistanceInMeters
+	 *            use meters as radius to search
+	 * @return a list of Routes by <SimpleEntry<String, DIRECTION>, Stop Object>
+	 *         (ex: <<M,Inbound>, Stop). Never returns NULL.
+	 */
+	public Hashtable<SimpleEntry<String, DIRECTION>, Stop> getRoutesNearLocation(
+			Location mCurrentLocation, float maxDistanceInMeters)
+	{
+		Hashtable<SimpleEntry<String, DIRECTION>, Stop> routesPerStops = new Hashtable<SimpleEntry<String, DIRECTION>, Stop>();
+
+		// Check if no near stations were selected (this is done in
+		// getPredictionsByStopsAsync in main activity)
+		if (mPredictionsForStopsNearMeInbound == null || mPredictionsForStopsNearMeOutbound == null)
+			return routesPerStops;
+
+		List<Predictions> totalPreds = new ArrayList<Predictions>();
+		totalPreds.addAll(mPredictionsForStopsNearMeInbound);
+		totalPreds.addAll(mPredictionsForStopsNearMeOutbound);
+		
+		for (Predictions pred : totalPreds)
+		{
+			Stop stopObject = getStop(pred.getStopTag(), pred.getRouteTag());
+			String stopTag = pred.getStopTag();
+			Route r = this.getRoute(pred.getRouteTag());
+			DIRECTION dir = DIRECTION.Inbound;
+			int i = 0;
+
+			// *** below is logic to see if stop is inbound or outbound.
+			List<Stop> stopsPerDirection = r.getStopsPerDirection(DIRECTION.Inbound);
+			for (; i < stopsPerDirection.size(); i++)
+			{
+				if (stopsPerDirection.get(i).getStopTag().equalsIgnoreCase(stopObject.getStopTag()))
+				{
+					dir = DIRECTION.Inbound;
+				}
+			}
+			if (i == stopsPerDirection.size()) // chekc outbound if reached
+												// limit
+			{
+				stopsPerDirection = r.getStopsPerDirection(DIRECTION.Outbound);
+				for (i = 0; i < stopsPerDirection.size(); i++)
+				{
+					if (stopsPerDirection.get(i).getStopTag()
+							.equalsIgnoreCase(stopObject.getStopTag()))
+					{
+						dir = DIRECTION.Inbound;
+					}
+				}
+			}
+			// ** end of direction logic.
+
+			// Check if value exists
+			SimpleEntry<String, DIRECTION> newEntry = new SimpleEntry<String, DIRECTION>(
+					pred.getRouteTag(), dir);
+			if (routesPerStops.containsKey(newEntry) == false)
+				routesPerStops.put(new SimpleEntry<String, DIRECTION>(pred.getRouteTag(), dir),
+						stopObject);
+			// Check if it is the closest station
+			else if (((Stop) routesPerStops.get(newEntry)).getDistFromCurrentLocation() > stopObject
+					.getDistFromCurrentLocation())
+				routesPerStops.put(newEntry, stopObject);
+		}
+
+		return routesPerStops;
+	}
+
+	/**
 	 * Must be called after a list of all stops nearby has been located.
 	 * 
 	 * @param stops
@@ -179,10 +279,11 @@ public class DataManager
 	public Predictions getPredictionsByStopAndRoute(String stopID, String routeTag)
 	{
 		List<Predictions> preds = this.mFetcher.loadPredictions(stopID, routeTag);
-		
-		if(preds.size()>1)
-			Log.e(this.getClass().getName(), "More than one prediction returned for route+stop request");
-		
+
+		if (preds.size() > 1)
+			Log.e(this.getClass().getName(),
+					"More than one prediction returned for route+stop request");
+
 		if (preds.size() > 0)
 			return preds.get(0);
 		return null;
@@ -206,19 +307,25 @@ public class DataManager
 			return null;
 		}
 
-		if (mPredictionsForStopsNearMe == null || refreshData == true)
+		if (mPredictionsForStopsNearMeInbound == null || mPredictionsForStopsNearMeOutbound == null
+				|| refreshData == true)
 		{
-			mPredictionsForStopsNearMe = new ArrayList<Predictions>();
-			// Collect predicions for all stations near me.
-			// for (Route.Stop s : mStopsNearLocation)
-			// {
-			mPredictionsForStopsNearMe.addAll(getPredictionsByStops(this.mStopsNearLocation));
-			// }
+			mPredictionsForStopsNearMeInbound = new ArrayList<Predictions>();
+			mPredictionsForStopsNearMeOutbound = new ArrayList<Predictions>();
+
+			if (dir == DIRECTION.Inbound)
+				mPredictionsForStopsNearMeInbound
+						.addAll(getPredictionsByStops(this.mStopsNearLocation));
+			else
+				mPredictionsForStopsNearMeOutbound
+						.addAll(getPredictionsByStops(this.mStopsNearLocation));
+
 		}
 
 		// filter out directions
 		Predictions tempPred;
-		for (Predictions p : mPredictionsForStopsNearMe)
+		
+		for (Predictions p : ((dir == DIRECTION.Inbound)? mPredictionsForStopsNearMeInbound : mPredictionsForStopsNearMeOutbound))
 		{
 			// tempPred = new Predictions();
 			for (Predictions.Direction d : p.getAllDirections())
@@ -267,6 +374,25 @@ public class DataManager
 				+ " in neither direction");
 	}
 
+	/**
+	 * Returns a Stop object per route and stop tag
+	 * 
+	 * @param stopTag
+	 * @param routeTag
+	 * @return the stop object requests. Can return NULL if no stop found.
+	 */
+	public Stop getStop(String stopTag, String routeTag)
+	{
+		for (Route r : this.mAllRoutesWithDirections)
+		{
+			if (r.getTag().equalsIgnoreCase(routeTag))
+			{
+				return r.getStopByTag(stopTag);
+			}
+		}
+		return null;
+	}
+
 	public Location getStopLocation(String stopTag, String routeTag, String locationProvider)
 			throws StopNotFoundException
 	{
@@ -283,38 +409,50 @@ public class DataManager
 		}
 		throw new StopNotFoundException("Stop did not return from route " + routeTag
 				+ " in neither direction");
-
 	}
 
-//	public void setLocationProviderName(String strProviderName)
-//	{
-//		this.mLocationProviderName = strProviderName;
-//		
-//	}
-//	public String getLocationProviderName()
-//	{
-//		return this.mLocationProviderName;
-//		
-//	}
-
-//	public void setLocationManager(LocationManager mLocManager)
-//	{
-//		this.mLocationManager = mLocManager;
-//		
-//	}
-//	public LocationManager getLocationManager()
-//	{
-//		return this.mLocationManager;
-//		
-//	}
-
-	public boolean isUserStillRunning()
+	/**
+	 * returns the following stop to the route and stop and direction requested
+	 * 
+	 * @param routeTag
+	 * @param direction
+	 * @param baseStop
+	 * @return return next stop. If last stop it returns itself. can return null
+	 */
+	public Stop getNextStop(String routeTag, DIRECTION direction, Stop baseStop)
 	{
-		return this.mIsUserStillRunning;
+		Route requestedRoute = null;
+		for (Route r : this.mAllRoutesWithDirections)
+		{
+			// Find the correct route
+			if (r.getTag().equalsIgnoreCase(routeTag))
+			{
+				requestedRoute = r;
+				break;
+			}
+		}
+
+		// find the station in direction, then return the next one.
+		List<Stop> stops = requestedRoute.getStopsPerDirection(direction);
+		for (int i = 0; i < stops.size(); i++)
+		{
+			if (i == stops.size() - 1) // Last stop.
+				return stops.get(i);
+			if (stops.get(i).getStopTag().equalsIgnoreCase(baseStop.getStopTag()))
+				return stops.get(i + 1);
+		}
+
+		return null;
 	}
-	
-	public void setIsUserStillRunning(boolean isRunning)
-	{	
-		this.mIsUserStillRunning = isRunning;
-	}
+
+	// public boolean isUserStillRunning()
+	// {
+	// return this.mIsUserStillRunning;
+	// }
+	//
+	// public void setIsUserStillRunning(boolean isRunning)
+	// {
+	// this.mIsUserStillRunning = isRunning;
+	// }
+
 }

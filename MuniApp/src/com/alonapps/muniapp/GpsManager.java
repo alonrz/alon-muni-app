@@ -62,6 +62,7 @@ public class GpsManager
 			}
 
 		};
+
 	}
 
 	public void startListening(final Activity activity)
@@ -94,6 +95,11 @@ public class GpsManager
 						GpsManager.gpsMinDistance, locationListener);
 			}
 		}
+		mLastKnownLocation = this.locationManager.getLastKnownLocation(bestProvider);
+		if (mLastKnownLocation == null)
+			Log.e(this.getClass().getSimpleName(), "getLastKnownLocation returned null (provider="
+					+ bestProvider + ")");
+
 	}
 
 	public void stopListening()
@@ -105,7 +111,7 @@ public class GpsManager
 				locationManager.removeUpdates(locationListener);
 			}
 
-			locationManager = null;
+			// locationManager = null;
 		} catch (final Exception ex)
 		{
 			Log.e(this.getClass().toString(), "Error removing location listener");
@@ -124,6 +130,11 @@ public class GpsManager
 
 	public Location getLastKnownLocation()
 	{
+		if (this.mLastKnownLocation == null)
+		{
+			Log.i(this.getClass().getSimpleName(), "Location is null. Adding manual location");
+			this.mLastKnownLocation = new Location(this.mBestProviderName) {{setLatitude(37.7230); setLongitude(-122.4842);}};
+		}
 		return this.mLastKnownLocation;
 	}
 

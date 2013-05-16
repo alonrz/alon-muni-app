@@ -20,11 +20,19 @@ public class Predictions
 		return mAgencyTitle;
 	}
 
+	/**
+	 * example: routeTag="M"
+	 * @return example "M"
+	 */
 	public String getRouteTag()
 	{
 		return mRouteTag;
 	}
 
+	/**
+	 * example: stopTitle="West Portal Station"
+	 * @return example "West Portal Station" 
+	 */
 	public String getRouteTitle()
 	{
 		return mRouteTitle;
@@ -146,8 +154,8 @@ public class Predictions
 		private boolean mIsDeparture;
 		private String mDirTag;
 		private int mVehicleNumber;
-		private int mBlock;
-		private int mTripTag;
+		private String mBlock;//String as defined in manual
+		private String mTripTag;//String as defined in manual
 		private boolean mAffectedByLayover;
 		private boolean mIsScheduleBased;
 		private boolean mDelayed;
@@ -190,12 +198,13 @@ public class Predictions
 			return mVehicleNumber;
 		}
 
-		public int getBlock()
+		//Usually a number but can be MUNSCHED sometimes. 
+		public String getBlock()
 		{
 			return mBlock;
 		}
 
-		public int getTripTag()
+		public String getTripTag()
 		{
 			return mTripTag;
 		}
@@ -245,12 +254,12 @@ public class Predictions
 			this.mVehicleNumber = vehicleNumber;
 		}
 
-		public void setBlock(int block)
+		public void setBlock(String block)
 		{
 			this.mBlock = block;
 		}
 
-		public void setTripTag(int tripTag)
+		public void setTripTag(String tripTag)
 		{
 			this.mTripTag = tripTag;
 		}

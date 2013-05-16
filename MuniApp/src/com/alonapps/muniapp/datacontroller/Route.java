@@ -4,10 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
 
 public class Route
 {
+	public static final Parcelable.Creator<Stop> CREATOR = new Parcelable.Creator<Stop>() {
+		public Stop createFromParcel(Parcel in)
+		{
+			return new Route().new Stop(in);
+		}
+
+		public Stop[] newArray(int size)
+		{
+			return new Stop[size];
+		}
+	};
+
+	
 	private String mTag;
 	private String mTitle;
 	private String mInboundName;
@@ -43,7 +59,7 @@ public class Route
 	{
 		return this.mColor;
 	}
-	
+
 	public int getOppColor()
 	{
 		return this.mOppColor;
@@ -94,7 +110,7 @@ public class Route
 	{
 		this.mColor = c;
 	}
-	
+
 	public void setOppColor(int c)
 	{
 		this.mOppColor = c;
@@ -145,7 +161,7 @@ public class Route
 	 */
 	public List<Stop> getStopsPerDirection(DIRECTION direction)
 	{
-	List<Stop> stops = null;
+		List<Stop> stops = null;
 		for (Direction dir : mDirections)
 		{
 			if (dir.getDirection() == direction)
@@ -163,7 +179,7 @@ public class Route
 	{
 		return mStops;
 	}
-	
+
 	private List<Stop> MatchTagsToStops(String[] stopsTags)
 	{
 		List<Stop> stops = new ArrayList<Stop>();
@@ -196,7 +212,7 @@ public class Route
 
 		return null;
 	}
-	
+
 	@Override
 	public String toString()
 	{
@@ -205,39 +221,51 @@ public class Route
 
 	public boolean isStopTagInDirection(DIRECTION dirRequested, String stopTag)
 	{
-		for(Direction d: mDirections)
+		for (Direction d : mDirections)
 		{
-			if(d.getDirection() == dirRequested)
+			if (d.getDirection() == dirRequested)
 			{
 				return d.mStopsByTags.contains(stopTag);
 			}
 		}
 		return false;
 	}
-	
-	
+
 	/**** class STOP - describes a stop ***/
-	public class Stop implements Comparable<Stop>	{
+	public class Stop implements Comparable<Stop>, Parcelable
+	{
 		// data fields
-		private String mTag;//Can have non numeric char. Must be able to handle
+		private String mTag;// Can have non numeric char. Must be able to handle
 		private String mStopID;
 		private String mTitle;
 		private double mLat, mLon;
 		private float mDistFromCurrentLocation;
+		private boolean isInbound;
 
 		// ctor
-		public Stop(String Tag, String StopID, String Title, double Lat, double Lon)
+		public Stop(String Tag, String StopID, String Title, double Lat, double Lon, boolean isInbound)
 		{
 			this.mTag = Tag;
 			this.mStopID = StopID;
 			this.mTitle = Title;
 			this.mLat = Lat;
 			this.mLon = Lon;
+			this.isInbound = isInbound;
+		}
+		public Stop(Parcel p)
+		{
+			mTag = p.readString();
+			mStopID = p.readString();
+			mTitle = p.readString();
+			mLat= p.readDouble();
+			mLon = p.readDouble();
+			mDistFromCurrentLocation = p.readFloat();
+			isInbound = p.readByte() == 1;
 		}
 
 		public Stop()
 		{
-			this("0", "", "", 0.0, 0.0);
+			this("0", "", "", 0.0, 0.0, true);
 		}
 
 		// getters
@@ -265,10 +293,14 @@ public class Route
 		{
 			return mLon;
 		}
-		
+
 		public float getDistFromCurrentLocation()
 		{
 			return this.mDistFromCurrentLocation;
+		}
+		public boolean IsInbound()
+		{
+			return this.isInbound;
 		}
 
 		// setters
@@ -296,12 +328,16 @@ public class Route
 		{
 			this.mLon = lon;
 		}
-		
+
 		public void setDistFromCurrentLocation(float dist)
 		{
-			 this.mDistFromCurrentLocation = dist;
+			this.mDistFromCurrentLocation = dist;
 		}
-		
+		public void setIsInbound(boolean isInbound)
+		{
+			this.isInbound = isInbound;
+		}
+
 		@Override
 		public String toString()
 		{
@@ -311,10 +347,10 @@ public class Route
 		@Override
 		public boolean equals(Object o)
 		{
-			if(o.getClass() != this.getClass())
+			if (o.getClass() != this.getClass())
 				return false;
-			Stop stop = (Stop)o;
-			
+			Stop stop = (Stop) o;
+
 			return this.getStopID().equals(stop.getStopID());
 		}
 
@@ -327,12 +363,29 @@ public class Route
 		@Override
 		public int compareTo(Stop s)
 		{
-			
+
 			return this.getStopID().compareTo(s.getStopID());
 		}
-		
-	
 
+		@Override
+		public int describeContents()
+		{
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		
+		@Override
+		public void writeToParcel(Parcel dest, int flags)
+		{
+			dest.writeString(mTag);
+			dest.writeString(mStopID);
+			dest.writeString(mTitle);
+			dest.writeDouble(mLat);
+			dest.writeDouble(mLon);
+			dest.writeFloat(mDistFromCurrentLocation);
+			dest.writeByte((byte)(this.isInbound?1:0));
+		}
 	}
 
 	/**** class DIRECTION - describes a direction with stops ordered and with tags ***/
@@ -406,6 +459,5 @@ public class Route
 		}
 
 	}
-
 
 }

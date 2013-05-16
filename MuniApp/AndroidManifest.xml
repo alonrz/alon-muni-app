@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="17"
+        android:minSdkVersion="16"
         android:targetSdkVersion="17" />
 
     <uses-feature
@@ -24,19 +24,17 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-
+<!-- android:theme="@style/Theme.PageIndicatorDefaults" -->
     <application
         android:allowBackup="true"
         android:icon="@drawable/arrows2"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:label="@string/app_name" >
         <activity
             android:name="com.alonapps.muniapp.ui.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -68,17 +66,19 @@
             android:name="com.alonapps.muniapp.ui.ShowSingleStop"
             android:label="@string/title_activity_show_single_stop"
             android:screenOrientation="portrait"
-            android:theme="@style/DarkText" >
+            
+             >
         </activity>
         <activity
-            android:name="com.alonapps.muniapp.ui.TestTabs"
+            android:name="com.alonapps.muniapp.ui.TabsActivity"
             android:label="@string/title_activity_test_tabs"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.PageIndicatorDefaults" >
+             >
         </activity>
         <activity
-            android:name="com.alonapps.muniapp.CompassUtility"
-            android:label="@string/title_activity_compass_utility" >
+            android:name="com.alonapps.muniapp.ui.CompassActivity"
+            android:label="@string/title_activity_compass" 
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

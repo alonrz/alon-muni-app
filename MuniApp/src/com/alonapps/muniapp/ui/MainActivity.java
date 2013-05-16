@@ -46,7 +46,7 @@ public class MainActivity extends LocationTrackerBaseActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_splash_screen);
 
 		// This will init the large data object for quicker loading.
 		mDataManager = DataManager.getInstance(this);
@@ -80,8 +80,8 @@ public class MainActivity extends LocationTrackerBaseActivity
 			public void onSensorChanged(SensorEvent event)
 			{
 				// implement what you want to do here
-				TextView txtLat = (TextView) findViewById(R.id.lat);
-				txtLat.setText("event.values[0] - " + event.values[0]);
+//				TextView txtLat = (TextView) findViewById(R.id.lat);
+//				txtLat.setText("event.values[0] - " + event.values[0]);
 
 			}
 
@@ -89,9 +89,8 @@ public class MainActivity extends LocationTrackerBaseActivity
 			public void onAccuracyChanged(Sensor sensor, int accuracy)
 			{
 				// do things if you're interested in accuracy changes
-				TextView txtLon = (TextView) findViewById(R.id.lon);
-				txtLon.setText("compass: " + sensor.getClass().toString());
-
+//				TextView txtLon = (TextView) findViewById(R.id.lon);
+//				txtLon.setText("compass: " + sensor.getClass().toString());
 			}
 		};
 
@@ -100,40 +99,55 @@ public class MainActivity extends LocationTrackerBaseActivity
 
 	}
 
-	// ProgressDialog dialog;
 	private void changeLoadingProgress(boolean isShowProgress)
 	{
-		// if (dialog == null)
-		// {
-		// dialog = new ProgressDialog(this);
-		// dialog.setCancelable(false);
-		//
-		// }
+		View progressBarView = findViewById(R.id.progressBar1);
+		TextView txt = (TextView)findViewById(R.id.txtLoadMessages);
+//		View ButtonShowLinesView = findViewById(R.id.btnShowLines);
+//		View ButtonShowNearStationsView = findViewById(R.id.btnShowNearStations);
+//		View ButtonShowTabs = findViewById(R.id.btnShowTabs);
 
-		View progressBarView = findViewById(R.id.pbLoading2);
-		View ButtonShowLinesView = findViewById(R.id.btnShowLines);
-		View ButtonShowNearStationsView = findViewById(R.id.btnShowNearStations);
-		View ButtonShowTabs = findViewById(R.id.btnShowTabs);
-
-		// ProgressBar pb = (ProgressBar)v;
 		if (isShowProgress == false)
 		{
-
-			// pb.setVisibility(ProgressBar.INVISIBLE);
 			progressBarView.setVisibility(View.INVISIBLE);
-			ButtonShowLinesView.setEnabled(true);
-			ButtonShowNearStationsView.setEnabled(true);
-			ButtonShowTabs.setEnabled(true);
+			txt.setText("Done!");
+//			ButtonShowLinesView.setEnabled(true);
+//			ButtonShowNearStationsView.setEnabled(true);
+//			ButtonShowTabs.setEnabled(true);
+			onClick_showTabs(null);
 		} else
 		{
-
-			// pb.setVisibility(ProgressBar.VISIBLE);
 			progressBarView.setVisibility(View.VISIBLE);
-			ButtonShowLinesView.setEnabled(false);
-			ButtonShowNearStationsView.setEnabled(false);
-			ButtonShowTabs.setEnabled(false);
+			txt.setText("Loading initial data");
+//			ButtonShowLinesView.setEnabled(false);
+//			ButtonShowNearStationsView.setEnabled(false);
+//			ButtonShowTabs.setEnabled(false);
+			
 		}
 	}
+	//Old Main screen
+//	private void changeLoadingProgress(boolean isShowProgress)
+//	{
+//		View progressBarView = findViewById(R.id.pbLoading2);
+//		View ButtonShowLinesView = findViewById(R.id.btnShowLines);
+//		View ButtonShowNearStationsView = findViewById(R.id.btnShowNearStations);
+//		View ButtonShowTabs = findViewById(R.id.btnShowTabs);
+//
+//		if (isShowProgress == false)
+//		{
+//			progressBarView.setVisibility(View.INVISIBLE);
+//			ButtonShowLinesView.setEnabled(true);
+//			ButtonShowNearStationsView.setEnabled(true);
+//			ButtonShowTabs.setEnabled(true);
+//		} else
+//		{
+//			progressBarView.setVisibility(View.VISIBLE);
+//			ButtonShowLinesView.setEnabled(false);
+//			ButtonShowNearStationsView.setEnabled(false);
+//			ButtonShowTabs.setEnabled(false);
+//			onClick_showStatiosNearMe(null);
+//		}
+//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
@@ -146,7 +160,6 @@ public class MainActivity extends LocationTrackerBaseActivity
 
 	public void onClick_showLines(View v)
 	{
-
 		Intent intent = new Intent(this, ListRoutes.class);
 		startActivity(intent);
 	}
@@ -155,8 +168,6 @@ public class MainActivity extends LocationTrackerBaseActivity
 	{
 		Intent intent = new Intent(this, ShowMap.class);
 		startActivity(intent);
-		// Location location = mLocManager.getLastKnownLocation(mLocManager
-		// .getBestProvider(mycrit, true));
 	}
 
 	public void onClick_showStatiosNearMe(View v)
@@ -178,9 +189,17 @@ public class MainActivity extends LocationTrackerBaseActivity
 	
 	public void onClick_showTabs(View v)
 	{
-		//Intent intent = new Intent(this, ListStopsNearMe2.class);
-		Intent intent = new Intent(this, TestTabs.class);
+		Intent intent = new Intent(this, TabsActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
+	}
+
+	@Override
+	protected void onStop()
+	{
+		// this will delete this activity from the stack.
+		super.onStop();
+		this.finish();
 	}
 
 }

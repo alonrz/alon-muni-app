@@ -357,8 +357,8 @@ public class XmlParser
 			singlePred.setDirTag(parser.getAttributeValue(null, "dirTag"));
 			singlePred
 					.setVehicleNumber(Integer.parseInt(parser.getAttributeValue(null, "vehicle")));
-			singlePred.setBlock(Integer.parseInt(parser.getAttributeValue(null, "block")));
-			singlePred.setTripTag(Integer.parseInt(parser.getAttributeValue(null, "tripTag")));
+			singlePred.setBlock(parser.getAttributeValue(null, "block"));
+			singlePred.setTripTag(parser.getAttributeValue(null, "tripTag"));
 			String strAffectedByLayover = parser.getAttributeValue(null, "affectedByLayover");
 			if (strAffectedByLayover != null)
 				singlePred.setIsAffectedByLayover(Boolean.parseBoolean(strAffectedByLayover));
@@ -368,7 +368,7 @@ public class XmlParser
 
 		} catch (Exception e)
 		{
-			Log.e("Error with XmlPullParser [readSinglePrediction]", e.getMessage());
+			Log.e("Error with XmlPullParser [readSinglePrediction]", e.getMessage() + ".Object: " + singlePred);
 
 		}
 		return singlePred;
