@@ -47,11 +47,8 @@ public class DataManager
 		if (mManager == null)
 		{
 			mManager = new DataManager(applicationContext);
-			mFavoriteOpenHelper = new FavoriteOpenHelper(applicationContext); // this
-																				// will
-																				// create
-																				// the
-																				// table.
+			// this will create the table.
+			mFavoriteOpenHelper = new FavoriteOpenHelper(applicationContext); 
 		}
 		return mManager;
 	}

@@ -483,21 +483,22 @@ containing a value of this type.
         public static final int custom_tab_indicator_unselected_focused=0x7f02000d;
         public static final int custom_tab_indicator_unselected_pressed=0x7f02000e;
         public static final int ic_launcher=0x7f02000f;
-        public static final int location_pin_red=0x7f020010;
-        public static final int splash_background=0x7f020011;
-        public static final int square_line_number=0x7f020012;
-        public static final int square_round_corner4=0x7f020013;
-        public static final int square_round_corner5=0x7f020014;
-        public static final int square_round_corners=0x7f020015;
-        public static final int vpi__tab_indicator=0x7f020016;
-        public static final int vpi__tab_selected_focused_holo=0x7f020017;
-        public static final int vpi__tab_selected_holo=0x7f020018;
-        public static final int vpi__tab_selected_pressed_holo=0x7f020019;
-        public static final int vpi__tab_unselected_focused_holo=0x7f02001a;
-        public static final int vpi__tab_unselected_holo=0x7f02001b;
-        public static final int vpi__tab_unselected_pressed_holo=0x7f02001c;
-        public static final int walking_icon_hi=0x7f02001d;
-        public static final int warning_icon=0x7f02001e;
+        public static final int inbound_outbound=0x7f020010;
+        public static final int location_pin_red=0x7f020011;
+        public static final int splash_background=0x7f020012;
+        public static final int square_line_number=0x7f020013;
+        public static final int square_round_corner4=0x7f020014;
+        public static final int square_round_corner5=0x7f020015;
+        public static final int square_round_corners=0x7f020016;
+        public static final int vpi__tab_indicator=0x7f020017;
+        public static final int vpi__tab_selected_focused_holo=0x7f020018;
+        public static final int vpi__tab_selected_holo=0x7f020019;
+        public static final int vpi__tab_selected_pressed_holo=0x7f02001a;
+        public static final int vpi__tab_unselected_focused_holo=0x7f02001b;
+        public static final int vpi__tab_unselected_holo=0x7f02001c;
+        public static final int vpi__tab_unselected_pressed_holo=0x7f02001d;
+        public static final int walking_icon_hi=0x7f02001e;
+        public static final int warning_icon=0x7f02001f;
     }
     public static final class id {
         public static final int action_inbound=0x7f04002b;

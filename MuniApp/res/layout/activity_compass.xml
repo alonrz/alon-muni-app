@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Point your device in the direction you want to go and find if you need inbound or outbound"
+        android:gravity="center"
+        android:textSize="20sp"/>
+    
+     <ImageView android:src="@drawable/inbound_outbound"
+        android:id="@+id/compassArrow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/> 
+    
+    <com.alonapps.muniapp.ui.CompassView
+        android:id="@+id/compassView"
+        android:layout_width="fill_parent"
+        android:layout_height="120dp"
+        android:visibility="invisible"/>
+        
+</LinearLayout>

@@ -32,6 +32,7 @@ public class TabsActivity extends LocationTrackerBaseFragmentActivity
 	private final Handler handler = new UIHandler(); // on UI thread!
 	DataManager mDataManager;
 	Context mContext;
+	int value = 0;
 	
 	@Override 
 	protected void onCreate(Bundle savedInstanceState)
@@ -44,13 +45,11 @@ public class TabsActivity extends LocationTrackerBaseFragmentActivity
 			@Override
 			public void run()
 			{
-				Message msg = handler.obtainMessage();
-				msg.arg1 = 1;
-				handler.sendMessage(msg);
+				Message msg;
 //				mDataManager = DataManager.getInstance(mContext);
 //				mDataManager.initAllRoutesWithDetails();// ** Starts a thread!
 				msg = handler.obtainMessage();
-				msg.arg1 = 0;
+				msg.arg1 = value++;
 				handler.sendMessage(msg);
 //				SQLiteDatabase dbFav = DataManager.getInstance(mContext).getFavoriteOpenHelper().getWritableDatabase();
 //				ContentValues values = new ContentValues();
@@ -86,13 +85,7 @@ public class TabsActivity extends LocationTrackerBaseFragmentActivity
 	{
 		public void handleMessage(Message msg)
 		{
-			if(msg.arg1 == 1 )
-			{
-				Toast.makeText(mContext, "WAITING for initAllRoutesWithDetails", Toast.LENGTH_SHORT).show();
-				return;
-			}
-			
-			Toast.makeText(mContext, "initAllRoutesWithDetails is done", Toast.LENGTH_SHORT).show();
+			Toast.makeText(mContext, String.valueOf(msg.arg1), Toast.LENGTH_SHORT).show();
 			
 			setContentView(R.layout.activity_tabs_pager);
 			
