@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.alonapps.muniapp.ConversionHelper;
 import com.alonapps.muniapp.R;
+import com.alonapps.muniapp.datacontroller.DataHelper;
 import com.alonapps.muniapp.datacontroller.DataManager;
 import com.alonapps.muniapp.datacontroller.FavoriteOpenHelper;
 import com.alonapps.muniapp.datacontroller.Predictions;
@@ -15,6 +16,7 @@ import com.alonapps.muniapp.datacontroller.Predictions.Direction;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.drm.DrmStore.Action;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.location.Location;
@@ -40,8 +42,6 @@ import android.widget.Toast;
 
 public class ListStopsNearMeFragment extends ListFragment
 {
-	private Location mCurrentLocation;
-
 	List<Route.Stop> mStopList = null;
 	private List<Predictions> mPredictions = null;
 	private boolean showInboundSelected = true;
@@ -65,27 +65,21 @@ public class ListStopsNearMeFragment extends ListFragment
 		setHasOptionsMenu(true); // add menus - create call to
 									// onCreateOptionsMenu
 
-		// Bundle bundle = getArguments();
-		if (mPredictions == null || mPredictions.size() == 0)
-		{
-			Toast.makeText(mContext, "ListStopsNearMeFragment: mPredictions == null", Toast.LENGTH_LONG).show();
-			Log.e(this.getClass().getSimpleName(), "ListStopsNearMeFragment: mPredictions == null");
-			// Good place to enter error message for user
-		}
-		else if(mPredictions.size() == 0)
-		{
-			Toast.makeText(mContext, "ListStopsNearMeFragment: mPredictions.size == 0", Toast.LENGTH_LONG).show();
-		}
-
 		getActivity().setTitle(DIRECTION.Inbound.name());
+		loadNewPredictionsASync(DIRECTION.Inbound, false);
+	}
+
+	private void loadNewPredictionsASync(final DIRECTION dir, final boolean refresh)
+	{
 		new Thread(new Runnable() {
 			// Do network access point here
 			@Override
 			public void run()
 			{
 				mStopList = DataManager.getInstance(mContext).getRecentStopsNearLocation();
-				mPredictions = DataManager.getInstance(mContext).getPredictionsByStopsAsync(DIRECTION.Inbound, false);
-				
+				mPredictions = DataManager.getInstance(mContext).getPredictionsByStopsAsync(dir,
+						refresh);
+
 				// mCurrentLocation, mMaxDistanceInMeters);
 				// Log.i("ListStationsNearMe",
 				// String.valueOf("mStopList.size(): " + mStopList.size()));
@@ -93,25 +87,62 @@ public class ListStopsNearMeFragment extends ListFragment
 				// DataManager.getInstance(mContext)
 				// .getPredictionsByStopsAsync(DIRECTION.Inbound, false);
 
+				// Remove non active
+				DataHelper.RemoveNonActive(mPredictions);
+				// Remove extra stations which are far away
+				DataHelper.RemoveAllButTwoClosestStations(mPredictions);
+
 				Message msg = handler.obtainMessage();
 				msg.obj = mPredictions;
+				if(refresh == true)
+					msg.arg1 = 1;
 				handler.sendMessage(msg);
 			}
 		}).start();
 	}
+
+	MenuItem mnuinbound, mnuoutbound;
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
 	{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		inflater.inflate(R.menu.list_stops, menu);
+		mnuinbound = menu.findItem(R.id.action_inbound);
+		mnuoutbound = menu.findItem(R.id.action_outbound);
 
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		// TODO add menu actions
+		switch (item.getItemId())
+		{
+			case R.id.action_refresh:
+				loadNewPredictionsASync((showInboundSelected) ? DIRECTION.Inbound
+						: DIRECTION.Outbound, true);
+				break;
+			case R.id.action_inbound:
+				showInboundSelected = true;
+				mnuinbound.setVisible(false);
+				mnuinbound.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+				mnuoutbound.setVisible(true);
+				mnuoutbound.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+				loadNewPredictionsASync(DIRECTION.Inbound, true);
+				getActivity().setTitle(DIRECTION.Inbound.toString());
+				break;
+			case R.id.action_outbound:
+				showInboundSelected = false;
+				mnuinbound.setVisible(true);
+				mnuinbound.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+				mnuoutbound.setVisible(false);
+				mnuoutbound.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+
+				loadNewPredictionsASync(DIRECTION.Outbound, true);
+				getActivity().setTitle(DIRECTION.Outbound.toString());
+				break;
+		}
 		return true;
 	}
 
@@ -144,10 +175,10 @@ public class ListStopsNearMeFragment extends ListFragment
 		getListView().setDividerHeight(0);
 	}
 
-	
 	private class MyCustomAdapter extends BaseAdapter
 	{
 		List<Predictions> innerPredictions = null;
+
 		public MyCustomAdapter(List<Predictions> listPredictions)
 		{
 			super();
@@ -169,8 +200,11 @@ public class ListStopsNearMeFragment extends ListFragment
 			Predictions tempPred = mPredictions.get(position);
 			convertView = mInflater.inflate(R.layout.predictions_single_item, null);
 			if (tempPred.getDirTitleBecauseNoPredictions() != null)
-				convertView.setVisibility(View.GONE);
-
+			{
+				// convertView.setVisibility(View.GONE);
+				Log.e(this.getClass().getSimpleName(), "getDirTitleBecauseNoPredictions = "
+						+ tempPred.getDirTitleBecauseNoPredictions());
+			}
 			CheckBox star = (CheckBox) convertView.findViewById(R.id.star);
 			star.setOnClickListener(startListenFav);
 
@@ -307,18 +341,18 @@ public class ListStopsNearMeFragment extends ListFragment
 									+ ((CheckBox) view).isChecked(), Toast.LENGTH_SHORT).show();
 				} else
 				{
-					dbFav.delete(FavoriteOpenHelper.FAVORITES_TABLE_NAME, FavoriteOpenHelper.KEY_ROUTE_ID + "=? AND " + FavoriteOpenHelper.KEY_STOP_ID + "=?", 
-							new String[] {stopId.getText().toString(), routeTag.getText().toString(), } );
+					dbFav.delete(FavoriteOpenHelper.FAVORITES_TABLE_NAME,
+							FavoriteOpenHelper.KEY_ROUTE_ID + "=? AND "
+									+ FavoriteOpenHelper.KEY_STOP_ID + "=?", new String[] {
+									stopId.getText().toString(), routeTag.getText().toString(), });
 					Toast.makeText(
 							getActivity(),
-							"DELETE: stopid: " + stopId.getText() + ", routetag: " + routeTag.getText()
-									+ ", is checked: " + ((CheckBox) view).isChecked(),
-							Toast.LENGTH_SHORT).show();
+							"DELETE: stopid: " + stopId.getText() + ", routetag: "
+									+ routeTag.getText() + ", is checked: "
+									+ ((CheckBox) view).isChecked(), Toast.LENGTH_SHORT).show();
 				}
 
 				dbFav.close();
-
-				
 
 			}
 		};
@@ -351,13 +385,15 @@ public class ListStopsNearMeFragment extends ListFragment
 			/**
 			 * Retrieve the contents of the message and then update the UI
 			 */
-			// make UI changes 
+			// make UI changes
 			List<Predictions> predictionsList = (List<Predictions>) msg.obj;
 
 			MyCustomAdapter arrAdapter = new MyCustomAdapter(predictionsList);
 
 			setListAdapter(arrAdapter);
 			arrAdapter.notifyDataSetChanged();
+			if(msg.arg1 == 1 )//1 means it has been refreshed. 
+				Toast.makeText(mContext, "FRESH DATA in view!", Toast.LENGTH_SHORT).show();
 		}
 	};
 }

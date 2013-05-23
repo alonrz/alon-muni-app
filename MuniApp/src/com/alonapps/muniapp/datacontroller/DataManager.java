@@ -313,7 +313,7 @@ public class DataManager
 			predictionsInDirection = getLatestPredictions(dir);
 			if(predictionsInDirection != null && predictionsInDirection.size() > 0)
 			{
-				Log.e(this.getClass().getSimpleName(), "preditioncs returned not null, size= "+ predictionsInDirection.size());
+				Log.e(this.getClass().getSimpleName(), "preditioncs returned with results, size= "+ predictionsInDirection.size());
 			
 				return predictionsInDirection;
 			}

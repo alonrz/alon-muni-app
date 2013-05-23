@@ -47,14 +47,15 @@ public class CompassSelectionFragment extends ListFragment
 		super.onCreate(savedInstanceState);
 		mContext = getActivity();
 
-//		Bundle bundle = getArguments();
-//		if (bundle == null)
-//		{
-//			Toast.makeText(mContext, "Error: No location info found", Toast.LENGTH_LONG).show();
-//			return;
-//			// Good place to enter error message for user
-//		}
-//		mCurrentLocation = (Location) bundle.getParcelable("location");
+		// Bundle bundle = getArguments();
+		// if (bundle == null)
+		// {
+		// Toast.makeText(mContext, "Error: No location info found",
+		// Toast.LENGTH_LONG).show();
+		// return;
+		// // Good place to enter error message for user
+		// }
+		// mCurrentLocation = (Location) bundle.getParcelable("location");
 		mCurrentLocation = GpsManager.getInstance().getLastKnownLocation();
 		Log.i(this.getClass().toString(), "mCurrentLocation == null: " + (mCurrentLocation == null));
 		getActivity().setTitle(DIRECTION.Inbound.name());
@@ -102,15 +103,15 @@ public class CompassSelectionFragment extends ListFragment
 						nearestStop);
 
 				Intent intent = new Intent(mContext, CompassActivity.class);
-
-				intent.putExtra("inbound", nextStopInbound);
-				intent.putExtra("outbound", nextStopOutbound);
+				intent.putExtra("inbound-lat", nextStopInbound.getLat());
+				intent.putExtra("inbound-lon", nextStopInbound.getLon());
+				intent.putExtra("outbound-lat", nextStopOutbound.getLat());
+				intent.putExtra("outbound-lon", nextStopOutbound.getLon());
 				startActivity(intent);
 				break;
 			}
 		}
-		Toast.makeText(getActivity(), listView.getItemAtPosition(position).toString(),
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(getActivity(), routeTitle, Toast.LENGTH_SHORT).show();
 	}
 
 	final class UIHandler extends Handler

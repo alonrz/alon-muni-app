@@ -67,13 +67,12 @@ public class TabsActivity extends LocationTrackerBaseFragmentActivity
 //		}).start();
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		Toast.makeText(this, "Item selected " + item.getTitle(), Toast.LENGTH_SHORT).show();
-		return super.onOptionsItemSelected(item);
-	}
-	
+//	@Override
+//	public boolean onOptionsItemSelected(MenuItem item)
+//	{
+//		Toast.makeText(this, "Item selected " + item.getTitle(), Toast.LENGTH_SHORT).show();
+//		return super.onOptionsItemSelected(item);
+//	}
 	
 //	/** inner class UIHandler **/
 //	private final class UIHandler extends Handler

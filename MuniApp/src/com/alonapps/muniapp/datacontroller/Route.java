@@ -234,6 +234,7 @@ public class Route
 	/**** class STOP - describes a stop ***/
 	public class Stop implements Comparable<Stop>, Parcelable
 	{
+		
 		// data fields
 		private String mTag;// Can have non numeric char. Must be able to handle
 		private String mStopID;
