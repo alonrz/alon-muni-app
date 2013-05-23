@@ -30,7 +30,6 @@ import android.widget.Toast;
 public class TabsActivity extends LocationTrackerBaseFragmentActivity
 {
 	/** members **/
-//	private final Handler handler = new UIHandler(); // on UI thread!
 	DataManager mDataManager;
 	Context mContext;
 	int value = 0;
@@ -52,48 +51,5 @@ public class TabsActivity extends LocationTrackerBaseFragmentActivity
 		
 		TitlePageIndicator indicator =(TitlePageIndicator) findViewById(R.id.indicator);
 		indicator.setViewPager(pager);
-		
-//		new Thread(new Runnable() {
-//
-//			@Override
-//			public void run()
-//			{
-//				Message msg = handler.obtainMessage();
-//				msg.arg1 = value++;
-//				handler.sendMessage(msg);
-//				
-//				
-//			}
-//		}).start();
 	}
-
-//	@Override
-//	public boolean onOptionsItemSelected(MenuItem item)
-//	{
-//		Toast.makeText(this, "Item selected " + item.getTitle(), Toast.LENGTH_SHORT).show();
-//		return super.onOptionsItemSelected(item);
-//	}
-	
-//	/** inner class UIHandler **/
-//	private final class UIHandler extends Handler
-//	{
-//		public void handleMessage(Message msg)
-//		{
-//			//Toast.makeText(mContext, String.valueOf(msg.arg1), Toast.LENGTH_SHORT).show();
-//			
-////			setContentView(R.layout.activity_tabs_pager);
-////			
-////			
-////			FragmentManager fragManager =getSupportFragmentManager();
-////			FragmentPagerAdapter tabAdater = new TabAdapter(fragManager, mContext);
-////			
-////			ViewPager pager = (ViewPager)findViewById(R.id.pager);
-////			pager.setAdapter(tabAdater);
-////			
-////			
-////			TitlePageIndicator indicator =(TitlePageIndicator) findViewById(R.id.indicator);
-////			indicator.setViewPager(pager);
-//		}
-//	};
-
 }
