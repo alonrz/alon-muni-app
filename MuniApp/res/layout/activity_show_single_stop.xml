@@ -4,10 +4,11 @@
     android:layout_height="fill_parent" >
 
     <LinearLayout
+        android:id="@+id/single_activity_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".ShowSingleStop" >
+        tools:context=".ShowSingleStop"  >
 
         <include layout="@layout/predictions_single_item" />
 
@@ -15,9 +16,15 @@
             android:id="@+id/list_messages"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/square_round_corners" >
+            android:background="@drawable/square_round_corners"
+             >
+            
         </ListView>
-
+<TextView 
+    android:text="sdfsdfs"
+    android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffffff"/>
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" >

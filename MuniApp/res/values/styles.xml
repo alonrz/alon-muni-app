@@ -39,4 +39,7 @@
    <style name="CustomTabPageIndicator.Text" parent="android:TextAppearance.Medium">
         <item name="android:typeface">monospace</item>
     </style>
+    <style name="BlackTextForSinglePrediction" parent="AppTheme">
+        <item name="android:textColor">#FF000000</item>
+    </style>
 </resources>
