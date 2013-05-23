@@ -14,6 +14,7 @@ import com.alonapps.muniapp.datacontroller.Route.Stop;
 import android.content.Context;
 import android.location.Location;
 import android.util.Log;
+import android.widget.Toast;
 
 public class DataManager
 {
@@ -27,8 +28,10 @@ public class DataManager
 	private static Predictions mSelectedPrediction;
 	private static FavoriteOpenHelper mFavoriteOpenHelper;
 
+	private Context mContext;
 	// private LocationManager mLocationManager;
 	// private boolean mIsUserStillRunning;
+	public float mDefaultMaxDistance = 500;
 
 	public enum DIRECTION {
 		Inbound, Outbound
@@ -37,6 +40,7 @@ public class DataManager
 	// private ctor for singleton pattern
 	private DataManager(Context applicationContext)
 	{
+		mContext = applicationContext;
 		mFetcher = new XmlParser(applicationContext);
 
 	}
@@ -306,17 +310,20 @@ public class DataManager
 		List<Predictions> predictionsInDirection = new ArrayList<Predictions>();
 		if(refreshData == false)
 		{
-			if(dir == DIRECTION.Inbound)
-				return (this.mPredictionsForStopsNearMeInbound == null)? predictionsInDirection : this.mPredictionsForStopsNearMeInbound;
-			else
-				return (this.mPredictionsForStopsNearMeOutbound == null)? predictionsInDirection : this.mPredictionsForStopsNearMeOutbound;
+			predictionsInDirection = getLatestPredictions(dir);
+			if(predictionsInDirection != null && predictionsInDirection.size() > 0)
+			{
+				Log.e(this.getClass().getSimpleName(), "preditioncs returned not null, size= "+ predictionsInDirection.size());
+			
+				return predictionsInDirection;
+			}
 		}
 		
 		if (this.mStopsNearLocation == null)
 		{
-			Log.e(this.getClass().toString(),
+			Log.e(this.getClass().getSimpleName(),
 					"Need to call getStopsNearLocation first to establish a list of stops near location!");
-			return null;
+			this.getStopsNearLocation(GpsManager.getInstance().getLastKnownLocation(), this.mDefaultMaxDistance );
 		}
 
 		if (mPredictionsForStopsNearMeInbound == null || mPredictionsForStopsNearMeOutbound == null

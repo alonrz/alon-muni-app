@@ -32,7 +32,7 @@ public class MainActivity extends LocationTrackerBaseActivity
 	Context mContext;
 	Criteria mycrit;
 	DataManager mDataManager;
-	private float mMaxDistanceInMeters = 500;
+//	private float mMaxDistanceInMeters = 500;
 	TextView txtMessages = null;
 
 	/** inner class UIHandler **/
@@ -41,9 +41,9 @@ public class MainActivity extends LocationTrackerBaseActivity
 		
 		public void handleMessage(Message msg)
 		{
-			if (msg.arg1 == 1)
+			if (msg.arg1 == 1) //still processing info, new msg.
 				changeLoadingProgress(true, msg);
-			else
+			else if(msg.arg1 == 2) //finished processing data
 			 	changeLoadingProgress(false, msg);
 		}
 	};
@@ -70,22 +70,21 @@ public class MainActivity extends LocationTrackerBaseActivity
 				Location lastKnownLoc = GpsManager.getInstance().getLastKnownLocation();
 				Message msg = handler.obtainMessage();
 				msg.arg1 = 1;
-				
 				msg.obj = "Loading Routes";
 				handler.sendMessage(msg);
 				mDataManager.initAllRoutesWithDetails();// ** Starts a thread!
 				
 				msg = handler.obtainMessage();
+				msg.arg1 = 1;
 				msg.obj = "Getting Nearby Stops";
 				handler.sendMessage(msg);
-				DataManager.getInstance(mContext).getStopsNearLocation(
-						lastKnownLoc, mMaxDistanceInMeters);
+				mDataManager.getStopsNearLocation(lastKnownLoc, mDataManager.mDefaultMaxDistance);
 				
 				msg = handler.obtainMessage();
+				msg.arg1 = 1;
 				msg.obj = "Getting Predictions";
 				handler.sendMessage(msg);
-				List<Predictions> predictionsList = DataManager.getInstance(mContext)
-						.getPredictionsByStopsAsync(DIRECTION.Inbound, true);
+				List<Predictions> predictionsList = mDataManager.getPredictionsByStopsAsync(DIRECTION.Inbound, true);
 				
 				if (predictionsList == null)
 				{
@@ -103,7 +102,7 @@ public class MainActivity extends LocationTrackerBaseActivity
 
 				
 				msg = handler.obtainMessage();
-				msg.arg1 = 0;
+				msg.arg1 = 2;
 				msg.obj = "Done!";
 				handler.sendMessage(msg);
 

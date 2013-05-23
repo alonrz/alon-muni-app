@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+import com.alonapps.muniapp.GpsManager;
 import com.alonapps.muniapp.R;
 import com.alonapps.muniapp.datacontroller.DataManager;
 import com.alonapps.muniapp.datacontroller.Route;
@@ -46,14 +47,15 @@ public class CompassSelectionFragment extends ListFragment
 		super.onCreate(savedInstanceState);
 		mContext = getActivity();
 
-		Bundle bundle = getArguments();
-		if (bundle == null)
-		{
-			Toast.makeText(mContext, "Error: No location info found", Toast.LENGTH_LONG).show();
-			return;
-			// Good place to enter error message for user
-		}
-		mCurrentLocation = (Location) bundle.getParcelable("location");
+//		Bundle bundle = getArguments();
+//		if (bundle == null)
+//		{
+//			Toast.makeText(mContext, "Error: No location info found", Toast.LENGTH_LONG).show();
+//			return;
+//			// Good place to enter error message for user
+//		}
+//		mCurrentLocation = (Location) bundle.getParcelable("location");
+		mCurrentLocation = GpsManager.getInstance().getLastKnownLocation();
 		Log.i(this.getClass().toString(), "mCurrentLocation == null: " + (mCurrentLocation == null));
 		getActivity().setTitle(DIRECTION.Inbound.name());
 		new Thread(new Runnable() {

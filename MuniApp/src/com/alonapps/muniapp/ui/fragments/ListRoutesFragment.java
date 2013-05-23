@@ -3,6 +3,7 @@ package com.alonapps.muniapp.ui.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.alonapps.muniapp.GpsManager;
 import com.alonapps.muniapp.R;
 import com.alonapps.muniapp.datacontroller.DataManager;
 import com.alonapps.muniapp.datacontroller.Predictions;
@@ -46,16 +47,18 @@ public class ListRoutesFragment extends ListFragment
 		super.onCreate(savedInstanceState);
 		mContext = getActivity();
 
-		Bundle bundle = getArguments();
-		if (bundle == null)
-		{
-			Toast.makeText(mContext, "Error: No location info found", Toast.LENGTH_LONG).show();
-			return;
-			// return super.onCreateView(inflater, container,
-			// savedInstanceState);
-			// Good place to enter error message for user
-		}
-		mCurrentLocation = (Location) bundle.getParcelable("location");
+//		Bundle bundle = getArguments();
+//		if (bundle == null)
+//		{
+//			Toast.makeText(mContext, "ListRoutesFragment: Bundle not passed", Toast.LENGTH_LONG).show();
+//			return;
+//			// return super.onCreateView(inflater, container,
+//			// savedInstanceState);
+//			// Good place to enter error message for user
+//		}
+		//mCurrentLocation = (Location) bundle.getParcelable("location");
+		mCurrentLocation = GpsManager.getInstance().getLastKnownLocation();
+
 		Log.i(this.getClass().toString(), "mCurrentLocation == null: " + (mCurrentLocation == null));
 		getActivity().setTitle(DIRECTION.Inbound.name());
 		new Thread(new Runnable() {

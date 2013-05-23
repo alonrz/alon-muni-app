@@ -38,7 +38,7 @@ public class TabAdapter extends FragmentPagerAdapter
 		switch (position)
 		{
 			case 0:
-				frag = new ListStopsNearMeFragment();
+				frag = new ListStopsNearMeFragment();				
 				//frag.setArguments(args);
 				break;
 			case 1:

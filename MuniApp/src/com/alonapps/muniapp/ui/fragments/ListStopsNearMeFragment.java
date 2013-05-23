@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.alonapps.muniapp.ConversionHelper;
 import com.alonapps.muniapp.R;
-import com.alonapps.muniapp.datacontroller.DataHelper;
 import com.alonapps.muniapp.datacontroller.DataManager;
 import com.alonapps.muniapp.datacontroller.FavoriteOpenHelper;
 import com.alonapps.muniapp.datacontroller.Predictions;
@@ -15,7 +14,6 @@ import com.alonapps.muniapp.datacontroller.Predictions.Direction;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -32,7 +30,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewParent;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -67,20 +64,19 @@ public class ListStopsNearMeFragment extends ListFragment
 		mContext = getActivity();
 		setHasOptionsMenu(true); // add menus - create call to
 									// onCreateOptionsMenu
-		this.mPredictions = DataManager.getInstance(mContext).getPredictionsByStopsAsync(
-				DIRECTION.Inbound, false);
+
 		// Bundle bundle = getArguments();
 		if (mPredictions == null || mPredictions.size() == 0)
 		{
-			Toast.makeText(mContext, "Error: No predictions found", Toast.LENGTH_LONG).show();
-			// return;
-			// return super.onCreateView(inflater, container,
-			// savedInstanceState);
+			Toast.makeText(mContext, "ListStopsNearMeFragment: mPredictions == null", Toast.LENGTH_LONG).show();
+			Log.e(this.getClass().getSimpleName(), "ListStopsNearMeFragment: mPredictions == null");
 			// Good place to enter error message for user
 		}
-		// mCurrentLocation = (Location) bundle.getParcelable("location");
-		// Log.i(this.getClass().toString(), "mCurrentLocation == null: " +
-		// (mCurrentLocation == null));
+		else if(mPredictions.size() == 0)
+		{
+			Toast.makeText(mContext, "ListStopsNearMeFragment: mPredictions.size == 0", Toast.LENGTH_LONG).show();
+		}
+
 		getActivity().setTitle(DIRECTION.Inbound.name());
 		new Thread(new Runnable() {
 			// Do network access point here
@@ -88,6 +84,8 @@ public class ListStopsNearMeFragment extends ListFragment
 			public void run()
 			{
 				mStopList = DataManager.getInstance(mContext).getRecentStopsNearLocation();
+				mPredictions = DataManager.getInstance(mContext).getPredictionsByStopsAsync(DIRECTION.Inbound, false);
+				
 				// mCurrentLocation, mMaxDistanceInMeters);
 				// Log.i("ListStationsNearMe",
 				// String.valueOf("mStopList.size(): " + mStopList.size()));
@@ -96,7 +94,7 @@ public class ListStopsNearMeFragment extends ListFragment
 				// .getPredictionsByStopsAsync(DIRECTION.Inbound, false);
 
 				Message msg = handler.obtainMessage();
-				// msg.obj = predictionsList;
+				msg.obj = mPredictions;
 				handler.sendMessage(msg);
 			}
 		}).start();
@@ -146,14 +144,17 @@ public class ListStopsNearMeFragment extends ListFragment
 		getListView().setDividerHeight(0);
 	}
 
+	
 	private class MyCustomAdapter extends BaseAdapter
 	{
-		public MyCustomAdapter()
+		List<Predictions> innerPredictions = null;
+		public MyCustomAdapter(List<Predictions> listPredictions)
 		{
 			super();
 			// Init the inflater
-			this.mInflater = (LayoutInflater) getActivity().getSystemService(
-					Context.LAYOUT_INFLATER_SERVICE);
+			innerPredictions = listPredictions;
+			Object obj = getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			this.mInflater = (LayoutInflater) obj;
 
 		}
 
@@ -184,10 +185,8 @@ public class ListStopsNearMeFragment extends ListFragment
 			moreTrainsView.setTextColor(Color.BLACK);
 
 			/****
-			 * inflateing the static label to fix the forecolor due to tab style
+			 * Inflating the static label to fix the forecolor due to tab style
 			 ***/
-			// TODO: To be fixed later!!! Change the style to have black color
-			// text.
 			TextView arrivingInText = (TextView) convertView.findViewById(R.id.arrivingInText);
 			arrivingInText.setTextColor(Color.BLACK);
 			TextView minText = (TextView) convertView.findViewById(R.id.minText);
@@ -352,10 +351,10 @@ public class ListStopsNearMeFragment extends ListFragment
 			/**
 			 * Retrieve the contents of the message and then update the UI
 			 */
-			// make UI changes
+			// make UI changes 
 			List<Predictions> predictionsList = (List<Predictions>) msg.obj;
 
-			MyCustomAdapter arrAdapter = new MyCustomAdapter();
+			MyCustomAdapter arrAdapter = new MyCustomAdapter(predictionsList);
 
 			setListAdapter(arrAdapter);
 			arrAdapter.notifyDataSetChanged();

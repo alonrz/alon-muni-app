@@ -132,7 +132,7 @@ public class GpsManager
 	{
 		if (this.mLastKnownLocation == null)
 		{
-			Log.i(this.getClass().getSimpleName(), "Location is null. Adding manual location");
+			Log.e(this.getClass().getSimpleName(), "Location is null. Adding manual location");
 			this.mLastKnownLocation = new Location(this.mBestProviderName) {{setLatitude(37.7230); setLongitude(-122.4842);}};
 		}
 		return this.mLastKnownLocation;
