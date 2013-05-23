@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
@@ -30,6 +31,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -53,6 +55,7 @@ public class ShowSingleStop extends LocationTrackerBaseActivity
 	{
 		context = this;
 		super.onCreate(savedInstanceState);
+		getActionBar().setHomeButtonEnabled(true);
 		mDataManager = DataManager.getInstance(this);
 		mGpsManager = GpsManager.getInstance();
 
@@ -270,6 +273,23 @@ public class ShowSingleStop extends LocationTrackerBaseActivity
 		}
 	}
 
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+
+		switch (item.getItemId())
+		{
+			case android.R.id.home:
+				Intent intent = new Intent(this, TabsActivity.class);
+				//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				intent.putExtra("tabid", 1);
+				startActivity(intent);
+				return true;
+			default:
+				return super.onOptionsItemSelected(item);
+		}
+
+	}
+	
 	class MyCustomAdapter extends BaseAdapter
 	{
 		public MyCustomAdapter()

@@ -4,27 +4,13 @@ import com.alonapps.muniapp.LocationTrackerBaseFragmentActivity;
 import com.alonapps.muniapp.TabAdapter;
 import com.alonapps.muniapp.R;
 import com.alonapps.muniapp.datacontroller.DataManager;
-import com.alonapps.muniapp.datacontroller.FavoriteOpenHelper;
-import com.viewpagerindicator.TabPageIndicator;
 import com.viewpagerindicator.TitlePageIndicator;
 
-import android.app.ActionBar;
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-//import android.support.v4.app.FragmentManager;
-//import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 public class TabsActivity extends LocationTrackerBaseFragmentActivity
@@ -37,6 +23,10 @@ public class TabsActivity extends LocationTrackerBaseFragmentActivity
 	@Override 
 	protected void onCreate(Bundle savedInstanceState)
 	{
+		int tabid=0;
+		Bundle extras = getIntent().getExtras();
+		if(extras != null)
+			tabid = extras.getInt("tabid");
 		super.onCreate(savedInstanceState);
 		this.mContext = this;
 		setContentView(R.layout.activity_tabs_pager);
@@ -51,5 +41,7 @@ public class TabsActivity extends LocationTrackerBaseFragmentActivity
 		
 		TitlePageIndicator indicator =(TitlePageIndicator) findViewById(R.id.indicator);
 		indicator.setViewPager(pager);
+		
+		pager.setCurrentItem(tabid);
 	}
 }

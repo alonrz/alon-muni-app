@@ -84,7 +84,8 @@ public class ListStops extends LocationTrackerBaseListActivity
 				return true;
 			case android.R.id.home:
 				Intent intent = new Intent(this, TabsActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				//intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				intent.putExtra("tabid", 1);
 				startActivity(intent);
 				return true;
 			default:
