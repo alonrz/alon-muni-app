@@ -54,13 +54,14 @@ public class CompassActivity extends Activity
 		@Override
 		public void onSensorChanged(SensorEvent event)
 		{
-			// angle between the magnetic north direction
-			// 0=North, 90=East, 180=South, 270=West
+			/*** angle between the magnetic north direction
+			 *   0=North, 90=East, 180=South, 270=West
+			 ***/
 			float azimuth = event.values[0];
-			CompassView cv = (CompassView) findViewById(R.id.compassView); // compassView.updateData(azimuth);
+			//CompassView compView = (CompassView) findViewById(R.id.compassView); // compassView.updateData(azimuth);
 			
-			img.setRotation(event.values[0]);
-			cv.updateData(azimuth);
+			img.setRotation(360 - event.values[0]);
+			//compView.updateData(azimuth);
 		}
 	};
 
