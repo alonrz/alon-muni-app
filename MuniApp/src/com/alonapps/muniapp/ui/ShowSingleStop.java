@@ -52,12 +52,9 @@ public class ShowSingleStop extends LocationTrackerBaseActivity
 	{
 		context = this;
 		super.onCreate(savedInstanceState);
-		// this.mInflater = (LayoutInflater)
-		// getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mDataManager = DataManager.getInstance(this);
 		mGpsManager = GpsManager.getInstance();
 
-		// setContentView(R.layout.activity_show_single_stop);
 
 		new Thread(new Runnable() {
 
@@ -74,7 +71,6 @@ public class ShowSingleStop extends LocationTrackerBaseActivity
 									.getmBestProviderName());
 				} catch (StopNotFoundException e)
 				{
-					// TODO Auto-generated catch block
 					Log.e(this.getClass().toString(), "Error fetching location");
 					e.printStackTrace();
 				}
@@ -84,14 +80,6 @@ public class ShowSingleStop extends LocationTrackerBaseActivity
 
 			}
 		}).start();
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		// Inflate the menu; this adds items to the action bar if it is present.
-		// getMenuInflater().inflate(R.menu.show_single_stop, menu);
-		return true;
 	}
 
 	// private LayoutInflater mInflater;
@@ -131,7 +119,6 @@ public class ShowSingleStop extends LocationTrackerBaseActivity
 			TextView nextTrainTimeView = (TextView) findViewById(R.id.nextTrainTime);
 			TextView moreTrainsView = (TextView) findViewById(R.id.moreTrainTimes);
 
-			// if(tempPred.get)
 
 			float metersDist = 0f;
 			Location myLoc = GpsManager.getInstance().getLastKnownLocation();
@@ -323,6 +310,5 @@ public class ShowSingleStop extends LocationTrackerBaseActivity
 			messageTextView.setText(mCurrentPred.getMessages()[position]);
 			return convertView;
 		}
-
 	}
 }
