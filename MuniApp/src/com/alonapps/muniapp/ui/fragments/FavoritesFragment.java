@@ -49,7 +49,7 @@ public class FavoritesFragment extends Fragment
 			
 		}while(reader.moveToNext() == true);
 		
-		Toast.makeText(mContext, listStopIDRouteID.keySet().toArray()[0].toString(), Toast.LENGTH_LONG).show();
+		//Toast.makeText(mContext, listStopIDRouteID.keySet().toArray()[0].toString(), Toast.LENGTH_LONG).show();
 	}
 	
 	@Override
