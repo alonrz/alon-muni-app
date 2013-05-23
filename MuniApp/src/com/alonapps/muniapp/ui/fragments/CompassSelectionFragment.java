@@ -12,7 +12,6 @@ import com.alonapps.muniapp.datacontroller.Route;
 import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
 import com.alonapps.muniapp.datacontroller.Route.Stop;
 import com.alonapps.muniapp.ui.CompassActivity;
-import com.alonapps.muniapp.ui.ListRoutes;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -68,7 +67,7 @@ public class CompassSelectionFragment extends ListFragment
 						mCurrentLocation, 500.0f);
 				if (mRouteTagStopsTable.size() == 0)
 				{
-					Log.e(ListRoutes.class.toString(), "No routes nearby found");
+					Log.e(CompassSelectionFragment.class.getSimpleName(), "No routes nearby found");
 				}
 				Message msg = handler.obtainMessage();
 				msg.obj = mRouteTagStopsTable;
@@ -86,8 +85,6 @@ public class CompassSelectionFragment extends ListFragment
 	@Override
 	public void onListItemClick(ListView listView, View v, int position, long id)
 	{
-		// TODO Auto-generated method stub
-
 		// Get closest stop associated with the route selected as the home
 		// station.
 		Stop nearestStop = null;
