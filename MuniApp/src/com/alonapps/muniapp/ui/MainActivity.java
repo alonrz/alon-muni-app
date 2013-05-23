@@ -134,35 +134,6 @@ public class MainActivity extends LocationTrackerBaseActivity
 		getActionBar().setDisplayHomeAsUpEnabled(false);
 		return true;
 	}
-
-//	public void onClick_showLines(View v)
-//	{
-//		Intent intent = new Intent(this, ListRoutes.class);
-//		startActivity(intent);
-//	}
-//
-//	public void onClick_showMap(View v)
-//	{
-//		Intent intent = new Intent(this, ShowMap.class);
-//		startActivity(intent);
-//	}
-//
-//	public void onClick_showStatiosNearMe(View v)
-//	{
-//		try
-//		{
-//			Intent intent = new Intent(this, ListStopsNearMe.class);
-//			Location lastKnownLoc =GpsManager.getInstance().getLastKnownLocation(); 
-//			if (lastKnownLoc != null)
-//			{
-//				intent.putExtra("location", lastKnownLoc);
-//			}
-//			startActivity(intent);
-//		} catch (Exception e)
-//		{
-//			Log.e(this.getClass().toString(), "error");
-//		}
-//	}
 	
 	public void onClick_showTabs(View v)
 	{

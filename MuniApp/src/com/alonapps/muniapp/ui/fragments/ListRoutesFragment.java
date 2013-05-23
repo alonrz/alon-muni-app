@@ -8,7 +8,6 @@ import com.alonapps.muniapp.datacontroller.DataManager;
 import com.alonapps.muniapp.datacontroller.Predictions;
 import com.alonapps.muniapp.datacontroller.Route;
 import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
-import com.alonapps.muniapp.ui.ListRoutes;
 import com.alonapps.muniapp.ui.ListStops;
 
 import android.content.Context;
@@ -35,12 +34,12 @@ public class ListRoutesFragment extends ListFragment
 	private Location mCurrentLocation;
 	private final Handler handler = new UIHandler(); // on UI thread!
 
-	public ListFragment getInstance()
-	{
-		ListFragment frag = new ListRoutesFragment();
-		return frag;
-	}
-	
+//	public ListFragment getInstance()
+//	{
+//		ListFragment frag = new ListRoutesFragment();
+//		return frag;
+//	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -68,7 +67,7 @@ public class ListRoutesFragment extends ListFragment
 				if (routeList == null)
 				{
 					routeList = new ArrayList<Route>();
-					Log.e(ListRoutes.class.toString(), "No routes found");
+					Log.e(ListRoutesFragment.class.getSimpleName(), "no routes found");
 				}
 				Message msg = handler.obtainMessage();
 				msg.obj = routeList;
@@ -85,13 +84,13 @@ public class ListRoutesFragment extends ListFragment
 	
 	final class UIHandler extends Handler
 	{
-
 		public void handleMessage(Message msg)
 		{
 			/**
 			 * Retrieve the contents of the message and then update the UI
 			 */
 			// make UI changes
+			@SuppressWarnings("unchecked")
 			final List<Route> routeList = (List<Route>) msg.obj;
 
 			for (int i = 0; i < routeList.size(); i++)
@@ -129,6 +128,7 @@ public class ListRoutesFragment extends ListFragment
 					// MUST HAVE ROUTE TAG. WORK WITH OBJECTs
 					Predictions currentPred = DataManager.getInstance(mContext).getSelectedPrediction();
 					currentPred.setRouteTag(tag);
+					//This will show list of stops to choose from 
 					Intent intent = new Intent(mContext, ListStops.class);
 					intent.putExtra("routeTag", tag);
 					startActivity(intent);

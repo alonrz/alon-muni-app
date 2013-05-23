@@ -47,13 +47,9 @@ public class ListStops extends LocationTrackerBaseListActivity
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		// if (inflater == null)
-		// {
-		// Inflate the menu; this adds items to the action bar if it is
-		// present.
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.list_stops, menu);
-		// }
+
 		return true;
 	}
 

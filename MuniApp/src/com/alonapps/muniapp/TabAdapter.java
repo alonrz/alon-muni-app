@@ -35,32 +35,23 @@ public class TabAdapter extends FragmentPagerAdapter
 	public Fragment getItem(int position)
 	{
 		Fragment frag = null;
-		//Location lastKnownLoc = GpsManager.getInstance().getLastKnownLocation();
-//		List<Predictions> preds = DataManager.getInstance(mContext).getPredictionsByStopsAsync(DIRECTION.Inbound, false);
-		Bundle args = new Bundle();
-//		
-//		if (preds != null)
-//		{
-//			args.putParcelable("predictions", preds);
-//		}
 		switch (position)
 		{
 			case 0:
 				frag = new ListStopsNearMeFragment();
-				frag.setArguments(args);
+				//frag.setArguments(args);
 				break;
 			case 1:
 				frag = new ListRoutesFragment();
-				frag.setArguments(args);
+				//frag.setArguments(args);
 				break;
-			case 2:
-				// TODO: change this later to FavoriteFragment
+			case 2:				
 				frag = new FavoritesFragment();
-				frag.setArguments(args);
+				//frag.setArguments(args);
 				break;
 			case 3:
 				frag = new CompassSelectionFragment();
-				frag.setArguments(args);
+				//frag.setArguments(args);
 				break;
 
 		}

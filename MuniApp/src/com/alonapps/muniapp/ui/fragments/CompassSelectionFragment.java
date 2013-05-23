@@ -51,8 +51,6 @@ public class CompassSelectionFragment extends ListFragment
 		{
 			Toast.makeText(mContext, "Error: No location info found", Toast.LENGTH_LONG).show();
 			return;
-			// return super.onCreateView(inflater, container,
-			// savedInstanceState);
 			// Good place to enter error message for user
 		}
 		mCurrentLocation = (Location) bundle.getParcelable("location");

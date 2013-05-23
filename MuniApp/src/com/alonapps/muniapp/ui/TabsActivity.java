@@ -45,31 +45,12 @@ public class TabsActivity extends LocationTrackerBaseFragmentActivity
 			@Override
 			public void run()
 			{
-				Message msg;
-//				mDataManager = DataManager.getInstance(mContext);
-//				mDataManager.initAllRoutesWithDetails();// ** Starts a thread!
-				msg = handler.obtainMessage();
+				Message msg = handler.obtainMessage();
 				msg.arg1 = value++;
 				handler.sendMessage(msg);
-//				SQLiteDatabase dbFav = DataManager.getInstance(mContext).getFavoriteOpenHelper().getWritableDatabase();
-//				ContentValues values = new ContentValues();
-//				values.put(FavoriteOpenHelper.KEY_STOP_ID, "stop id 1");
-//				values.put(FavoriteOpenHelper.KEY_ROUTE_ID, "route id 1");
 				
 			}
 		}).start();
-		
-//		ActionBar actionBer = getActionBar();
-//		actionBer.show();
-		
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-//		MenuInflater inflate = getMenuInflater();
-//		inflate.inflate(R.menu.test_tabs, menu);
-		return true;
 	}
 
 	@Override
@@ -85,7 +66,7 @@ public class TabsActivity extends LocationTrackerBaseFragmentActivity
 	{
 		public void handleMessage(Message msg)
 		{
-			Toast.makeText(mContext, String.valueOf(msg.arg1), Toast.LENGTH_SHORT).show();
+			//Toast.makeText(mContext, String.valueOf(msg.arg1), Toast.LENGTH_SHORT).show();
 			
 			setContentView(R.layout.activity_tabs_pager);
 			
@@ -99,10 +80,6 @@ public class TabsActivity extends LocationTrackerBaseFragmentActivity
 			
 			TitlePageIndicator indicator =(TitlePageIndicator) findViewById(R.id.indicator);
 			indicator.setViewPager(pager);
-//			if (msg.arg1 == 1)
-//				changeLoadingProgress(true);
-//			else
-//				changeLoadingProgress(false);
 		}
 	};
 
