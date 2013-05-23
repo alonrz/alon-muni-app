@@ -126,7 +126,7 @@ public class ListRoutesFragment extends ListFragment
 					// }
 					// }
 
-					// Toast.makeText(context, tag, Toast.LENGTH_LONG).show();
+					 //Toast.makeText(mContext, "pressed", Toast.LENGTH_LONG).show();
 
 					// MUST HAVE ROUTE TAG. WORK WITH OBJECTs
 					Predictions currentPred = DataManager.getInstance(mContext).getSelectedPrediction();
