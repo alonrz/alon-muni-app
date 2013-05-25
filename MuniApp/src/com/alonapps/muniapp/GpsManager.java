@@ -16,8 +16,8 @@ public class GpsManager
 	private static final int gpsMinTime = 500;
 	private static final int gpsMinDistance = 0;
 
-	private LocationManager locationManager = null;
-	private LocationListener locationListener = null;
+	private LocationManager mlocationManager = null;
+	private LocationListener mlocationListener = null;
 	private GPSCallback gpsCallback = null;
 	private Location mLastKnownLocation;
 	private static GpsManager mGpsManager = null;
@@ -34,7 +34,7 @@ public class GpsManager
 
 	private GpsManager()
 	{
-		locationListener = new LocationListener() {
+		mlocationListener = new LocationListener() {
 			public void onProviderDisabled(final String provider)
 			{
 			}
@@ -50,7 +50,8 @@ public class GpsManager
 
 			public void onLocationChanged(final Location location)
 			{
-				mLastKnownLocation = location;
+				if (location != null)
+					mLastKnownLocation = location;
 				if (location != null && gpsCallback != null)
 				{
 					Log.e("if location " + location, "if gpscallback" + gpsCallback);
@@ -67,35 +68,36 @@ public class GpsManager
 
 	public void startListening(final Activity activity)
 	{
-		if (locationManager == null)
+		if (mlocationManager == null)
 		{
-			locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+			mlocationManager = (LocationManager) activity
+					.getSystemService(Context.LOCATION_SERVICE);
 		}
 
 		final Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.ACCURACY_FINE);
+		criteria.setAccuracy(Criteria.ACCURACY_COARSE);
 		criteria.setAltitudeRequired(false);
 		criteria.setBearingRequired(false);
 		criteria.setCostAllowed(true);
 		criteria.setPowerRequirement(Criteria.POWER_LOW);
 
-		final String bestProvider = locationManager.getBestProvider(criteria, true);
+		final String bestProvider = this.mlocationManager.getBestProvider(criteria, true);
 
 		if (bestProvider != null && bestProvider.length() > 0)
 		{
-			locationManager.requestLocationUpdates(bestProvider, GpsManager.gpsMinTime,
-					GpsManager.gpsMinDistance, locationListener);
+			mlocationManager.requestLocationUpdates(bestProvider, GpsManager.gpsMinTime,
+					GpsManager.gpsMinDistance, mlocationListener);
 		} else
 		{
-			final List<String> providers = locationManager.getProviders(true);
+			final List<String> providers = this.mlocationManager.getProviders(true);
 
 			for (final String provider : providers)
 			{
-				locationManager.requestLocationUpdates(provider, GpsManager.gpsMinTime,
-						GpsManager.gpsMinDistance, locationListener);
+				this.mlocationManager.requestLocationUpdates(provider, GpsManager.gpsMinTime,
+						GpsManager.gpsMinDistance, mlocationListener);
 			}
 		}
-		mLastKnownLocation = this.locationManager.getLastKnownLocation(bestProvider);
+		mLastKnownLocation = this.mlocationManager.getLastKnownLocation(bestProvider);
 		if (mLastKnownLocation == null)
 			Log.e(this.getClass().getSimpleName(), "getLastKnownLocation returned null (provider="
 					+ bestProvider + ")");
@@ -106,9 +108,9 @@ public class GpsManager
 	{
 		try
 		{
-			if (locationManager != null && locationListener != null)
+			if (this.mlocationManager != null && mlocationListener != null)
 			{
-				locationManager.removeUpdates(locationListener);
+				this.mlocationManager.removeUpdates(mlocationListener);
 			}
 
 			// locationManager = null;
@@ -132,8 +134,25 @@ public class GpsManager
 	{
 		if (this.mLastKnownLocation == null)
 		{
-			Log.e(this.getClass().getSimpleName(), "Location is null. Adding manual location");
-			this.mLastKnownLocation = new Location(this.mBestProviderName) {{setLatitude(37.7230); setLongitude(-122.4842);}};
+			if (this.mlocationManager == null)
+				Log.e(this.getClass().getSimpleName(), "No locatio manager found");
+			else
+			{
+//				this.mLastKnownLocation = this.mlocationManager
+//						.getLastKnownLocation(this.mBestProviderName);
+				this.mLastKnownLocation = this.mlocationManager
+						.getLastKnownLocation("gps");
+			}
+			if (mLastKnownLocation == null)
+			{
+				Log.e(this.getClass().getSimpleName(), "Location is null. Adding manual location");
+				this.mLastKnownLocation = new Location(this.mBestProviderName) {
+					{
+						setLatitude(37.7230);
+						setLongitude(-122.4842);
+					}
+				};
+			}
 		}
 		return this.mLastKnownLocation;
 	}

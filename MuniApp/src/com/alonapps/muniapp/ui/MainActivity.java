@@ -55,6 +55,7 @@ public class MainActivity extends LocationTrackerBaseActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		super.onStart();
 		mContext = this;
 		setContentView(R.layout.activity_splash_screen);
 		txtMessages = (TextView)findViewById(R.id.txtLoadMessages);

@@ -52,8 +52,8 @@ public class CompassActivity extends Activity
 		//decide on direction of inbound (the new north)
 		double nextStopInboundLat = getIntent().getExtras().getDouble("inbound-lat");
 		double nextStopInboundLon = getIntent().getExtras().getDouble("inbound-lon");
-		double nextStopOutboundLat = getIntent().getExtras().getDouble("inbound-lat");
-		double nextStopOutboundLon = getIntent().getExtras().getDouble("inbound-lon");
+		double nextStopOutboundLat = getIntent().getExtras().getDouble("outbound-lat");
+		double nextStopOutboundLon = getIntent().getExtras().getDouble("outbound-lon");
 		this.mOffsetToNorth = calculateOffsetToNorth(nextStopInboundLat, nextStopInboundLon, 
 				nextStopOutboundLat, nextStopOutboundLon);
 	}

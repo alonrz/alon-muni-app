@@ -11,7 +11,6 @@ public class LocationTrackerBaseActivity extends Activity
 	protected void onCreate(Bundle saved)
 	{
 		super.onCreate(saved);
-		/* ... */
 		activityTracker = ActivityTracker.getInstance();
 	}
 
