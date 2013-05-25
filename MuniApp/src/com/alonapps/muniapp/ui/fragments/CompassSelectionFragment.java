@@ -6,12 +6,12 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import com.alonapps.muniapp.GpsManager;
 import com.alonapps.muniapp.R;
 import com.alonapps.muniapp.datacontroller.DataManager;
 import com.alonapps.muniapp.datacontroller.Route;
 import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
 import com.alonapps.muniapp.datacontroller.Route.Stop;
+import com.alonapps.muniapp.locationcontroller.GpsManager;
 import com.alonapps.muniapp.ui.CompassActivity;
 import android.content.Context;
 import android.content.Intent;

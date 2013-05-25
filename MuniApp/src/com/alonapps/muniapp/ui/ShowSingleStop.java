@@ -1,8 +1,6 @@
 package com.alonapps.muniapp.ui;
 
 import com.alonapps.muniapp.ConversionHelper;
-import com.alonapps.muniapp.GpsManager;
-import com.alonapps.muniapp.LocationTrackerBaseActivity;
 import com.alonapps.muniapp.R;
 import com.alonapps.muniapp.StopNotFoundException;
 import com.alonapps.muniapp.datacontroller.DataManager;
@@ -10,6 +8,8 @@ import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
 import com.alonapps.muniapp.datacontroller.Predictions;
 import com.alonapps.muniapp.datacontroller.Route;
 import com.alonapps.muniapp.datacontroller.Predictions.Direction;
+import com.alonapps.muniapp.locationcontroller.GpsManager;
+import com.alonapps.muniapp.locationcontroller.LocationTrackerBaseActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;

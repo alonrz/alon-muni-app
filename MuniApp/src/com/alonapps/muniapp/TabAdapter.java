@@ -1,34 +1,29 @@
 package com.alonapps.muniapp;
 
-import java.util.List;
 import java.util.Locale;
 
-import com.alonapps.muniapp.datacontroller.DataManager;
-import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
-import com.alonapps.muniapp.datacontroller.Predictions;
 import com.alonapps.muniapp.ui.fragments.CompassSelectionFragment;
 import com.alonapps.muniapp.ui.fragments.FavoritesFragment;
 import com.alonapps.muniapp.ui.fragments.ListRoutesFragment;
 import com.alonapps.muniapp.ui.fragments.ListStopsNearMeFragment;
 
 import android.content.Context;
-import android.location.Location;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 
+/**
+ * TabAdapter constructs the tabs (extends FragmentPagerAdapter). Their titles are here and which fragment goes to which position is also decided here.
+ * @author alon
+ */
 public class TabAdapter extends FragmentPagerAdapter
 {
-	private Context mContext;
 	private static final String[] CONTENT = new String[] { "Near me", "by line", "favorites",
 			"Direction" };
 
 	public TabAdapter(FragmentManager fm, Context context)
 	{
 		super(fm);
-		this.mContext = context;
 	}
 
 	@Override

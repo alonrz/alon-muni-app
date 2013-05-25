@@ -3,12 +3,12 @@ package com.alonapps.muniapp.ui.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.alonapps.muniapp.GpsManager;
 import com.alonapps.muniapp.R;
 import com.alonapps.muniapp.datacontroller.DataManager;
 import com.alonapps.muniapp.datacontroller.Predictions;
 import com.alonapps.muniapp.datacontroller.Route;
 import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
+import com.alonapps.muniapp.locationcontroller.GpsManager;
 import com.alonapps.muniapp.ui.ListStops;
 
 import android.content.Context;

@@ -2,6 +2,11 @@ package com.alonapps.muniapp;
 
 import java.text.DecimalFormat;
 
+/**
+ * Contains helpful conversion between units, like meters to feet. 
+ * @author alon
+ *
+ */
 public class ConversionHelper
 {
 	public static double convertMetersToFeet(float meters)

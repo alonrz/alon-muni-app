@@ -2,12 +2,12 @@ package com.alonapps.muniapp.ui;
 
 import java.util.List;
 
-import com.alonapps.muniapp.LocationTrackerBaseListActivity;
 import com.alonapps.muniapp.R;
 import com.alonapps.muniapp.datacontroller.DataManager;
 import com.alonapps.muniapp.datacontroller.Predictions;
 import com.alonapps.muniapp.datacontroller.Route;
 import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
+import com.alonapps.muniapp.locationcontroller.LocationTrackerBaseListActivity;
 
 import android.os.Bundle;
 import android.os.Handler;

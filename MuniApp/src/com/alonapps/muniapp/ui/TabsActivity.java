@@ -1,9 +1,9 @@
 package com.alonapps.muniapp.ui;
 
-import com.alonapps.muniapp.LocationTrackerBaseFragmentActivity;
 import com.alonapps.muniapp.TabAdapter;
 import com.alonapps.muniapp.R;
 import com.alonapps.muniapp.datacontroller.DataManager;
+import com.alonapps.muniapp.locationcontroller.LocationTrackerBaseFragmentActivity;
 import com.viewpagerindicator.TitlePageIndicator;
 
 import android.content.Context;

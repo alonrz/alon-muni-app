@@ -7,9 +7,9 @@ import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.List;
 
-import com.alonapps.muniapp.GpsManager;
 import com.alonapps.muniapp.StopNotFoundException;
 import com.alonapps.muniapp.datacontroller.Route.Stop;
+import com.alonapps.muniapp.locationcontroller.GpsManager;
 
 import android.content.Context;
 import android.location.Location;

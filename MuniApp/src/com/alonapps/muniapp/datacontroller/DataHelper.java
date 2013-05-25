@@ -9,7 +9,7 @@ public class DataHelper
 
 	/**
 	 * Remove all route which are not running now (have the label
-	 * "dirTitleBecauseNoPredictions"
+	 * "dirTitleBecauseNoPredictions")
 	 * 
 	 * @param predictionsList
 	 */
@@ -25,6 +25,10 @@ public class DataHelper
 		}
 	}
 
+	/**
+	 * Removes all the stops except the closest two. 
+	 * @param predictionsList
+	 */
 	public static void RemoveAllButTwoClosestStations(List<Predictions> predictionsList)
 	{
 		// This will check that no more than the closest 2 stations appear...
