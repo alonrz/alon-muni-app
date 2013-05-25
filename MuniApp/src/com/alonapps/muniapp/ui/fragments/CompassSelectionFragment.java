@@ -28,6 +28,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+/**
+ * This is the compass fragment, shows a list of nearby routes and leads to the compass view. 
+ * @author alon
+ *
+ */
 public class CompassSelectionFragment extends ListFragment
 {
 	private Context mContext;
@@ -131,40 +136,6 @@ public class CompassSelectionFragment extends ListFragment
 
 			ListView list = getListView();
 			list.setTextFilterEnabled(true);
-			// list.setOnItemClickListener(new OnItemClickListener() {
-			//
-			// /** Control the Click on an Item **/
-			// @Override
-			// public void onItemClick(AdapterView<?> arg0, View arg1, int
-			// position, long arg3)
-			// {
-			//
-			// // CharSequence routeName = ((TextView) arg1).getText();
-			//
-			// String tag = routeList.get(position).getTag();
-			// // for(int i=0; i<routeList.size(); i++)
-			// // {
-			// // if(routeList.get(i).getTitle() == routeName.toString())
-			// // {
-			// // tag = routeList.get(i).getTag();
-			// // break;
-			// // }
-			// // }
-			//
-			// // Toast.makeText(context, tag, Toast.LENGTH_LONG).show();
-			//
-			// // MUST HAVE ROUTE TAG. WORK WITH OBJECTs
-			// Predictions currentPred =
-			// DataManager.getInstance(mContext).getSelectedPrediction();
-			// currentPred.setRouteTag(tag);
-			// Intent intent = new Intent(mContext, ListStops.class);
-			// intent.putExtra("routeTag", tag);
-			// startActivity(intent);
-			// }
-			// });
-
 		}
-
 	};
-
 }

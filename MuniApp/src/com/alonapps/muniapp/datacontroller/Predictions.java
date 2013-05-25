@@ -3,6 +3,13 @@ package com.alonapps.muniapp.datacontroller;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents predictions. Each predictions have the same info of a route and stop but will 
+ * have several next trains/buses coming which is why this is plural. A single prediciton refers to a 
+ * specific time of arrival of one car. 
+ * @author alon
+ *
+ */
 public class Predictions
 {
 	private String mAgencyTitle;
@@ -118,6 +125,12 @@ public class Predictions
 	
 	
 	/******** Direction Class *************/
+	/**
+	 * This is Direction with info relavent to predictions, contains all predictions for that direction as well as the title
+	 * to be displayed (This is different than Route.Direction for info about Stops in a direction)
+	 * @author alon
+	 *
+	 */
 	public class Direction
 	{
 		private String mDirectionTitle;
@@ -146,6 +159,11 @@ public class Predictions
 	}
 
 	/******** Prediction Class *************/
+	/**
+	 * Contain info about a specific car with its arrival time, vehical number etc...
+	 * @author alon
+	 *
+	 */
 	public class Prediction
 	{
 		private long mEpochTime;

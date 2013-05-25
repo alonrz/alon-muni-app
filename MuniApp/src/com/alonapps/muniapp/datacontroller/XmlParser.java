@@ -7,35 +7,28 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.Document;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 import com.alonapps.muniapp.R;
-import com.alonapps.muniapp.R.string;
 import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
 import com.alonapps.muniapp.datacontroller.Predictions.Prediction;
 import com.alonapps.muniapp.datacontroller.Route.Direction;
-import com.alonapps.muniapp.datacontroller.Route.Stop;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.util.Xml;
 
+/**
+ * This class contains everything related to the use of XmlPullParser for reading the XML data coming 
+ * from different system calls to SFMTA.
+ * @author alon
+ *
+ */
 public class XmlParser
 {
 	Context appContext;
-
-	// DocumentBuilderFactory dbf;
-	// DocumentBuilder db;
-	// Document doc;
 
 	public XmlParser(Context context)
 	{

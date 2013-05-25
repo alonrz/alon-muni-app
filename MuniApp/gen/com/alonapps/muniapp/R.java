@@ -501,11 +501,11 @@ containing a value of this type.
         public static final int warning_icon=0x7f02001f;
     }
     public static final class id {
-        public static final int action_inbound=0x7f04002b;
-        public static final int action_outbound=0x7f04002c;
-        public static final int action_refresh=0x7f04002d;
-        public static final int action_settings=0x7f04002a;
-        public static final int arrivingInText=0x7f040025;
+        public static final int action_inbound=0x7f04002c;
+        public static final int action_outbound=0x7f04002d;
+        public static final int action_refresh=0x7f04002e;
+        public static final int action_settings=0x7f04002b;
+        public static final int arrivingInText=0x7f040026;
         public static final int bottom=0x7f040003;
         public static final int btnShowLines=0x7f04000b;
         public static final int btnShowNearStations=0x7f04000c;
@@ -513,39 +513,40 @@ containing a value of this type.
         public static final int compassArrow=0x7f040009;
         public static final int compassView=0x7f04000a;
         public static final int hybrid=0x7f040008;
-        public static final int imageView1=0x7f040014;
-        public static final int indicator=0x7f040017;
+        public static final int imageView1=0x7f040015;
+        public static final int indicator=0x7f040018;
         public static final int lat=0x7f04000f;
-        public static final int list_messages=0x7f040011;
+        public static final int list_messages=0x7f040012;
         public static final int lon=0x7f040010;
-        public static final int map=0x7f04001e;
-        public static final int map_per_stop=0x7f040012;
-        public static final int minText=0x7f040027;
-        public static final int moreTrainTimes=0x7f040029;
-        public static final int nextTrainTime=0x7f040026;
+        public static final int map=0x7f04001f;
+        public static final int map_per_stop=0x7f040013;
+        public static final int minText=0x7f040028;
+        public static final int moreTrainTimes=0x7f04002a;
+        public static final int nextTrainTime=0x7f040027;
         public static final int none=0x7f040000;
         public static final int normal=0x7f040005;
-        public static final int pager=0x7f040018;
-        public static final int pager_title_strip=0x7f040019;
+        public static final int pager=0x7f040019;
+        public static final int pager_title_strip=0x7f04001a;
         public static final int pbLoading2=0x7f04000e;
-        public static final int progressBar1=0x7f040015;
-        public static final int routeId=0x7f040024;
-        public static final int routeTag=0x7f040023;
+        public static final int progressBar1=0x7f040016;
+        public static final int routeId=0x7f040025;
+        public static final int routeTag=0x7f040024;
         public static final int satellite=0x7f040006;
-        public static final int section_label=0x7f04001d;
-        public static final int single_message_text=0x7f04001f;
-        public static final int star=0x7f040028;
-        public static final int stopDistance=0x7f040022;
-        public static final int stopId=0x7f040021;
-        public static final int stopTitleAndDist=0x7f040020;
+        public static final int section_label=0x7f04001e;
+        public static final int single_activity_layout=0x7f040011;
+        public static final int single_message_text=0x7f040020;
+        public static final int star=0x7f040029;
+        public static final int stopDistance=0x7f040023;
+        public static final int stopId=0x7f040022;
+        public static final int stopTitleAndDist=0x7f040021;
         public static final int terrain=0x7f040007;
-        public static final int textview1=0x7f040013;
+        public static final int textview1=0x7f040014;
         public static final int top=0x7f040004;
         public static final int triangle=0x7f040001;
-        public static final int txtHeader=0x7f04001b;
-        public static final int txtHeaderWarning=0x7f04001c;
-        public static final int txtLoadMessages=0x7f040016;
-        public static final int txtTitle=0x7f04001a;
+        public static final int txtHeader=0x7f04001c;
+        public static final int txtHeaderWarning=0x7f04001d;
+        public static final int txtLoadMessages=0x7f040017;
+        public static final int txtTitle=0x7f04001b;
         public static final int underline=0x7f040002;
     }
     public static final class integer {
@@ -708,9 +709,10 @@ containing a value of this type.
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f090006;
+        public static final int BlackTextForSinglePrediction=0x7f09000a;
         public static final int CustomTabPageIndicator=0x7f090008;
         public static final int CustomTabPageIndicator_Text=0x7f090009;
-        public static final int DarkText=0x7f09000a;
+        public static final int DarkText=0x7f09000b;
         public static final int StyledIndicators=0x7f090007;
         public static final int TextAppearance_TabPageIndicator=0x7f090003;
         public static final int Theme_PageIndicatorDefaults=0x7f090000;

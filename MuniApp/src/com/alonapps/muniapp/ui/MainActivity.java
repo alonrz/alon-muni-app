@@ -27,18 +27,21 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+/**
+ * This class is the first screen shown. This will be the splash screen responsible to any initial loading of data.
+ * @author alon
+ *
+ */
 public class MainActivity extends LocationTrackerBaseActivity
 {
 	Context mContext;
 	Criteria mycrit;
 	DataManager mDataManager;
-//	private float mMaxDistanceInMeters = 500;
 	TextView txtMessages = null;
 
 	/** inner class UIHandler **/
 	private final class UIHandler extends Handler
 	{
-		
 		public void handleMessage(Message msg)
 		{
 			if (msg.arg1 == 1) //still processing info, new msg.
@@ -98,8 +101,6 @@ public class MainActivity extends LocationTrackerBaseActivity
 				DataHelper.RemoveNonActive(predictionsList);
 				// Remove extra stations which are far away
 				DataHelper.RemoveAllButTwoClosestStations(predictionsList);
-
-//				mPredictions = predictionsList;
 
 				
 				msg = handler.obtainMessage();

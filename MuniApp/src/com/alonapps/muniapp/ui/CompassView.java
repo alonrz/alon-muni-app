@@ -13,17 +13,13 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 
+/**
+ * This is the View for the compass text. Obsolete. Replaced by a compass layout. 
+ * @author alon
+ *
+ */
 public class CompassView extends View
 {
-
-	// @Override
-	// public boolean onCreateOptionsMenu(Menu menu)
-	// {
-	// // Inflate the menu; this adds items to the action bar if it is present.
-	// getMenuInflater().inflate(R.menu.compass_utility, menu);
-	// return true;
-	// }
-
 	private Paint paint;
 	private Paint paintFontInbound;
 	private Paint paintFontOutbound;
@@ -74,19 +70,6 @@ public class CompassView extends View
 	@Override
 	protected void onDraw(Canvas canvas)
 	{
-		
-//		int xPoint = getMeasuredWidth() / 2;
-//		int yPoint = getMeasuredHeight() / 3;
-//
-//		float radius = (float) (Math.max(xPoint, yPoint) * 0.6);
-//		canvas.drawCircle(xPoint, yPoint, radius, paint);
-//		canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(), paint);
-//
-//		canvas.drawLine(xPoint, yPoint,
-//				(float) (xPoint + radius * Math.sin((double) (-position) / 180 * 3.143)),
-//				(float) (yPoint + radius * Math.cos((double) (-position) / 180 * 3.143)), paint);
-//		canvas.drawText(String.valueOf(position), xPoint, yPoint, paint);
-
 		canvas.drawText("Inbound", ((float) getMeasuredWidth() / 180) * xLocationInbound + 30,
 				getMeasuredHeight() - 50, paintFontInbound);
 		canvas.drawText("Outbound", ((float) getMeasuredWidth() / 180) * xLocationInbound
@@ -97,11 +80,10 @@ public class CompassView extends View
 				+ getMeasuredWidth(), getMeasuredHeight() - 50, paintFontOutbound);
 		
 		
-		ImageView img = new ImageView(this.mContext); //(ImageView)findViewById(R.id.compassArrow);
-		Matrix mat = new Matrix();
+//		ImageView img = new ImageView(this.mContext); //(ImageView)findViewById(R.id.compassArrow);
 		//mat.set
-		if(img != null)
-			img.setRotation(20);
+//		if(img != null)
+//			img.setRotation(20);
 
 	}
 

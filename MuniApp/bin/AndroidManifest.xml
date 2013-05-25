@@ -66,14 +66,12 @@
             android:name="com.alonapps.muniapp.ui.ShowSingleStop"
             android:label="@string/title_activity_show_single_stop"
             android:screenOrientation="portrait"
-            
-             >
+            android:theme="@style/BlackTextForSinglePrediction" >
         </activity>
         <activity
             android:name="com.alonapps.muniapp.ui.TabsActivity"
             android:label="@string/title_activity_test_tabs"
-            android:screenOrientation="portrait"
-             >
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.alonapps.muniapp.ui.CompassActivity"

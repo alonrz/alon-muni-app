@@ -39,6 +39,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * This is the single stop predictino screen, with any messages and a map to indicate where the station is. 
+ * @author alon
+ *
+ */
 public class ShowSingleStop extends LocationTrackerBaseActivity
 {
 

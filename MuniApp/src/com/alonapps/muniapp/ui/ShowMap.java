@@ -16,6 +16,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/**
+ * This class is not used yet but may be hand for future feature to show things on a map. 
+ * @author alon
+ *
+ */
 public class ShowMap extends LocationTrackerBaseActivity {
 	static final LatLng HAMBURG = new LatLng(53.558, 9.927);
 	static final LatLng KIEL = new LatLng(53.551, 9.993);

@@ -29,17 +29,16 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
+/**
+ * This Fragment will give a list of routes to choose from when looking manually for a route-station combo.
+ * @author alon
+ *
+ */
 public class ListRoutesFragment extends ListFragment
 {
 	Context mContext;
 	private Location mCurrentLocation;
 	private final Handler handler = new UIHandler(); // on UI thread!
-
-//	public ListFragment getInstance()
-//	{
-//		ListFragment frag = new ListRoutesFragment();
-//		return frag;
-//	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -47,16 +46,6 @@ public class ListRoutesFragment extends ListFragment
 		super.onCreate(savedInstanceState);
 		mContext = getActivity();
 
-//		Bundle bundle = getArguments();
-//		if (bundle == null)
-//		{
-//			Toast.makeText(mContext, "ListRoutesFragment: Bundle not passed", Toast.LENGTH_LONG).show();
-//			return;
-//			// return super.onCreateView(inflater, container,
-//			// savedInstanceState);
-//			// Good place to enter error message for user
-//		}
-		//mCurrentLocation = (Location) bundle.getParcelable("location");
 		mCurrentLocation = GpsManager.getInstance().getLastKnownLocation();
 
 		Log.i(this.getClass().toString(), "mCurrentLocation == null: " + (mCurrentLocation == null));
@@ -96,10 +85,10 @@ public class ListRoutesFragment extends ListFragment
 			@SuppressWarnings("unchecked")
 			final List<Route> routeList = (List<Route>) msg.obj;
 
-			for (int i = 0; i < routeList.size(); i++)
-			{
-				// tempList.set(i, routeList.get(i));
-			}
+//			for (int i = 0; i < routeList.size(); i++)
+//			{
+//				// tempList.set(i, routeList.get(i));
+//			}
 			ArrayAdapter<Route> arrAdapter = new ArrayAdapter<Route>(mContext,
 					R.layout.single_list_item, routeList);
 
@@ -113,21 +102,8 @@ public class ListRoutesFragment extends ListFragment
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
 				{
-
-					// CharSequence routeName = ((TextView) arg1).getText();
-
 					String tag = routeList.get(position).getTag();
-					// for(int i=0; i<routeList.size(); i++)
-					// {
-					// if(routeList.get(i).getTitle() == routeName.toString())
-					// {
-					// tag = routeList.get(i).getTag();
-					// break;
-					// }
-					// }
-
-					 //Toast.makeText(mContext, "pressed", Toast.LENGTH_LONG).show();
-
+					
 					// MUST HAVE ROUTE TAG. WORK WITH OBJECTs
 					Predictions currentPred = DataManager.getInstance(mContext).getSelectedPrediction();
 					currentPred.setRouteTag(tag);
@@ -137,9 +113,6 @@ public class ListRoutesFragment extends ListFragment
 					startActivity(intent);
 				}
 			});
-
 		}
-
 	};
-
 }

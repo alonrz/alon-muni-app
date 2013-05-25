@@ -38,6 +38,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * This is the first tab shown and lists all the of predictions of nearby stops. 
+ * @author alon
+ *
+ */
 public class ListStopsNearMeFragment extends ListFragment
 {
 	List<Route.Stop> mStopList = null;
@@ -77,13 +82,6 @@ public class ListStopsNearMeFragment extends ListFragment
 				mStopList = DataManager.getInstance(mContext).getRecentStopsNearLocation();
 				mPredictions = DataManager.getInstance(mContext).getPredictionsByStopsAsync(dir,
 						refresh);
-
-				// mCurrentLocation, mMaxDistanceInMeters);
-				// Log.i("ListStationsNearMe",
-				// String.valueOf("mStopList.size(): " + mStopList.size()));
-				// List<Predictions> predictionsList =
-				// DataManager.getInstance(mContext)
-				// .getPredictionsByStopsAsync(DIRECTION.Inbound, false);
 
 				// Remove non active
 				DataHelper.RemoveNonActive(mPredictions);
@@ -176,7 +174,8 @@ public class ListStopsNearMeFragment extends ListFragment
 	private class MyCustomAdapter extends BaseAdapter
 	{
 		List<Predictions> innerPredictions = null;
-
+		private LayoutInflater mInflater;
+		
 		public MyCustomAdapter(List<Predictions> listPredictions)
 		{
 			super();
@@ -186,10 +185,6 @@ public class ListStopsNearMeFragment extends ListFragment
 			this.mInflater = (LayoutInflater) obj;
 
 		}
-
-		private LayoutInflater mInflater;
-
-		// Location tempLocation = new Location(mCurrentLocation.getProvider());
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent)
@@ -249,12 +244,9 @@ public class ListStopsNearMeFragment extends ListFragment
 				int minutes = dirs[0].getAllPredictions().get(0).getMinutes();
 				if (minutes == 0)
 				{
-					TextView arrivingInTextView = (TextView) convertView
-							.findViewById(R.id.arrivingInText);
-					TextView minTextView = (TextView) convertView.findViewById(R.id.minText);
 					nextTrainTimeView.setText("Now");
-					arrivingInTextView.setText("Arriving ");
-					minTextView.setVisibility(View.INVISIBLE);
+					arrivingInText.setText("Arriving ");
+					minText.setVisibility(View.INVISIBLE);
 
 				} else
 				{
@@ -370,7 +362,6 @@ public class ListStopsNearMeFragment extends ListFragment
 		@Override
 		public long getItemId(int position)
 		{
-			// TODO Auto-generated method stub
 			return position;
 		}
 	}

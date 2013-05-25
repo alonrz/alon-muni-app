@@ -16,10 +16,14 @@ import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+/**
+ * This acticity shows the compass screen. Here it will calculate the offset to the compass for inbound/outbound
+ * and rotate the image accordingly. This also contains the listener callback to the sensor. 
+ * @author alon
+ *
+ */
 public class CompassActivity extends Activity
 {
-
-
 	private static SensorManager sensorService;
 	ImageView img;
 	private Sensor sensor;

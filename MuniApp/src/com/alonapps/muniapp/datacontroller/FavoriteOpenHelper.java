@@ -7,6 +7,12 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
+/**
+ * Support for SQLite. This has the command to open a "favorites" table with 2 columns.<br/> 
+ * This is not yet used in this project
+ * @author alon
+ *
+ */
 public class FavoriteOpenHelper extends SQLiteOpenHelper
 {
 	private static final int DATABASE_VERSION = 1;

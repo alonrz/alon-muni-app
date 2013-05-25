@@ -16,6 +16,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+/**
+ * Favorites feature, for future versions. 
+ * @author alon
+ *
+ */
 public class FavoritesFragment extends Fragment
 {
 	Context mContext;

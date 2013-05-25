@@ -13,6 +13,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.widget.Toast;
 
+/**
+ * Tab Activity will connect the different adapters and pagers relating to the tabs.<br/>
+ * Contains objects like FragmentPagerAdapter, ViewPager, TitlePageIndicator. Here also the current tab is set. 
+ * @author alon
+ *
+ */
 public class TabsActivity extends LocationTrackerBaseFragmentActivity
 {
 	/** members **/

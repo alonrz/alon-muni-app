@@ -25,6 +25,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
+/**
+ * This activity will give a list of stops to choose from when looking manually for a route-station combo.
+ * @author alon
+ *
+ */
 public class ListStops extends LocationTrackerBaseListActivity
 {
 

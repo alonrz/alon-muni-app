@@ -9,6 +9,11 @@ import android.os.Parcelable;
 
 import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
 
+/**
+ * Contains info about a route with general info like stops, location of stops, color, name etc...
+ * @author alon
+ *
+ */
 public class Route
 {
 	public static final Parcelable.Creator<Stop> CREATOR = new Parcelable.Creator<Stop>() {
@@ -389,7 +394,13 @@ public class Route
 		}
 	}
 
-	/**** class DIRECTION - describes a direction with stops ordered and with tags ***/
+	/**** class DIRECTION *****/
+	/**
+	 * describes general info about a Route's direction with stops ordered and with tags (this is different than Predictions.Direction which holds predictions 
+	 * in a spefici direction)
+	 * @author alon
+	 *
+	 */
 	public class Direction
 	{
 		// data fields
@@ -397,14 +408,6 @@ public class Route
 		private String mTitle;
 		private DIRECTION mDirName;
 		Vector<String> mStopsByTags = new Vector<String>();
-
-		// ctors
-		// public Direction(String dirTag, String dirTitle, String dirName)
-		// {
-		// this.mTag = dirTag;
-		// this.mTitle = dirTitle;
-		// this.mName = dirName;
-		// }
 
 		// getters
 		public String getTag()

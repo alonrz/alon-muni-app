@@ -16,6 +16,12 @@ import android.location.Location;
 import android.util.Log;
 import android.widget.Toast;
 
+/**
+ * Controls everything related to data here. Mostly access to the XML for stops, routes and predictions and 
+ * Any manipulation done on that data such as getting list of ... 
+ * @author alon
+ *
+ */
 public class DataManager
 {
 	private XmlParser mFetcher;
@@ -29,8 +35,6 @@ public class DataManager
 	private static FavoriteOpenHelper mFavoriteOpenHelper;
 
 	private Context mContext;
-	// private LocationManager mLocationManager;
-	// private boolean mIsUserStillRunning;
 	public float mDefaultMaxDistance = 500;
 
 	public enum DIRECTION {
@@ -58,7 +62,7 @@ public class DataManager
 	}
 
 	/**
-	 * This represents a single route and station to get preditions
+	 * This represents a single route and station to get predictions
 	 * 
 	 * @return
 	 */
@@ -438,7 +442,7 @@ public class DataManager
 	}
 
 	/**
-	 * returns the following stop to the route and stop and direction requested
+	 * Returns the following stop to the route and stop and direction requested
 	 * 
 	 * @param routeTag
 	 * @param direction
