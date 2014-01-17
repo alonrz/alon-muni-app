@@ -11,6 +11,7 @@ import com.alonapps.muniapp.StopNotFoundException;
 import com.alonapps.muniapp.datacontroller.Route.Stop;
 import com.alonapps.muniapp.locationcontroller.GpsManager;
 
+import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.util.Log;
@@ -137,7 +138,7 @@ public class DataManager
 		if (mCurrentLocation == null)
 		{
 			Log.i(this.getClass().toString(), "CurrentLocation var is null. using last known");
-			tempLocation = GpsManager.getInstance().getLastKnownLocation();
+			tempLocation = GpsManager.getInstance().getLastKnownLocation((Activity)mContext);
 		} else
 		{
 			tempLocation = new Location(mCurrentLocation.getProvider());
@@ -327,7 +328,7 @@ public class DataManager
 		{
 			Log.e(this.getClass().getSimpleName(),
 					"Need to call getStopsNearLocation first to establish a list of stops near location!");
-			this.getStopsNearLocation(GpsManager.getInstance().getLastKnownLocation(), this.mDefaultMaxDistance );
+			this.getStopsNearLocation(GpsManager.getInstance().getLastKnownLocation((Activity)mContext), this.mDefaultMaxDistance );
 		}
 
 		if (mPredictionsForStopsNearMeInbound == null || mPredictionsForStopsNearMeOutbound == null

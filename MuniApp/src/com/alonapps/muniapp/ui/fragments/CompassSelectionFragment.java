@@ -13,6 +13,8 @@ import com.alonapps.muniapp.datacontroller.DataManager.DIRECTION;
 import com.alonapps.muniapp.datacontroller.Route.Stop;
 import com.alonapps.muniapp.locationcontroller.GpsManager;
 import com.alonapps.muniapp.ui.CompassActivity;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -51,7 +53,7 @@ public class CompassSelectionFragment extends ListFragment
 	{
 		super.onCreate(savedInstanceState);
 		mContext = getActivity();
-		mCurrentLocation = GpsManager.getInstance().getLastKnownLocation();
+		mCurrentLocation = GpsManager.getInstance().getLastKnownLocation((Activity)mContext);
 		Log.i(this.getClass().toString(), "mCurrentLocation == null: " + (mCurrentLocation == null));
 		
 		getActivity().setTitle(DIRECTION.Inbound.name());

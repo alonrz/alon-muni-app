@@ -32,7 +32,7 @@
     <string name="title_section2">Search Line</string>
     <string name="title_section3">Favorites</string>
     <string name="title_activity_test_scrollable_tabs">TestScrollableTabs</string>
-    <string name="choose_a_line_for_heading">Select an option below and point your device in the direction you want to go.</string>
+    <string name="choose_a_line_for_heading">Select a line below and point your device in the direction you want to go.</string>
     <string name="choose_a_line_for_heading_warning">(Shows only nearby lines)</string>
     <string name="inbound_or_outbound">Inbound or Outbound?</string>
     <string name="title_activity_compass_utility">Compass Utility</string>

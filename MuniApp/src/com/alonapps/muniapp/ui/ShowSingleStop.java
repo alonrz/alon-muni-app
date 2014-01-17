@@ -22,6 +22,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
@@ -47,7 +48,7 @@ import android.widget.TextView;
 public class ShowSingleStop extends LocationTrackerBaseActivity
 {
 
-	Context context;
+	Context mContext;
 	private UIHandler handler = new UIHandler();
 	private DataManager mDataManager;
 	Predictions mCurrentPred;
@@ -58,7 +59,7 @@ public class ShowSingleStop extends LocationTrackerBaseActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		context = this;
+		mContext = this;
 		super.onCreate(savedInstanceState);
 		getActionBar().setHomeButtonEnabled(true);
 		mDataManager = DataManager.getInstance(this);
@@ -70,7 +71,7 @@ public class ShowSingleStop extends LocationTrackerBaseActivity
 			@Override
 			public void run()
 			{
-				DataManager dMan = DataManager.getInstance(context);
+				DataManager dMan = DataManager.getInstance(mContext);
 				mCurrentPred = dMan.getPredictionsByStopAndRoute(dMan.getSelectedPrediction()
 						.getStopId(), dMan.getSelectedPrediction().getRouteTag());
 				try
@@ -130,7 +131,7 @@ public class ShowSingleStop extends LocationTrackerBaseActivity
 
 
 			float metersDist = 0f;
-			Location myLoc = GpsManager.getInstance().getLastKnownLocation();
+			Location myLoc = GpsManager.getInstance().getLastKnownLocation((Activity)mContext);
 			if (myLoc == null)
 			{
 				Log.e(this.getClass().toString(), "my loc is null");
@@ -224,7 +225,7 @@ public class ShowSingleStop extends LocationTrackerBaseActivity
 				return;
 
 			LatLng MYPOSITION = null;
-			Location myLoc = GpsManager.getInstance().getLastKnownLocation();
+			Location myLoc = GpsManager.getInstance().getLastKnownLocation((Activity)mContext);
 			if (myLoc == null)
 			{
 				Log.e(this.getClass().toString(), "my loc is null");

@@ -15,6 +15,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -71,7 +72,7 @@ public class MainActivity extends LocationTrackerBaseActivity
 			@Override
 			public void run()
 			{
-				Location lastKnownLoc = GpsManager.getInstance().getLastKnownLocation();
+				Location lastKnownLoc = GpsManager.getInstance().getLastKnownLocation((Activity)mContext);
 				Message msg = handler.obtainMessage();
 				msg.arg1 = 1;
 				msg.obj = "Loading Routes";

@@ -13,7 +13,7 @@ public class ActivityTracker {
     private static ActivityTracker instance = new ActivityTracker();
     private boolean resumed;
     private boolean inForeground;
-
+    private Activity mContext;
     private ActivityTracker() { /*no instantiation*/ }
 
     public static ActivityTracker getInstance() {
@@ -21,6 +21,7 @@ public class ActivityTracker {
     }
 
     public void onActivityStarted(Activity context) {
+    	mContext = context;
         if (!inForeground) {
             /* 
              * Started activities should be visible (though not always interact-able),
@@ -29,7 +30,7 @@ public class ActivityTracker {
              * Register your location listener here. 
              */
             inForeground = true;
-            GpsManager.getInstance().startListening(context);
+            GpsManager.getInstance().startListening(mContext);
         }
     }
 
@@ -50,7 +51,7 @@ public class ActivityTracker {
              * Unregister your location listener here.
              */
             inForeground = false;
-            GpsManager.getInstance().stopListening();
+            GpsManager.getInstance().stopListening(mContext);
         }
     }
 }

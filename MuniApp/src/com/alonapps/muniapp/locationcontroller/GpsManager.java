@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -87,11 +88,11 @@ public class GpsManager
 		criteria.setCostAllowed(true);
 		criteria.setPowerRequirement(Criteria.POWER_LOW);
 
-		final String bestProvider = this.mlocationManager.getBestProvider(criteria, true);
+		this.mBestProviderName = this.mlocationManager.getBestProvider(criteria, true);
 
-		if (bestProvider != null && bestProvider.length() > 0)
+		if (mBestProviderName != null && mBestProviderName.length() > 0)
 		{
-			mlocationManager.requestLocationUpdates(bestProvider, GpsManager.gpsMinTime,
+			mlocationManager.requestLocationUpdates(mBestProviderName, GpsManager.gpsMinTime,
 					GpsManager.gpsMinDistance, mlocationListener);
 		} else
 		{
@@ -103,17 +104,19 @@ public class GpsManager
 						GpsManager.gpsMinDistance, mlocationListener);
 			}
 		}
-		mLastKnownLocation = this.mlocationManager.getLastKnownLocation(bestProvider);
-		if (mLastKnownLocation == null)
-			Log.e(this.getClass().getSimpleName(), "getLastKnownLocation returned null (provider="
-					+ bestProvider + ")");
-
+		this.mLastKnownLocation = this.getLastKnownLocation(activity);
 	}
 
-	public void stopListening()
+	public void stopListening(Activity activity)
 	{
 		try
 		{
+			SharedPreferences lastLocationPref = activity.getPreferences(Activity.MODE_PRIVATE);
+			SharedPreferences.Editor editor =  lastLocationPref.edit();
+			editor.putFloat("lat", (float)mLastKnownLocation.getLatitude());
+			editor.putFloat("lon", (float)mLastKnownLocation.getLongitude());
+			Log.i(this.getClass().getSimpleName(), "Saved location to preferences");
+			editor.commit();
 			if (this.mlocationManager != null && mlocationListener != null)
 			{
 				this.mlocationManager.removeUpdates(mlocationListener);
@@ -136,26 +139,29 @@ public class GpsManager
 		return gpsCallback;
 	}
 
-	public Location getLastKnownLocation()
+	public Location getLastKnownLocation(Activity activity)
 	{
+		this.mLastKnownLocation = this.mlocationManager.getLastKnownLocation(mBestProviderName);
 		if (this.mLastKnownLocation == null)
 		{
 			if (this.mlocationManager == null)
 				Log.e(this.getClass().getSimpleName(), "No locatio manager found");
 			else
 			{
-//				this.mLastKnownLocation = this.mlocationManager
-//						.getLastKnownLocation(this.mBestProviderName);
 				this.mLastKnownLocation = this.mlocationManager
 						.getLastKnownLocation("gps");
 			}
 			if (mLastKnownLocation == null)
 			{
-				Log.e(this.getClass().getSimpleName(), "Location is null. Adding manual location");
+				Log.e(this.getClass().getSimpleName(), "Location is null. Trying preference or adding manual location");
+				
+				SharedPreferences lastLocationPref =  activity.getPreferences(Activity.MODE_PRIVATE);
+				final float lat = lastLocationPref.getFloat("lat", 37.7230f);
+				final float lon = lastLocationPref.getFloat("lon", -122.4842f);
 				this.mLastKnownLocation = new Location(this.mBestProviderName) {
 					{
-						setLatitude(37.7230);
-						setLongitude(-122.4842);
+						setLatitude(lat);
+						setLongitude(lon);
 					}
 				};
 			}

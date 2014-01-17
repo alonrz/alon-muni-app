@@ -18,7 +18,7 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class TabAdapter extends FragmentPagerAdapter
 {
-	private static final String[] CONTENT = new String[] { "Near me", "by line", "favorites",
+	private static final String[] CONTENT = new String[] { "Near me", "by line"/*, "favorites"*/,
 			"Direction" };
 
 	public TabAdapter(FragmentManager fm, Context context)
@@ -40,11 +40,11 @@ public class TabAdapter extends FragmentPagerAdapter
 				frag = new ListRoutesFragment();
 				//frag.setArguments(args);
 				break;
-			case 2:				
+			/*case 2:				
 				frag = new FavoritesFragment();
 				//frag.setArguments(args);
-				break;
-			case 3:
+				break;*/
+			case 2:
 				frag = new CompassSelectionFragment();
 				//frag.setArguments(args);
 				break;

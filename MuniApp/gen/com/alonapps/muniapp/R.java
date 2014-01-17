@@ -9,6 +9,28 @@ package com.alonapps.muniapp;
 
 public final class R {
     public static final class attr {
+        /** 
+    The size of the ad. It must be one of BANNER, FULL_BANNER, LEADERBOARD,
+    MEDIUM_RECTANGLE, SMART_BANNER, WIDE_SKYSCRAPER, or
+    &lt;width&gt;x&lt;height&gt;.
+    
+         <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int adSize=0x7f01001f;
+        /**  The ad unit ID. 
+         <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int adUnitId=0x7f010020;
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -16,7 +38,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int cameraBearing=0x7f010020;
+        public static final int cameraBearing=0x7f010022;
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -24,7 +46,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int cameraTargetLat=0x7f010021;
+        public static final int cameraTargetLat=0x7f010023;
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -32,7 +54,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int cameraTargetLng=0x7f010022;
+        public static final int cameraTargetLng=0x7f010024;
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -40,7 +62,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int cameraTilt=0x7f010023;
+        public static final int cameraTilt=0x7f010025;
         /** <p>Must be a floating point value, such as "<code>1.2</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -48,7 +70,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int cameraZoom=0x7f010024;
+        public static final int cameraZoom=0x7f010026;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -219,7 +241,7 @@ containing a value of this type.
 <tr><td><code>hybrid</code></td><td>4</td><td></td></tr>
 </table>
          */
-        public static final int mapType=0x7f01001f;
+        public static final int mapType=0x7f010021;
         /**  Color of the filled circles that represents pages. 
          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
@@ -317,7 +339,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int uiCompass=0x7f010025;
+        public static final int uiCompass=0x7f010027;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -325,7 +347,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int uiRotateGestures=0x7f010026;
+        public static final int uiRotateGestures=0x7f010028;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -333,7 +355,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int uiScrollGestures=0x7f010027;
+        public static final int uiScrollGestures=0x7f010029;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -341,7 +363,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int uiTiltGestures=0x7f010028;
+        public static final int uiTiltGestures=0x7f01002a;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -349,7 +371,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int uiZoomControls=0x7f010029;
+        public static final int uiZoomControls=0x7f01002b;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -357,7 +379,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int uiZoomGestures=0x7f01002a;
+        public static final int uiZoomGestures=0x7f01002c;
         /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
 <p>This may also be a reference to a resource (in the form
@@ -374,7 +396,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int useViewLifecycle=0x7f01002b;
+        public static final int useViewLifecycle=0x7f01002d;
         /**  Style of the circle indicator. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -412,7 +434,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
          */
-        public static final int zOrderOnTop=0x7f01002c;
+        public static final int zOrderOnTop=0x7f01002e;
     }
     public static final class bool {
         public static final int default_circle_indicator_centered=0x7f060000;
@@ -422,6 +444,20 @@ containing a value of this type.
         public static final int default_underline_indicator_fades=0x7f060004;
     }
     public static final class color {
+        public static final int common_action_bar_splitter=0x7f05001a;
+        /**  Sign-in Button Colors 
+         */
+        public static final int common_signin_btn_dark_text_default=0x7f050011;
+        public static final int common_signin_btn_dark_text_disabled=0x7f050013;
+        public static final int common_signin_btn_dark_text_focused=0x7f050014;
+        public static final int common_signin_btn_dark_text_pressed=0x7f050012;
+        public static final int common_signin_btn_default_background=0x7f050019;
+        public static final int common_signin_btn_light_text_default=0x7f050015;
+        public static final int common_signin_btn_light_text_disabled=0x7f050017;
+        public static final int common_signin_btn_light_text_focused=0x7f050018;
+        public static final int common_signin_btn_light_text_pressed=0x7f050016;
+        public static final int common_signin_btn_text_dark=0x7f05001b;
+        public static final int common_signin_btn_text_light=0x7f05001c;
         public static final int default_circle_indicator_fill_color=0x7f050008;
         public static final int default_circle_indicator_page_color=0x7f050009;
         public static final int default_circle_indicator_stroke_color=0x7f05000a;
@@ -439,8 +475,8 @@ containing a value of this type.
         public static final int vpi__bright_foreground_holo_light=0x7f050003;
         public static final int vpi__bright_foreground_inverse_holo_dark=0x7f050006;
         public static final int vpi__bright_foreground_inverse_holo_light=0x7f050007;
-        public static final int vpi__dark_theme=0x7f050011;
-        public static final int vpi__light_theme=0x7f050012;
+        public static final int vpi__dark_theme=0x7f05001d;
+        public static final int vpi__light_theme=0x7f05001e;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -473,32 +509,60 @@ containing a value of this type.
         public static final int btn_rating_star_off_normal=0x7f020003;
         public static final int btn_rating_star_off_pressed=0x7f020004;
         public static final int circle_line_number=0x7f020005;
-        public static final int custom_tab_indicator=0x7f020006;
-        public static final int custom_tab_indicator_divider=0x7f020007;
-        public static final int custom_tab_indicator_focused=0x7f020008;
-        public static final int custom_tab_indicator_selected=0x7f020009;
-        public static final int custom_tab_indicator_selected_focused=0x7f02000a;
-        public static final int custom_tab_indicator_selected_pressed=0x7f02000b;
-        public static final int custom_tab_indicator_unselected=0x7f02000c;
-        public static final int custom_tab_indicator_unselected_focused=0x7f02000d;
-        public static final int custom_tab_indicator_unselected_pressed=0x7f02000e;
-        public static final int ic_launcher=0x7f02000f;
-        public static final int inbound_outbound=0x7f020010;
-        public static final int location_pin_red=0x7f020011;
-        public static final int splash_background=0x7f020012;
-        public static final int square_line_number=0x7f020013;
-        public static final int square_round_corner4=0x7f020014;
-        public static final int square_round_corner5=0x7f020015;
-        public static final int square_round_corners=0x7f020016;
-        public static final int vpi__tab_indicator=0x7f020017;
-        public static final int vpi__tab_selected_focused_holo=0x7f020018;
-        public static final int vpi__tab_selected_holo=0x7f020019;
-        public static final int vpi__tab_selected_pressed_holo=0x7f02001a;
-        public static final int vpi__tab_unselected_focused_holo=0x7f02001b;
-        public static final int vpi__tab_unselected_holo=0x7f02001c;
-        public static final int vpi__tab_unselected_pressed_holo=0x7f02001d;
-        public static final int walking_icon_hi=0x7f02001e;
-        public static final int warning_icon=0x7f02001f;
+        public static final int common_signin_btn_icon_dark=0x7f020006;
+        public static final int common_signin_btn_icon_disabled_dark=0x7f020007;
+        public static final int common_signin_btn_icon_disabled_focus_dark=0x7f020008;
+        public static final int common_signin_btn_icon_disabled_focus_light=0x7f020009;
+        public static final int common_signin_btn_icon_disabled_light=0x7f02000a;
+        public static final int common_signin_btn_icon_focus_dark=0x7f02000b;
+        public static final int common_signin_btn_icon_focus_light=0x7f02000c;
+        public static final int common_signin_btn_icon_light=0x7f02000d;
+        public static final int common_signin_btn_icon_normal_dark=0x7f02000e;
+        public static final int common_signin_btn_icon_normal_light=0x7f02000f;
+        public static final int common_signin_btn_icon_pressed_dark=0x7f020010;
+        public static final int common_signin_btn_icon_pressed_light=0x7f020011;
+        public static final int common_signin_btn_text_dark=0x7f020012;
+        public static final int common_signin_btn_text_disabled_dark=0x7f020013;
+        public static final int common_signin_btn_text_disabled_focus_dark=0x7f020014;
+        public static final int common_signin_btn_text_disabled_focus_light=0x7f020015;
+        public static final int common_signin_btn_text_disabled_light=0x7f020016;
+        public static final int common_signin_btn_text_focus_dark=0x7f020017;
+        public static final int common_signin_btn_text_focus_light=0x7f020018;
+        public static final int common_signin_btn_text_light=0x7f020019;
+        public static final int common_signin_btn_text_normal_dark=0x7f02001a;
+        public static final int common_signin_btn_text_normal_light=0x7f02001b;
+        public static final int common_signin_btn_text_pressed_dark=0x7f02001c;
+        public static final int common_signin_btn_text_pressed_light=0x7f02001d;
+        public static final int custom_tab_indicator=0x7f02001e;
+        public static final int custom_tab_indicator_divider=0x7f02001f;
+        public static final int custom_tab_indicator_focused=0x7f020020;
+        public static final int custom_tab_indicator_selected=0x7f020021;
+        public static final int custom_tab_indicator_selected_focused=0x7f020022;
+        public static final int custom_tab_indicator_selected_pressed=0x7f020023;
+        public static final int custom_tab_indicator_unselected=0x7f020024;
+        public static final int custom_tab_indicator_unselected_focused=0x7f020025;
+        public static final int custom_tab_indicator_unselected_pressed=0x7f020026;
+        public static final int ic_launcher=0x7f020027;
+        public static final int ic_plusone_medium_off_client=0x7f020028;
+        public static final int ic_plusone_small_off_client=0x7f020029;
+        public static final int ic_plusone_standard_off_client=0x7f02002a;
+        public static final int ic_plusone_tall_off_client=0x7f02002b;
+        public static final int inbound_outbound=0x7f02002c;
+        public static final int location_pin_red=0x7f02002d;
+        public static final int splash_background=0x7f02002e;
+        public static final int square_line_number=0x7f02002f;
+        public static final int square_round_corner4=0x7f020030;
+        public static final int square_round_corner5=0x7f020031;
+        public static final int square_round_corners=0x7f020032;
+        public static final int vpi__tab_indicator=0x7f020033;
+        public static final int vpi__tab_selected_focused_holo=0x7f020034;
+        public static final int vpi__tab_selected_holo=0x7f020035;
+        public static final int vpi__tab_selected_pressed_holo=0x7f020036;
+        public static final int vpi__tab_unselected_focused_holo=0x7f020037;
+        public static final int vpi__tab_unselected_holo=0x7f020038;
+        public static final int vpi__tab_unselected_pressed_holo=0x7f020039;
+        public static final int walking_icon_hi=0x7f02003a;
+        public static final int warning_icon=0x7f02003b;
     }
     public static final class id {
         public static final int action_inbound=0x7f04002c;
@@ -555,6 +619,7 @@ containing a value of this type.
         public static final int default_title_indicator_line_position=0x7f070002;
         public static final int default_underline_indicator_fade_delay=0x7f070003;
         public static final int default_underline_indicator_fade_length=0x7f070004;
+        public static final int google_play_services_version=0x7f070005;
     }
     public static final class layout {
         public static final int activity_compass=0x7f030000;
@@ -583,22 +648,36 @@ containing a value of this type.
         public static final int test_tabs=0x7f0b0006;
     }
     public static final class string {
-        public static final int action_inbound=0x7f0a0024;
-        public static final int action_outbound=0x7f0a0025;
-        public static final int action_refresh=0x7f0a0026;
-        public static final int action_settings=0x7f0a0012;
-        public static final int app_name=0x7f0a0011;
-        /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=70] 
+        public static final int action_inbound=0x7f0a002d;
+        public static final int action_outbound=0x7f0a002e;
+        public static final int action_refresh=0x7f0a002f;
+        public static final int action_settings=0x7f0a001b;
+        public static final int app_name=0x7f0a001a;
+        /**   Title for notification shown when GooglePlayServices needs to be
+        enabled for a application to work. [CHAR LIMIT=70] 
          */
-        public static final int auth_client_availability_notification_title=0x7f0a000e;
+        public static final int auth_client_needs_enabling_title=0x7f0a0015;
+        /**   Title for notification shown when GooglePlayServices needs to be
+        installed for a application to work. [CHAR LIMIT=70] 
+         */
+        public static final int auth_client_needs_installation_title=0x7f0a0016;
+        /**   Title for notification shown when GooglePlayServices needs to be
+        udpated for a application to work. [CHAR LIMIT=70] 
+         */
+        public static final int auth_client_needs_update_title=0x7f0a0017;
         /**   Title for notification shown when GooglePlayServices is unavailable [CHAR LIMIT=42] 
          */
-        public static final int auth_client_play_services_err_notification_msg=0x7f0a000f;
+        public static final int auth_client_play_services_err_notification_msg=0x7f0a0018;
         /**   Requested by string saying which app requested the notification. [CHAR LIMIT=42] 
          */
-        public static final int auth_client_requested_by_msg=0x7f0a0010;
-        public static final int choose_a_line_for_heading=0x7f0a0030;
-        public static final int choose_a_line_for_heading_warning=0x7f0a0031;
+        public static final int auth_client_requested_by_msg=0x7f0a0019;
+        /**   Title for notification shown when a bad version of GooglePlayServices
+        has been installed and needs correction for an application to work.
+        [CHAR LIMIT=70] 
+         */
+        public static final int auth_client_using_bad_version_title=0x7f0a0014;
+        public static final int choose_a_line_for_heading=0x7f0a0039;
+        public static final int choose_a_line_for_heading_warning=0x7f0a003a;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -627,19 +706,35 @@ containing a value of this type.
         Google Play services (from Play Store) [CHAR LIMIT=40] 
          */
         public static final int common_google_play_services_install_title=0x7f0a0000;
+        /**  Message in confirmation dialog informing the user that they provided an invalid account. [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_invalid_account_text=0x7f0a000c;
+        /**  Title of confirmation dialog informing the user that they provided an invalid account. [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_invalid_account_title=0x7f0a000b;
+        /**  Message in confirmation dialog informing the user that a network error occurred. [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_network_error_text=0x7f0a000a;
+        /**  Title of confirmation dialog informing the user that a network error occurred. [CHAR LIMIT=40] 
+         */
+        public static final int common_google_play_services_network_error_title=0x7f0a0009;
         /**  Message in confirmation dialog informing user there is an unknown issue in Google Play
         services [CHAR LIMIT=NONE] 
          */
-        public static final int common_google_play_services_unknown_issue=0x7f0a0009;
+        public static final int common_google_play_services_unknown_issue=0x7f0a000d;
+        /**  Message in confirmation dialog informing user that date on the device is not correct,
+    causing certificate checks to fail. [CHAR LIMIT=NONE] 
+         */
+        public static final int common_google_play_services_unsupported_date_text=0x7f0a0010;
         /**  Message in confirmation dialog informing user that Google Play services is not supported on their device [CHAR LIMIT=NONE] 
          */
-        public static final int common_google_play_services_unsupported_text=0x7f0a000b;
+        public static final int common_google_play_services_unsupported_text=0x7f0a000f;
         /**  Title of confirmation dialog informing user that Google Play services is not supported on their device [CHAR LIMIT=40] 
          */
-        public static final int common_google_play_services_unsupported_title=0x7f0a000a;
+        public static final int common_google_play_services_unsupported_title=0x7f0a000e;
         /**  Button in confirmation dialog for updating Google Play services [CHAR LIMIT=40] 
          */
-        public static final int common_google_play_services_update_button=0x7f0a000c;
+        public static final int common_google_play_services_update_button=0x7f0a0011;
         /**  Message in confirmation dialog informing user that they need to update
         Google Play services (from Play Store) [CHAR LIMIT=NONE] 
          */
@@ -648,39 +743,41 @@ containing a value of this type.
         Google Play services (from Play Store) [CHAR LIMIT=40] 
          */
         public static final int common_google_play_services_update_title=0x7f0a0007;
-        /**  Long form sign-in button text. This is the placeholder text, used if we can't
-        find the service-side assets. [CHAR LIMIT=25] 
+        /**  Sign-in button text [CHAR LIMIT=15] 
          */
-        public static final int common_signin_button_text_long=0x7f0a000d;
-        public static final int hello_world=0x7f0a0013;
-        public static final int inbound_or_outbound=0x7f0a0032;
-        public static final int show_lines=0x7f0a0014;
-        public static final int show_map=0x7f0a0023;
-        public static final int show_stations_near=0x7f0a0015;
-        public static final int show_tabs=0x7f0a002a;
-        public static final int title_activity_compass=0x7f0a0034;
-        public static final int title_activity_compass_utility=0x7f0a0033;
-        public static final int title_activity_list_stops=0x7f0a0021;
-        public static final int title_activity_route_names=0x7f0a0022;
-        public static final int title_activity_show_single_stop=0x7f0a0029;
-        public static final int title_activity_show_stations=0x7f0a0027;
-        public static final int title_activity_test_scrollable_tabs=0x7f0a002f;
-        public static final int title_activity_test_tabs=0x7f0a002b;
-        public static final int title_section1=0x7f0a002c;
-        public static final int title_section2=0x7f0a002d;
-        public static final int title_section3=0x7f0a002e;
-        public static final int train_letters_only=0x7f0a0028;
-        public static final int xml_agency_name_tag=0x7f0a0020;
-        public static final int xml_agency_sfmuni=0x7f0a0017;
-        public static final int xml_base_command=0x7f0a0016;
-        public static final int xml_prediction_command=0x7f0a001d;
-        public static final int xml_route_list_command=0x7f0a0018;
-        public static final int xml_route_tag_command=0x7f0a001f;
-        public static final int xml_routeconfig_command=0x7f0a001b;
-        public static final int xml_stopid_command=0x7f0a001e;
-        public static final int xml_stops_command=0x7f0a0019;
-        public static final int xml_terse_command=0x7f0a001a;
-        public static final int xml_useShortTitles_command=0x7f0a001c;
+        public static final int common_signin_button_text=0x7f0a0012;
+        /**  Long form sign-in button text [CHAR LIMIT=30] 
+         */
+        public static final int common_signin_button_text_long=0x7f0a0013;
+        public static final int hello_world=0x7f0a001c;
+        public static final int inbound_or_outbound=0x7f0a003b;
+        public static final int show_lines=0x7f0a001d;
+        public static final int show_map=0x7f0a002c;
+        public static final int show_stations_near=0x7f0a001e;
+        public static final int show_tabs=0x7f0a0033;
+        public static final int title_activity_compass=0x7f0a003d;
+        public static final int title_activity_compass_utility=0x7f0a003c;
+        public static final int title_activity_list_stops=0x7f0a002a;
+        public static final int title_activity_route_names=0x7f0a002b;
+        public static final int title_activity_show_single_stop=0x7f0a0032;
+        public static final int title_activity_show_stations=0x7f0a0030;
+        public static final int title_activity_test_scrollable_tabs=0x7f0a0038;
+        public static final int title_activity_test_tabs=0x7f0a0034;
+        public static final int title_section1=0x7f0a0035;
+        public static final int title_section2=0x7f0a0036;
+        public static final int title_section3=0x7f0a0037;
+        public static final int train_letters_only=0x7f0a0031;
+        public static final int xml_agency_name_tag=0x7f0a0029;
+        public static final int xml_agency_sfmuni=0x7f0a0020;
+        public static final int xml_base_command=0x7f0a001f;
+        public static final int xml_prediction_command=0x7f0a0026;
+        public static final int xml_route_list_command=0x7f0a0021;
+        public static final int xml_route_tag_command=0x7f0a0028;
+        public static final int xml_routeconfig_command=0x7f0a0024;
+        public static final int xml_stopid_command=0x7f0a0027;
+        public static final int xml_stops_command=0x7f0a0022;
+        public static final int xml_terse_command=0x7f0a0023;
+        public static final int xml_useShortTitles_command=0x7f0a0025;
     }
     public static final class style {
         /** 
@@ -721,14 +818,66 @@ containing a value of this type.
         public static final int Widget_TabPageIndicator=0x7f090002;
     }
     public static final class styleable {
+        /** Attributes that can be used with a AdsAttrs.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #AdsAttrs_adSize com.alonapps.muniapp:adSize}</code></td><td>
+    The size of the ad.</td></tr>
+           <tr><td><code>{@link #AdsAttrs_adUnitId com.alonapps.muniapp:adUnitId}</code></td><td> The ad unit ID.</td></tr>
+           </table>
+           @see #AdsAttrs_adSize
+           @see #AdsAttrs_adUnitId
+         */
+        public static final int[] AdsAttrs = {
+            0x7f01001f, 0x7f010020
+        };
+        /**
+          <p>
+          @attr description
+          
+    The size of the ad. It must be one of BANNER, FULL_BANNER, LEADERBOARD,
+    MEDIUM_RECTANGLE, SMART_BANNER, WIDE_SKYSCRAPER, or
+    &lt;width&gt;x&lt;height&gt;.
+    
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.alonapps.muniapp:adSize
+        */
+        public static final int AdsAttrs_adSize = 0;
+        /**
+          <p>
+          @attr description
+           The ad unit ID. 
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.alonapps.muniapp:adUnitId
+        */
+        public static final int AdsAttrs_adUnitId = 1;
         /** Attributes that can be used with a CirclePageIndicator.
            <p>Includes the following attributes:</p>
            <table>
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #CirclePageIndicator_android_background com.alonapps.muniapp:android_background}</code></td><td> View background </td></tr>
-           <tr><td><code>{@link #CirclePageIndicator_android_orientation com.alonapps.muniapp:android_orientation}</code></td><td> Orientation of the indicator.</td></tr>
+           <tr><td><code>{@link #CirclePageIndicator_android_background android:background}</code></td><td> View background </td></tr>
+           <tr><td><code>{@link #CirclePageIndicator_android_orientation android:orientation}</code></td><td> Orientation of the indicator.</td></tr>
            <tr><td><code>{@link #CirclePageIndicator_centered com.alonapps.muniapp:centered}</code></td><td> Whether or not the indicators should be centered.</td></tr>
            <tr><td><code>{@link #CirclePageIndicator_fillColor com.alonapps.muniapp:fillColor}</code></td><td> Color of the filled circle that represents the current page.</td></tr>
            <tr><td><code>{@link #CirclePageIndicator_pageColor com.alonapps.muniapp:pageColor}</code></td><td> Color of the filled circles that represents pages.</td></tr>
@@ -756,16 +905,18 @@ containing a value of this type.
           <p>
           @attr description
            View background 
-          <p>This corresponds to the global attribute          resource symbol {@link com.alonapps.muniapp.R.attr#android_background}.
-          @attr name android:android_background
+          <p>This corresponds to the global attribute
+          resource symbol {@link android.R.attr#background}.
+          @attr name android:background
         */
         public static final int CirclePageIndicator_android_background = 1;
         /**
           <p>
           @attr description
            Orientation of the indicator. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.alonapps.muniapp.R.attr#android_orientation}.
-          @attr name android:android_orientation
+          <p>This corresponds to the global attribute
+          resource symbol {@link android.R.attr#orientation}.
+          @attr name android:orientation
         */
         public static final int CirclePageIndicator_android_orientation = 0;
         /**
@@ -781,7 +932,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:centered
+          @attr name com.alonapps.muniapp:centered
         */
         public static final int CirclePageIndicator_centered = 2;
         /**
@@ -798,7 +949,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:fillColor
+          @attr name com.alonapps.muniapp:fillColor
         */
         public static final int CirclePageIndicator_fillColor = 4;
         /**
@@ -815,7 +966,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:pageColor
+          @attr name com.alonapps.muniapp:pageColor
         */
         public static final int CirclePageIndicator_pageColor = 5;
         /**
@@ -833,7 +984,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:radius
+          @attr name com.alonapps.muniapp:radius
         */
         public static final int CirclePageIndicator_radius = 6;
         /**
@@ -849,7 +1000,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:snap
+          @attr name com.alonapps.muniapp:snap
         */
         public static final int CirclePageIndicator_snap = 7;
         /**
@@ -866,7 +1017,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:strokeColor
+          @attr name com.alonapps.muniapp:strokeColor
         */
         public static final int CirclePageIndicator_strokeColor = 8;
         /**
@@ -884,7 +1035,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:strokeWidth
+          @attr name com.alonapps.muniapp:strokeWidth
         */
         public static final int CirclePageIndicator_strokeWidth = 3;
         /** Attributes that can be used with a LinePageIndicator.
@@ -893,7 +1044,7 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #LinePageIndicator_android_background com.alonapps.muniapp:android_background}</code></td><td> View background </td></tr>
+           <tr><td><code>{@link #LinePageIndicator_android_background android:background}</code></td><td> View background </td></tr>
            <tr><td><code>{@link #LinePageIndicator_centered com.alonapps.muniapp:centered}</code></td><td> Whether or not the indicators should be centered.</td></tr>
            <tr><td><code>{@link #LinePageIndicator_gapWidth com.alonapps.muniapp:gapWidth}</code></td><td> Width of the gap between each indicator line.</td></tr>
            <tr><td><code>{@link #LinePageIndicator_lineWidth com.alonapps.muniapp:lineWidth}</code></td><td> Width of each indicator line.</td></tr>
@@ -917,8 +1068,9 @@ containing a value of this type.
           <p>
           @attr description
            View background 
-          <p>This corresponds to the global attribute          resource symbol {@link com.alonapps.muniapp.R.attr#android_background}.
-          @attr name android:android_background
+          <p>This corresponds to the global attribute
+          resource symbol {@link android.R.attr#background}.
+          @attr name android:background
         */
         public static final int LinePageIndicator_android_background = 0;
         /**
@@ -934,7 +1086,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:centered
+          @attr name com.alonapps.muniapp:centered
         */
         public static final int LinePageIndicator_centered = 1;
         /**
@@ -952,7 +1104,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:gapWidth
+          @attr name com.alonapps.muniapp:gapWidth
         */
         public static final int LinePageIndicator_gapWidth = 6;
         /**
@@ -970,7 +1122,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:lineWidth
+          @attr name com.alonapps.muniapp:lineWidth
         */
         public static final int LinePageIndicator_lineWidth = 5;
         /**
@@ -987,7 +1139,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:selectedColor
+          @attr name com.alonapps.muniapp:selectedColor
         */
         public static final int LinePageIndicator_selectedColor = 2;
         /**
@@ -1005,7 +1157,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:strokeWidth
+          @attr name com.alonapps.muniapp:strokeWidth
         */
         public static final int LinePageIndicator_strokeWidth = 3;
         /**
@@ -1022,7 +1174,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:unselectedColor
+          @attr name com.alonapps.muniapp:unselectedColor
         */
         public static final int LinePageIndicator_unselectedColor = 4;
         /** Attributes that can be used with a MapAttrs.
@@ -1062,10 +1214,10 @@ containing a value of this type.
            @see #MapAttrs_zOrderOnTop
          */
         public static final int[] MapAttrs = {
-            0x7f01001f, 0x7f010020, 0x7f010021, 0x7f010022,
-            0x7f010023, 0x7f010024, 0x7f010025, 0x7f010026,
-            0x7f010027, 0x7f010028, 0x7f010029, 0x7f01002a,
-            0x7f01002b, 0x7f01002c
+            0x7f010021, 0x7f010022, 0x7f010023, 0x7f010024,
+            0x7f010025, 0x7f010026, 0x7f010027, 0x7f010028,
+            0x7f010029, 0x7f01002a, 0x7f01002b, 0x7f01002c,
+            0x7f01002d, 0x7f01002e
         };
         /**
           <p>This symbol is the offset where the {@link com.alonapps.muniapp.R.attr#cameraBearing}
@@ -1078,7 +1230,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraBearing
+          @attr name com.alonapps.muniapp:cameraBearing
         */
         public static final int MapAttrs_cameraBearing = 1;
         /**
@@ -1092,7 +1244,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraTargetLat
+          @attr name com.alonapps.muniapp:cameraTargetLat
         */
         public static final int MapAttrs_cameraTargetLat = 2;
         /**
@@ -1106,7 +1258,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraTargetLng
+          @attr name com.alonapps.muniapp:cameraTargetLng
         */
         public static final int MapAttrs_cameraTargetLng = 3;
         /**
@@ -1120,7 +1272,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraTilt
+          @attr name com.alonapps.muniapp:cameraTilt
         */
         public static final int MapAttrs_cameraTilt = 4;
         /**
@@ -1134,7 +1286,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:cameraZoom
+          @attr name com.alonapps.muniapp:cameraZoom
         */
         public static final int MapAttrs_cameraZoom = 5;
         /**
@@ -1154,7 +1306,7 @@ containing a value of this type.
 <tr><td><code>terrain</code></td><td>3</td><td></td></tr>
 <tr><td><code>hybrid</code></td><td>4</td><td></td></tr>
 </table>
-          @attr name android:mapType
+          @attr name com.alonapps.muniapp:mapType
         */
         public static final int MapAttrs_mapType = 0;
         /**
@@ -1168,7 +1320,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiCompass
+          @attr name com.alonapps.muniapp:uiCompass
         */
         public static final int MapAttrs_uiCompass = 6;
         /**
@@ -1182,7 +1334,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiRotateGestures
+          @attr name com.alonapps.muniapp:uiRotateGestures
         */
         public static final int MapAttrs_uiRotateGestures = 7;
         /**
@@ -1196,7 +1348,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiScrollGestures
+          @attr name com.alonapps.muniapp:uiScrollGestures
         */
         public static final int MapAttrs_uiScrollGestures = 8;
         /**
@@ -1210,7 +1362,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiTiltGestures
+          @attr name com.alonapps.muniapp:uiTiltGestures
         */
         public static final int MapAttrs_uiTiltGestures = 9;
         /**
@@ -1224,7 +1376,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiZoomControls
+          @attr name com.alonapps.muniapp:uiZoomControls
         */
         public static final int MapAttrs_uiZoomControls = 10;
         /**
@@ -1238,7 +1390,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:uiZoomGestures
+          @attr name com.alonapps.muniapp:uiZoomGestures
         */
         public static final int MapAttrs_uiZoomGestures = 11;
         /**
@@ -1252,7 +1404,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:useViewLifecycle
+          @attr name com.alonapps.muniapp:useViewLifecycle
         */
         public static final int MapAttrs_useViewLifecycle = 12;
         /**
@@ -1266,7 +1418,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name android:zOrderOnTop
+          @attr name com.alonapps.muniapp:zOrderOnTop
         */
         public static final int MapAttrs_zOrderOnTop = 13;
         /** Attributes that can be used with a TitlePageIndicator.
@@ -1275,9 +1427,9 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #TitlePageIndicator_android_background com.alonapps.muniapp:android_background}</code></td><td> View background </td></tr>
-           <tr><td><code>{@link #TitlePageIndicator_android_textColor com.alonapps.muniapp:android_textColor}</code></td><td> Color of regular titles.</td></tr>
-           <tr><td><code>{@link #TitlePageIndicator_android_textSize com.alonapps.muniapp:android_textSize}</code></td><td> Size of title text.</td></tr>
+           <tr><td><code>{@link #TitlePageIndicator_android_background android:background}</code></td><td> View background </td></tr>
+           <tr><td><code>{@link #TitlePageIndicator_android_textColor android:textColor}</code></td><td> Color of regular titles.</td></tr>
+           <tr><td><code>{@link #TitlePageIndicator_android_textSize android:textSize}</code></td><td> Size of title text.</td></tr>
            <tr><td><code>{@link #TitlePageIndicator_clipPadding com.alonapps.muniapp:clipPadding}</code></td><td> Screen edge padding.</td></tr>
            <tr><td><code>{@link #TitlePageIndicator_footerColor com.alonapps.muniapp:footerColor}</code></td><td> Color of the footer line and indicator.</td></tr>
            <tr><td><code>{@link #TitlePageIndicator_footerIndicatorHeight com.alonapps.muniapp:footerIndicatorHeight}</code></td><td> Height of the indicator above the footer line.</td></tr>
@@ -1317,24 +1469,27 @@ containing a value of this type.
           <p>
           @attr description
            View background 
-          <p>This corresponds to the global attribute          resource symbol {@link com.alonapps.muniapp.R.attr#android_background}.
-          @attr name android:android_background
+          <p>This corresponds to the global attribute
+          resource symbol {@link android.R.attr#background}.
+          @attr name android:background
         */
         public static final int TitlePageIndicator_android_background = 2;
         /**
           <p>
           @attr description
            Color of regular titles. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.alonapps.muniapp.R.attr#android_textColor}.
-          @attr name android:android_textColor
+          <p>This corresponds to the global attribute
+          resource symbol {@link android.R.attr#textColor}.
+          @attr name android:textColor
         */
         public static final int TitlePageIndicator_android_textColor = 1;
         /**
           <p>
           @attr description
            Size of title text. 
-          <p>This corresponds to the global attribute          resource symbol {@link com.alonapps.muniapp.R.attr#android_textSize}.
-          @attr name android:android_textSize
+          <p>This corresponds to the global attribute
+          resource symbol {@link android.R.attr#textSize}.
+          @attr name android:textSize
         */
         public static final int TitlePageIndicator_android_textSize = 0;
         /**
@@ -1352,7 +1507,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:clipPadding
+          @attr name com.alonapps.muniapp:clipPadding
         */
         public static final int TitlePageIndicator_clipPadding = 4;
         /**
@@ -1369,7 +1524,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:footerColor
+          @attr name com.alonapps.muniapp:footerColor
         */
         public static final int TitlePageIndicator_footerColor = 5;
         /**
@@ -1387,7 +1542,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:footerIndicatorHeight
+          @attr name com.alonapps.muniapp:footerIndicatorHeight
         */
         public static final int TitlePageIndicator_footerIndicatorHeight = 8;
         /**
@@ -1407,7 +1562,7 @@ containing a value of this type.
 <tr><td><code>underline</code></td><td>2</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:footerIndicatorStyle
+          @attr name com.alonapps.muniapp:footerIndicatorStyle
         */
         public static final int TitlePageIndicator_footerIndicatorStyle = 7;
         /**
@@ -1425,7 +1580,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:footerIndicatorUnderlinePadding
+          @attr name com.alonapps.muniapp:footerIndicatorUnderlinePadding
         */
         public static final int TitlePageIndicator_footerIndicatorUnderlinePadding = 9;
         /**
@@ -1443,7 +1598,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:footerLineHeight
+          @attr name com.alonapps.muniapp:footerLineHeight
         */
         public static final int TitlePageIndicator_footerLineHeight = 6;
         /**
@@ -1461,7 +1616,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:footerPadding
+          @attr name com.alonapps.muniapp:footerPadding
         */
         public static final int TitlePageIndicator_footerPadding = 10;
         /**
@@ -1480,7 +1635,7 @@ containing a value of this type.
 <tr><td><code>top</code></td><td>1</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name android:linePosition
+          @attr name com.alonapps.muniapp:linePosition
         */
         public static final int TitlePageIndicator_linePosition = 11;
         /**
@@ -1496,7 +1651,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:selectedBold
+          @attr name com.alonapps.muniapp:selectedBold
         */
         public static final int TitlePageIndicator_selectedBold = 12;
         /**
@@ -1513,7 +1668,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:selectedColor
+          @attr name com.alonapps.muniapp:selectedColor
         */
         public static final int TitlePageIndicator_selectedColor = 3;
         /**
@@ -1531,7 +1686,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:titlePadding
+          @attr name com.alonapps.muniapp:titlePadding
         */
         public static final int TitlePageIndicator_titlePadding = 13;
         /**
@@ -1549,7 +1704,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:topPadding
+          @attr name com.alonapps.muniapp:topPadding
         */
         public static final int TitlePageIndicator_topPadding = 14;
         /** Attributes that can be used with a UnderlinePageIndicator.
@@ -1558,7 +1713,7 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #UnderlinePageIndicator_android_background com.alonapps.muniapp:android_background}</code></td><td> View background </td></tr>
+           <tr><td><code>{@link #UnderlinePageIndicator_android_background android:background}</code></td><td> View background </td></tr>
            <tr><td><code>{@link #UnderlinePageIndicator_fadeDelay com.alonapps.muniapp:fadeDelay}</code></td><td> Length of the delay to fade the indicator.</td></tr>
            <tr><td><code>{@link #UnderlinePageIndicator_fadeLength com.alonapps.muniapp:fadeLength}</code></td><td> Length of the indicator fade to transparent.</td></tr>
            <tr><td><code>{@link #UnderlinePageIndicator_fades com.alonapps.muniapp:fades}</code></td><td> Whether or not the selected indicator fades.</td></tr>
@@ -1578,8 +1733,9 @@ containing a value of this type.
           <p>
           @attr description
            View background 
-          <p>This corresponds to the global attribute          resource symbol {@link com.alonapps.muniapp.R.attr#android_background}.
-          @attr name android:android_background
+          <p>This corresponds to the global attribute
+          resource symbol {@link android.R.attr#background}.
+          @attr name android:background
         */
         public static final int UnderlinePageIndicator_android_background = 0;
         /**
@@ -1595,7 +1751,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:fadeDelay
+          @attr name com.alonapps.muniapp:fadeDelay
         */
         public static final int UnderlinePageIndicator_fadeDelay = 3;
         /**
@@ -1611,7 +1767,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:fadeLength
+          @attr name com.alonapps.muniapp:fadeLength
         */
         public static final int UnderlinePageIndicator_fadeLength = 4;
         /**
@@ -1627,7 +1783,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:fades
+          @attr name com.alonapps.muniapp:fades
         */
         public static final int UnderlinePageIndicator_fades = 2;
         /**
@@ -1644,7 +1800,7 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name android:selectedColor
+          @attr name com.alonapps.muniapp:selectedColor
         */
         public static final int UnderlinePageIndicator_selectedColor = 1;
         /** Attributes that can be used with a ViewPagerIndicator.
@@ -1680,7 +1836,7 @@ containing a value of this type.
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:vpiCirclePageIndicatorStyle
+          @attr name com.alonapps.muniapp:vpiCirclePageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiCirclePageIndicatorStyle = 0;
         /**
@@ -1692,7 +1848,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:vpiIconPageIndicatorStyle
+          @attr name com.alonapps.muniapp:vpiIconPageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiIconPageIndicatorStyle = 1;
         /**
@@ -1704,7 +1860,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:vpiLinePageIndicatorStyle
+          @attr name com.alonapps.muniapp:vpiLinePageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiLinePageIndicatorStyle = 2;
         /**
@@ -1716,7 +1872,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:vpiTabPageIndicatorStyle
+          @attr name com.alonapps.muniapp:vpiTabPageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiTabPageIndicatorStyle = 4;
         /**
@@ -1728,7 +1884,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:vpiTitlePageIndicatorStyle
+          @attr name com.alonapps.muniapp:vpiTitlePageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiTitlePageIndicatorStyle = 3;
         /**
@@ -1740,7 +1896,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name android:vpiUnderlinePageIndicatorStyle
+          @attr name com.alonapps.muniapp:vpiUnderlinePageIndicatorStyle
         */
         public static final int ViewPagerIndicator_vpiUnderlinePageIndicatorStyle = 5;
     };
