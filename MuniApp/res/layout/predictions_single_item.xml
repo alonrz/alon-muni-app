@@ -99,7 +99,8 @@
 	        android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
 	        android:checked="false"
-	        android:tag="1" />
+	        android:tag="1" 
+	        android:visibility="invisible"/> 
         
     </LinearLayout>
 
