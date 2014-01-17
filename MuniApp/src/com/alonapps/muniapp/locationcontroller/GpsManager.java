@@ -156,8 +156,8 @@ public class GpsManager
 				Log.e(this.getClass().getSimpleName(), "Location is null. Trying preference or adding manual location");
 				
 				SharedPreferences lastLocationPref =  activity.getPreferences(Activity.MODE_PRIVATE);
-				final float lat = lastLocationPref.getFloat("lat", 37.7230f);
-				final float lon = lastLocationPref.getFloat("lon", -122.4842f);
+				final float lat = lastLocationPref.getFloat("lat", 37.7633f);
+				final float lon = lastLocationPref.getFloat("lon", -122.4350f);
 				this.mLastKnownLocation = new Location(this.mBestProviderName) {
 					{
 						setLatitude(lat);
